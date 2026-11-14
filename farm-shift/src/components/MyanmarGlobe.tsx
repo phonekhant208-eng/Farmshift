@@ -46,17 +46,17 @@ const START_DIST = 2.5;
 const OVERVIEW_DIST = 1.75;
 
 const COLORS = {
-  ocean: "#06141d",
-  grid: "rgba(120,170,190,0.09)",
-  land: "#22313a",
-  landLine: "#364853",
-  fills: ["#2f8f62", "#37a06d", "#2a8459"],
-  hover: "#4bbf86",
-  sel: "#58d9a0",
-  line: "#a6f0c4",
-  lineSel: "#eafff3",
-  pin: "#ff5a36",
-  city: "#f2b84b",
+  ocean: "#eef7ee",
+  grid: "rgba(37,138,57,0.10)",
+  land: "#cdb594",
+  landLine: "#a98c68",
+  fills: ["#258a39", "#2e9a45", "#1f7a33"],
+  hover: "#57bd62",
+  sel: "#34a247",
+  line: "#ffffff",
+  lineSel: "#ffffff",
+  pin: "#d9480f",
+  city: "#6b5440",
 };
 
 /* ------------------------------ geo helpers ------------------------------ */
@@ -133,7 +133,7 @@ function fillGeometry(polys: Poly[], radius: number, maxEdge = 1.5) {
   return g;
 }
 
-function makeLabel(text: string, color: string, width: number, centered = false) {
+function makeLabel(text: string, color: string, width: number, centered = false, outline = "rgba(255,255,255,0.95)") {
   const CW = 320, CH = 64;
   const c = document.createElement("canvas");
   c.width = CW;
@@ -145,7 +145,7 @@ function makeLabel(text: string, color: string, width: number, centered = false)
   const x = centered ? CW / 2 : 6;
   g.lineWidth = 7;
   g.lineJoin = "round";
-  g.strokeStyle = "rgba(4,14,20,0.92)";
+  g.strokeStyle = outline;
   g.strokeText(text, x, CH / 2);
   g.fillStyle = color;
   g.fillText(text, x, CH / 2);
@@ -243,7 +243,7 @@ export default function MyanmarGlobe({
 
     const atmo = new THREE.Mesh(
       new THREE.SphereGeometry(1.04, 64, 64),
-      new THREE.MeshBasicMaterial({ color: 0x3aa0c9, transparent: true, opacity: 0.09, side: THREE.BackSide })
+      new THREE.MeshBasicMaterial({ color: 0x57bd62, transparent: true, opacity: 0.12, side: THREE.BackSide })
     );
     scene.add(atmo);
 
@@ -289,7 +289,7 @@ export default function MyanmarGlobe({
       const dot = new THREE.Mesh(new THREE.SphereGeometry(0.006, 16, 16), new THREE.MeshBasicMaterial({ color: COLORS.city }));
       dot.position.copy(toVec3(c.lat, c.lon, 1.003));
       dot.userData.base = new THREE.Vector3(1, 1, 1);
-      const label = makeLabel(c.name, "#f6e7c1", 0.2);
+      const label = makeLabel(c.name, "#503e2f", 0.2);
       label.position.copy(toVec3(c.lat, c.lon, 1.006));
       g.add(dot, label);
       scene.add(g);
@@ -321,7 +321,7 @@ export default function MyanmarGlobe({
       globeMat.map = s ? null : worldTex;
       globeMat.color.set(s ? COLORS.ocean : 0xffffff);
       globeMat.needsUpdate = true;
-      stars.visible = !s;
+      stars.visible = false;
     };
 
     /* ---- fly-to ---- */
@@ -569,7 +569,7 @@ export default function MyanmarGlobe({
               lg.setPositions(arr);
               lines.add(new Line2(lg, lineMat));
             }
-          const label = makeLabel(r.name, "#ffffff", 0.3, true);
+          const label = makeLabel(r.name, "#ffffff", 0.3, true, "rgba(19,72,34,0.92)");
           label.position.copy(toVec3(r.lat, r.lon, 1.004));
           label.visible = false;
           scene.add(fill, lines, label);
@@ -629,7 +629,7 @@ export default function MyanmarGlobe({
 
   return (
     <div>
-      <div className="relative isolate h-80 w-full overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_at_50%_40%,#10303a_0%,#071922_55%,#040b10_100%)] shadow-inner ring-1 ring-emerald-950/30 md:h-[28rem]">
+      <div className="relative isolate h-80 w-full overflow-hidden rounded-3xl bg-[radial-gradient(ellipse_at_50%_40%,#ffffff_0%,#f0faf0_60%,#dcf3dc_100%)] ring-1 ring-emerald-900/10 md:h-[28rem]">
         <div
           ref={host}
           className="absolute inset-0 cursor-grab"
@@ -637,17 +637,17 @@ export default function MyanmarGlobe({
         />
         <div
           ref={tipRef}
-          className="pointer-events-none absolute left-0 top-0 rounded-md bg-black/75 px-2 py-1 text-[11px] font-medium text-emerald-50 opacity-0 transition-opacity"
+          className="pointer-events-none absolute left-0 top-0 rounded-lg bg-emerald-950/90 px-2.5 py-1 text-xs font-medium text-white opacity-0 transition-opacity"
         />
 
         {!ready && !error && (
-          <div className="absolute inset-0 grid place-items-center text-sm text-emerald-100/70">Loading globe…</div>
+          <div className="absolute inset-0 grid place-items-center text-sm text-emerald-900/60">Loading map…</div>
         )}
-        {error && <div className="absolute inset-0 grid place-items-center px-6 text-center text-sm text-red-300">{error}</div>}
+        {error && <div className="absolute inset-0 grid place-items-center px-6 text-center text-sm text-red-600">{error}</div>}
 
         {hint && (
           <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center px-3">
-            <div className="rounded-full bg-black/75 px-3.5 py-1.5 text-center text-xs text-amber-100 backdrop-blur">{hint}</div>
+            <div className="rounded-full bg-white/95 px-4 py-2 text-center text-sm font-medium text-emerald-900 shadow-lg ring-1 ring-emerald-900/10 backdrop-blur">{hint}</div>
           </div>
         )}
       </div>
@@ -655,19 +655,19 @@ export default function MyanmarGlobe({
       {ready && (
         <div className="mt-4">
           <div className="mb-2 flex items-center justify-between">
-            <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-900/70">
+            <h3 className="text-sm font-semibold text-emerald-900">
               {regions.length} states &amp; regions
             </h3>
-            <span className="text-[11px] text-stone-400">Pick one to zoom in</span>
+            <span className="text-xs text-stone-500">Pick one to zoom in</span>
           </div>
           <div className="flex flex-wrap gap-1.5">
             <button
               type="button"
               onClick={() => api.current?.select(null)}
-              className={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${
+              className={`rounded-full px-3.5 py-2 text-sm font-semibold ring-1 transition ${
                 sel === null
-                  ? "bg-emerald-800 text-white shadow-sm ring-emerald-800"
-                  : "bg-white text-emerald-900 ring-emerald-200 hover:bg-emerald-50"
+                  ? "bg-emerald-700 text-white shadow-sm ring-emerald-700"
+                  : "bg-white text-emerald-800 ring-emerald-200 hover:bg-emerald-50"
               }`}
             >
               All Myanmar
@@ -680,14 +680,14 @@ export default function MyanmarGlobe({
                   type="button"
                   onClick={() => api.current?.select(r.id)}
                   title={`${r.label} · capital ${r.capital}`}
-                  className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition ${
+                  className={`flex items-center gap-1.5 rounded-full px-3.5 py-2 text-sm font-medium ring-1 transition ${
                     active
                       ? "bg-emerald-700 text-white shadow-sm ring-emerald-700"
-                      : "bg-white text-stone-700 ring-stone-200 hover:bg-emerald-50 hover:ring-emerald-300"
+                      : "bg-white text-stone-700 ring-stone-300 hover:bg-emerald-50 hover:ring-emerald-300"
                   }`}
                 >
                   {r.name}
-                  {pinRegion?.id === r.id && <span className="h-1.5 w-1.5 rounded-full bg-orange-500" aria-label="pin is here" />}
+                  {pinRegion?.id === r.id && <span className="h-1.5 w-1.5 rounded-full bg-orange-600" aria-label="pin is here" />}
                 </button>
               );
             })}

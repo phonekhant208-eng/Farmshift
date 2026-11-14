@@ -1,19 +1,38 @@
+// src/types/plantHealth.ts
+// Types only. Must NOT import from "@/lib/plantHealth" (that caused the circular alias error).
+
 export type Status = "suitable" | "marginal" | "unsuitable" | "unknown";
 export type Reliability = "Sourced" | "Assumption";
+export type StressKind = "heat" | "warm_night" | "heavy_rain" | "flood" | "harvest_rain" | "dry_soil";
 
-/** One day of merged inputs. Any field may be null/undefined = missing (never invented). */
 export type DailyRow = {
   date: string; // YYYY-MM-DD
   tmean?: number | null;
   tmax?: number | null;
   tmin?: number | null;
-  rain?: number | null; // mm/day
-  soilSurface?: number | null; // m3/m3
-  soilRoot?: number | null; // m3/m3
+  rain?: number | null;
+  soilSurface?: number | null;
+  soilRoot?: number | null;
   ndvi?: number | null;
 };
 
-export type StressKind = "heat" | "warm_night" | "flood" | "heavy_rain" | "harvest_rain" | "dry_soil";
+export type SoilSnapshot = {
+  surface?: number | null;
+  root?: number | null;
+  date?: string | null;
+};
+
+export type NdviObs = { date: string; value: number };
+
+export type NdviDip = {
+  from: string;
+  to: string;
+  fromValue: number;
+  toValue: number;
+  drop: number;
+  phase: "in_season" | "post_harvest";
+  linked: StressKind[];
+};
 
 export type StressMarker = {
   kind: StressKind;
@@ -25,18 +44,6 @@ export type StressMarker = {
   reliability: Reliability;
 };
 
-export type NdviObs = { date: string; value: number };
-
-export type NdviDip = {
-  from: string;
-  to: string;
-  fromValue: number;
-  toValue: number;
-  drop: number; // positive number, e.g. 0.12
-  phase: "in_season" | "post_harvest";
-  linked: StressKind[]; // stress markers overlapping the dip interval (timing only, not cause)
-};
-
 export type CropStage = {
   id: string;
   label: string;
@@ -44,6 +51,23 @@ export type CropStage = {
   start: string;
   end: string;
   reliability: Reliability;
+};
+
+export type WaterPoint = {
+  date: string;
+  rain: number | null;
+  surface: number | null;
+  root: number | null;
+};
+
+export type RainWater = {
+  seasonTotalMm: number | null;
+  seasonStatus: Status;
+  heavyRainDays: number;
+  floodFlag: boolean | null;
+  floodFirstStart: string | null;
+  harvestRainDays: number | null;
+  harvestRainFlag: boolean | null;
 };
 
 export type SoilWater = {
@@ -65,22 +89,10 @@ export type SoilWater = {
   gate: "pass" | "flag" | "unknown";
 };
 
-export type RainWater = {
-  seasonTotalMm: number | null;
-  seasonStatus: Status;
-  heavyRainDays: number;
-  floodFlag: boolean | null;
-  floodFirstStart: string | null;
-  harvestRainDays: number | null;
-  harvestRainFlag: boolean | null;
-};
-
-export type WaterPoint = { date: string; rain: number | null; surface: number | null; root: number | null };
-
 export type PlantHealthResult = {
   period: { start: string; end: string } | null;
-  layers: { ndvi: boolean; temperature: boolean; rainfall: boolean; soil: boolean };
-  coverage: number; // 0..1 = layers available / 4
+  layers: { temperature: boolean; rainfall: boolean; soil: boolean; ndvi: boolean };
+  coverage: number;
   ndvi: {
     observations: NdviObs[];
     count: number;
@@ -96,6 +108,3 @@ export type PlantHealthResult = {
   summary: { state: "no_data" | "partial" | "ok"; text: string };
   notes: { text: string; reliability: Reliability }[];
 };
-
-/** Optional scalar soil reading for sources that have no time series yet. */
-export type SoilSnapshot = { surface: number | null; root: number | null; date?: string | null };
