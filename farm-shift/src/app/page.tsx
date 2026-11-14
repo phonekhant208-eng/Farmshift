@@ -5,7 +5,8 @@ import type { PlantHealthResult } from "@/types/plantHealth";
 import { Card, Gauge, Pill, ScoreRing, Skeleton, SourceBadge, Stat, toneFor } from "@/components/ui";
 import { Chart } from "@/components/charts";
 import PlantHealthCard from "@/components/PlantHealthCard";
-import LocationMap from "@/components/LocationMap";
+// import LocationMap from "@/components/LocationMap";
+import MyanmarGlobe from "@/components/MyanmarGlobe";
 import { avg, fmt, isNum, powerPoints, shortDate, sum } from "@/lib/format";
 
 const LOCATIONS = [
@@ -20,7 +21,7 @@ type Ok = Extract<ApiResponse, { success: true }>;
 type Coords = { lat: number; lon: number };
 const round4 = (n: number) => Math.round(n * 10000) / 10000;
 const normLon = (lon: number) => (((lon + 180) % 360) + 360) % 360 - 180;
-const inMyanmarRegion = (c: Coords) => c.lat >= 9 && c.lat <= 29 && c.lon >= 92 && c.lon <= 102;
+const inMyanmar = (c: Coords) => c.lat >= 9.5 && c.lat <= 28.6 && c.lon >= 92.1 && c.lon <= 101.2;
 
 export default function Home() {
   const [coords, setCoords] = useState<Coords | null>(null); // nothing pinned until the user chooses
@@ -45,12 +46,16 @@ export default function Home() {
   }, [coords, nonce]);
 
   const setPin = (lat: number, lon: number) => {
-    const c = { lat: round4(lat), lon: round4(normLon(lon)) };
-    setCoords(c);
-    setLoading(true);
-    setDraft({ lat: String(c.lat), lon: String(c.lon) });
-    setGeoMsg(null);
-  };
+  const c = { lat: round4(lat), lon: round4(normLon(lon)) };
+  if (!inMyanmar(c)) {
+    setGeoMsg("That location is outside Myanmar. Only Myanmar is supported.");
+    return;
+  }
+  setCoords(c);
+  setLoading(true);
+  setDraft({ lat: String(c.lat), lon: String(c.lon) });
+  setGeoMsg(null);
+};
 
   const parsed = { lat: parseFloat(draft.lat), lon: parseFloat(draft.lon) };
   const draftValid = isNum(parsed.lat) && isNum(parsed.lon) && Math.abs(parsed.lat) <= 90 && Math.abs(parsed.lon) <= 180;
@@ -92,7 +97,7 @@ export default function Home() {
             <button onClick={useMyLocation} className="rounded-full bg-white px-3 py-1 text-xs font-medium text-stone-600 ring-1 ring-stone-300 hover:bg-stone-50">🎯 Use my location</button>
           </div>
 
-          <LocationMap value={coords} onPick={setPin} />
+          <MyanmarGlobe value={coords} onPick={setPin} />
 
           <div className="mt-3 flex flex-wrap items-end gap-2">
             <label className="text-xs text-stone-500">Latitude
@@ -105,7 +110,7 @@ export default function Home() {
             {geoMsg && <span className="text-xs text-stone-500">{geoMsg}</span>}
           </div>
 
-          {coords && !inMyanmarRegion(coords) && (
+          {coords && !inMyanmar(coords) && (
             <p className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">
                This pin is outside Myanmar. The Rice (May–Oct) → Black Gram (Nov–Dec) calendar and thresholds are tuned for the Ayeyarwady Delta, so treat results here with caution.
             </p>

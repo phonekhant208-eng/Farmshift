@@ -1,0 +1,4370 @@
+{
+  "metadata": {
+    "title": "Global Countries, Capitals and Representative Agriculture Cities",
+    "description": "A continent-to-region-to-country directory with national capitals and one representative agriculture-oriented city, locality or agri-food district for each country where applicable.",
+    "asOfDate": "2026-11-14",
+    "language": "en",
+    "encoding": "UTF-8",
+    "format": "JSON",
+    "continentModel": "Seven-continent model",
+    "continentOrder": [
+      "Asia",
+      "North America",
+      "South America",
+      "Antarctica",
+      "Europe",
+      "Australia/Oceania",
+      "Africa"
+    ],
+    "continentOrderNote": "The supplied list named six continents while calling it a seven-continent model. The six supplied items are retained in their original order and Africa is appended as the missing seventh continent.",
+    "countryScope": "193 United Nations member states plus the Holy See and the State of Palestine (195 total). Antarctica is represented as a continent with no sovereign countries.",
+    "countryCount": 195,
+    "continentCountryCounts": {
+      "Asia": 48,
+      "North America": 23,
+      "South America": 12,
+      "Antarctica": 0,
+      "Europe": 44,
+      "Australia/Oceania": 14,
+      "Africa": 54
+    },
+    "regionalClassification": "United Nations Statistics Division M49 geographic regions, adapted only in display labels where needed. Only sovereign states and the two UN non-member observer states are counted; dependent territories and separately administered areas are excluded.",
+    "classificationNotes": [
+      "Russia is grouped in Europe, and Türkiye, Cyprus, Armenia, Azerbaijan and Georgia are grouped in Asia following the M49 geographic classification.",
+      "Mexico is grouped in Central America for this dataset because the M49 scheme places it there within the North America region.",
+      "Taiwan, Kosovo, Western Sahara and dependent territories are not counted as separate countries in the 195-country scope.",
+      "The Holy See is included as a UN non-member observer state; Vatican City is its capital city-state.",
+      "Some countries have multiple, disputed or de facto capital arrangements; these are explained in the capital string or country note rather than forced into a single simplistic answer."
+    ],
+    "agricultureCityMethodology": {
+      "definition": "A representative city or locality strongly associated with agricultural production, agricultural markets, agro-processing, agricultural research, or the farming region it serves.",
+      "importantLimitation": "There is no universally recognised official global ranking of the 'most farming city' for every country. City choices are curated representative associations, not a statistically proven first-place ranking.",
+      "selectionBasis": [
+        "Prominence of surrounding crop, livestock, horticultural or plantation production",
+        "Role as a regional agricultural market, logistics, processing or service centre",
+        "Recognition as an agricultural research, university or agribusiness hub",
+        "For microstates with very limited agriculture, a notable farming locality or agri-food district is used where possible"
+      ],
+      "exceptions": "Where there is no meaningful distinct farming city (for example, some highly urbanised or very small states), agricultureCity.name is null and the rationale states why. Where the useful reference is a district or farming area rather than a municipality, that is stated in the name and classification.",
+      "sourceCaution": "FAOSTAT and World Bank sources provide national-level agricultural context, not proof of the individual city choice. The city rationale is a curated synthesis and should be independently checked against national subnational statistics before being used for formal research or policy.",
+      "selectionStatusValue": "curated_representative_choice_not_an_official_global_ranking"
+    },
+    "schema": {
+      "continents": "Array of continent objects in the declared order.",
+      "regions": "Array of subregion objects within each continent.",
+      "countries": "Array of country objects within each region.",
+      "country.country": "Country or observer-state name.",
+      "country.capital": "Capital city or a transparent description of a multi-capital, transitional or de facto arrangement.",
+      "country.agricultureCity": "Object with name, classification, rationale, selection status, confidence and supporting national-agriculture context source IDs.",
+      "sourceRegistry": "Object mapping source IDs to source title, URL, supported claims and access date."
+    },
+    "sourceIdsUsed": [
+      "UN_M49",
+      "UN_MEMBER_STATES",
+      "UN_OBSERVER_STATES",
+      "UNGEGN_WORLD_GEOGRAPHICAL_NAMES",
+      "FAOSTAT",
+      "WORLD_BANK_AGRICULTURE",
+      "EQUATORIAL_GUINEA_CAPITAL_2026",
+      "INDONESIA_CAPITAL_STATUS",
+      "ANTARCTIC_TREATY"
+    ]
+  },
+  "continents": [
+    {
+      "continent": "Asia",
+      "regions": [
+        {
+          "region": "Central Asia",
+          "countries": [
+            {
+              "country": "Kazakhstan",
+              "capital": "Astana",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Kostanay",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major grain-growing hub in the northern wheat belt.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Kyrgyzstan",
+              "capital": "Bishkek",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Osh",
+                "classification": "representative_city_or_locality",
+                "rationale": "Important Fergana Valley market and agricultural-production centre.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Tajikistan",
+              "capital": "Dushanbe",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bokhtar",
+                "classification": "representative_city_or_locality",
+                "rationale": "Located in Khatlon, a major cotton, cereal, fruit and vegetable-producing area.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Turkmenistan",
+              "capital": "Ashgabat",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Mary",
+                "classification": "representative_city_or_locality",
+                "rationale": "Regional centre in the irrigated Murgab oasis, known for cotton and wheat.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Uzbekistan",
+              "capital": "Tashkent",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Andijan",
+                "classification": "representative_city_or_locality",
+                "rationale": "Dense Fergana Valley farming area with fruit, vegetables and cotton.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Eastern Asia",
+          "countries": [
+            {
+              "country": "China",
+              "capital": "Beijing",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Zhengzhou",
+                "classification": "representative_city_or_locality",
+                "rationale": "Henan is a major grain-producing province; Zhengzhou is a key regional market and logistics centre.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Japan",
+              "capital": "Tokyo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Niigata",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major rice-growing prefecture and agricultural centre.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Mongolia",
+              "capital": "Ulaanbaatar",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Darkhan",
+                "classification": "representative_city_or_locality",
+                "rationale": "Important northern crop-growing and agricultural-processing centre.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "North Korea",
+              "capital": "Pyongyang",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Sariwon",
+                "classification": "representative_city_or_locality",
+                "rationale": "Known as an agricultural centre in the country's productive western plains.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "South Korea",
+              "capital": "Seoul",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Jeonju",
+                "classification": "representative_city_or_locality",
+                "rationale": "Central city of a major rice-growing and food-producing region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Southern Asia",
+          "countries": [
+            {
+              "country": "Afghanistan",
+              "capital": "Kabul",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Kandahar",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major southern horticultural area, especially grapes, pomegranates and other fruit.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Bangladesh",
+              "capital": "Dhaka",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bogura",
+                "classification": "representative_city_or_locality",
+                "rationale": "Important northern agricultural market for rice, potatoes and vegetables.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Bhutan",
+              "capital": "Thimphu",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Paro",
+                "classification": "representative_city_or_locality",
+                "rationale": "Valley farming centre known for rice, vegetables and other highland crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "India",
+              "capital": "New Delhi",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Ludhiana",
+                "classification": "representative_city_or_locality",
+                "rationale": "Punjab agricultural and machinery hub in a major wheat- and rice-producing state.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Iran",
+              "capital": "Tehran",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Shiraz",
+                "classification": "representative_city_or_locality",
+                "rationale": "Fars Province centre associated with wheat, citrus, grapes and other crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Maldives",
+              "capital": "Malé",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Thoddoo",
+                "classification": "representative_city_or_locality",
+                "rationale": "Island farming centre known for watermelon and other horticultural production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Nepal",
+              "capital": "Kathmandu",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bharatpur",
+                "classification": "representative_city_or_locality",
+                "rationale": "Chitwan Valley commercial farming centre for cereals, vegetables and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Pakistan",
+              "capital": "Islamabad",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Faisalabad",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major cotton, wheat and textile-linked agro-industrial centre in Punjab.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Sri Lanka",
+              "capital": "Sri Jayawardenepura Kotte",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Anuradhapura",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major rice-growing district and irrigation-based agricultural centre.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "South-Eastern Asia",
+          "countries": [
+            {
+              "country": "Brunei Darussalam",
+              "capital": "Bandar Seri Begawan",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Tutong",
+                "classification": "representative_city_or_locality",
+                "rationale": "District with rice cultivation, fruit, vegetables and livestock activity.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Cambodia",
+              "capital": "Phnom Penh",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Battambang",
+                "classification": "representative_city_or_locality",
+                "rationale": "One of the country's leading rice-producing and agricultural-trading centres.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Indonesia",
+              "capital": "Jakarta",
+              "capitalSourceIds": [
+                "INDONESIA_CAPITAL_STATUS"
+              ],
+              "agricultureCity": {
+                "name": "Malang",
+                "classification": "representative_city_or_locality",
+                "rationale": "East Java highland centre associated with vegetables, fruit, dairy and horticulture.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ],
+              "capitalNote": "Jakarta remains the legal capital pending the required Presidential Decree transferring the capital to Nusantara; the capital transition is ongoing."
+            },
+            {
+              "country": "Lao People's Democratic Republic",
+              "capital": "Vientiane",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Pakse",
+                "classification": "representative_city_or_locality",
+                "rationale": "Gateway to the Bolaven Plateau's coffee, vegetables and horticulture.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Malaysia",
+              "capital": "Kuala Lumpur",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Alor Setar",
+                "classification": "representative_city_or_locality",
+                "rationale": "Kedah's principal urban centre in Malaysia's major rice-growing plain.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Myanmar",
+              "capital": "Nay Pyi Taw",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Pathein",
+                "classification": "representative_city_or_locality",
+                "rationale": "Ayeyarwady Delta city in the country's leading rice-producing region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Philippines",
+              "capital": "Manila",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Koronadal",
+                "classification": "representative_city_or_locality",
+                "rationale": "Regional centre in a major corn-, rice- and fruit-producing area of Mindanao.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Singapore",
+              "capital": "Singapore",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Lim Chu Kang (agri-food district)",
+                "classification": "agri_food_district_or_area",
+                "rationale": "Singapore has no large conventional farming city; Lim Chu Kang concentrates licensed farms and agri-food activity.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Thailand",
+              "capital": "Bangkok",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Nakhon Sawan",
+                "classification": "representative_city_or_locality",
+                "rationale": "Important rice-growing and grain-trading centre in the lower north/central plain.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Timor-Leste",
+              "capital": "Dili",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Maliana",
+                "classification": "representative_city_or_locality",
+                "rationale": "Bobonaro-area farming centre associated with rice, maize and coffee production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Viet Nam",
+              "capital": "Hanoi",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Can Tho",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major Mekong Delta city surrounded by intensive rice, fruit and aquaculture production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Western Asia (Middle East)",
+          "countries": [
+            {
+              "country": "Armenia",
+              "capital": "Yerevan",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Armavir",
+                "classification": "representative_city_or_locality",
+                "rationale": "Ararat Plain centre associated with orchards, vineyards, vegetables and field crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Azerbaijan",
+              "capital": "Baku",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Ganja",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major regional centre for grain, horticulture and livestock areas in western Azerbaijan.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Bahrain",
+              "capital": "Manama",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Budaiya",
+                "classification": "representative_city_or_locality",
+                "rationale": "Traditional horticultural and date-palm growing area; national farming is limited.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Cyprus",
+              "capital": "Nicosia",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Paphos",
+                "classification": "representative_city_or_locality",
+                "rationale": "Agricultural district known for citrus, grapes, potatoes and other horticultural crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Georgia",
+              "capital": "Tbilisi",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Kutaisi",
+                "classification": "representative_city_or_locality",
+                "rationale": "Imereti regional centre connected to hazelnut, maize, tea and horticulture production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Iraq",
+              "capital": "Baghdad",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Hillah",
+                "classification": "representative_city_or_locality",
+                "rationale": "Babylon Governorate centre in the fertile central plain, with orchards and field crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Israel",
+              "capital": "Jerusalem",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Rehovot",
+                "classification": "representative_city_or_locality",
+                "rationale": "Agricultural research and citrus-growing centre in the coastal plain.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Jordan",
+              "capital": "Amman",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Irbid",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern Jordan centre serving productive cereal, olive and fruit-growing areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Kuwait",
+              "capital": "Kuwait City",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Al Abdali (farming area)",
+                "classification": "agri_food_district_or_area",
+                "rationale": "Al Abdali is a recognised northern agricultural zone; Kuwait has no large farming city.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Lebanon",
+              "capital": "Beirut",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Zahle",
+                "classification": "representative_city_or_locality",
+                "rationale": "Bekaa Valley urban centre surrounded by major fruit, grape, vegetable and cereal production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Oman",
+              "capital": "Muscat",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Salalah",
+                "classification": "representative_city_or_locality",
+                "rationale": "Dhofar centre known for seasonal monsoon agriculture, fruit and vegetable production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "State of Palestine",
+              "capital": "East Jerusalem (claimed); Ramallah (administrative centre)",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Hebron",
+                "classification": "representative_city_or_locality",
+                "rationale": "Hebron Governorate is associated with vineyards, fruit trees and vegetable production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Qatar",
+              "capital": "Doha",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Al Shahaniya",
+                "classification": "representative_city_or_locality",
+                "rationale": "Area with farms, livestock holdings and agricultural projects; national farming is limited.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Saudi Arabia",
+              "capital": "Riyadh",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Buraydah",
+                "classification": "representative_city_or_locality",
+                "rationale": "Qassim regional centre known for date production and other irrigated agriculture.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Syrian Arab Republic",
+              "capital": "Damascus",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Hama",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major agricultural city in a region known for cereals, cotton, vegetables and irrigated farming.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Türkiye",
+              "capital": "Ankara",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Konya",
+                "classification": "representative_city_or_locality",
+                "rationale": "Central Anatolian grain-producing plain and major agricultural market.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "United Arab Emirates",
+              "capital": "Abu Dhabi",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Al Ain",
+                "classification": "representative_city_or_locality",
+                "rationale": "Oasis city with date palms, farms and a long-established agricultural sector.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Yemen",
+              "capital": "Sana'a",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Dhamar",
+                "classification": "representative_city_or_locality",
+                "rationale": "Highland farming centre associated with cereals, vegetables and qat cultivation.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "continent": "North America",
+      "regions": [
+        {
+          "region": "Northern America",
+          "countries": [
+            {
+              "country": "Canada",
+              "capital": "Ottawa",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Saskatoon",
+                "classification": "representative_city_or_locality",
+                "rationale": "Saskatchewan grain-belt city with major agricultural research and crop-sector institutions.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "United States of America",
+              "capital": "Washington, D.C.",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Des Moines",
+                "classification": "representative_city_or_locality",
+                "rationale": "Iowa's principal urban centre in a leading corn, soybean and livestock region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Central America",
+          "countries": [
+            {
+              "country": "Belize",
+              "capital": "Belmopan",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Orange Walk Town",
+                "classification": "representative_city_or_locality",
+                "rationale": "Sugarcane, citrus and other crop production are important in the surrounding district.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Costa Rica",
+              "capital": "San José",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Alajuela",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major agricultural province and market for coffee, sugarcane, dairy and horticulture.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "El Salvador",
+              "capital": "San Salvador",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Santa Ana",
+                "classification": "representative_city_or_locality",
+                "rationale": "Western highland centre associated with coffee and other crop production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Guatemala",
+              "capital": "Guatemala City",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Quetzaltenango",
+                "classification": "representative_city_or_locality",
+                "rationale": "Highland agricultural and market centre for vegetables, grains and dairy.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Honduras",
+              "capital": "Tegucigalpa",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Comayagua",
+                "classification": "representative_city_or_locality",
+                "rationale": "Valley centre for commercial vegetables, fruit, maize and other crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Mexico",
+              "capital": "Mexico City",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Culiacán",
+                "classification": "representative_city_or_locality",
+                "rationale": "Sinaloa city in one of Mexico's most productive irrigated grain and vegetable regions.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Nicaragua",
+              "capital": "Managua",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Matagalpa",
+                "classification": "representative_city_or_locality",
+                "rationale": "Important coffee-growing and agricultural trading centre in the northern highlands.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Panama",
+              "capital": "Panama City",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "David",
+                "classification": "representative_city_or_locality",
+                "rationale": "Chiriquí's main city, serving major dairy, vegetable, coffee and livestock production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Caribbean",
+          "countries": [
+            {
+              "country": "Antigua and Barbuda",
+              "capital": "Saint John's",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Parham",
+                "classification": "representative_city_or_locality",
+                "rationale": "Rural agricultural area with small-scale crop and livestock activity.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "The Bahamas",
+              "capital": "Nassau",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Andros Town",
+                "classification": "representative_city_or_locality",
+                "rationale": "Andros supports much of the country's limited farming, including fruit and crop production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Barbados",
+              "capital": "Bridgetown",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Six Cross Roads",
+                "classification": "representative_city_or_locality",
+                "rationale": "Rural transport and market centre serving central and eastern farming districts.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Cuba",
+              "capital": "Havana",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Santa Clara",
+                "classification": "representative_city_or_locality",
+                "rationale": "Central Cuban agricultural centre in a region with sugarcane, tobacco and food crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Dominica",
+              "capital": "Roseau",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Portsmouth",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern agricultural centre associated with bananas, root crops and other produce.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Dominican Republic",
+              "capital": "Santo Domingo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "La Vega",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major Cibao Valley agricultural market for rice, vegetables, plantains and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Grenada",
+              "capital": "Saint George's",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Gouyave",
+                "classification": "representative_city_or_locality",
+                "rationale": "Town serving nutmeg, cocoa and other spice-growing communities.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Haiti",
+              "capital": "Port-au-Prince",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Les Cayes",
+                "classification": "representative_city_or_locality",
+                "rationale": "Southern agricultural market area with rice, sugarcane, fruit and food crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Jamaica",
+              "capital": "Kingston",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "May Pen",
+                "classification": "representative_city_or_locality",
+                "rationale": "Clarendon market centre in a major sugarcane and mixed-crop area.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Saint Kitts and Nevis",
+              "capital": "Basseterre",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Sandy Point Town",
+                "classification": "representative_city_or_locality",
+                "rationale": "Rural western area with small-scale crop and livestock activity.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Saint Lucia",
+              "capital": "Castries",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Vieux Fort",
+                "classification": "representative_city_or_locality",
+                "rationale": "Southern district centre serving banana, root-crop and mixed farming areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Saint Vincent and the Grenadines",
+              "capital": "Kingstown",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Georgetown",
+                "classification": "representative_city_or_locality",
+                "rationale": "Agricultural town in a major banana, root-crop and mixed-farming district.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Trinidad and Tobago",
+              "capital": "Port of Spain",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Chaguanas",
+                "classification": "representative_city_or_locality",
+                "rationale": "Central market and agro-processing area serving Trinidad's agricultural belt.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "continent": "South America",
+      "regions": [
+        {
+          "region": "South America",
+          "countries": [
+            {
+              "country": "Argentina",
+              "capital": "Buenos Aires",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Rosario",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major grain, oilseed and livestock export and processing hub on the Paraná River.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Bolivia",
+              "capital": "Sucre (constitutional); La Paz (seat of government)",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Santa Cruz de la Sierra",
+                "classification": "representative_city_or_locality",
+                "rationale": "Centre of Bolivia's largest commercial farming region, including soy, sugarcane and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Brazil",
+              "capital": "Brasília",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Ribeirão Preto",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major agribusiness centre in São Paulo state's sugarcane and crop-producing interior.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Chile",
+              "capital": "Santiago",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Talca",
+                "classification": "representative_city_or_locality",
+                "rationale": "Maule regional centre associated with fruit, wine grapes, cereals and forestry-linked farming.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Colombia",
+              "capital": "Bogotá",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Armenia",
+                "classification": "representative_city_or_locality",
+                "rationale": "Coffee-region city with strong links to coffee, plantain and horticulture production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Ecuador",
+              "capital": "Quito",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Ambato",
+                "classification": "representative_city_or_locality",
+                "rationale": "Highland market and production centre for fruit, vegetables, dairy and flowers.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Guyana",
+              "capital": "Georgetown",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "New Amsterdam",
+                "classification": "representative_city_or_locality",
+                "rationale": "Berbice centre in the country's sugarcane and rice-growing coastal belt.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Paraguay",
+              "capital": "Asunción",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Encarnación",
+                "classification": "representative_city_or_locality",
+                "rationale": "Itapúa centre surrounded by soy, maize, wheat and other commercial crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Peru",
+              "capital": "Lima",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Trujillo",
+                "classification": "representative_city_or_locality",
+                "rationale": "La Libertad city at the centre of major irrigated coastal agro-export production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Suriname",
+              "capital": "Paramaribo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Nieuw Nickerie",
+                "classification": "representative_city_or_locality",
+                "rationale": "Main town of the country's principal rice-growing district.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Uruguay",
+              "capital": "Montevideo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Salto",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern centre for citrus, horticulture, dairy and livestock activity.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Venezuela",
+              "capital": "Caracas",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Barquisimeto",
+                "classification": "representative_city_or_locality",
+                "rationale": "Lara regional centre serving important vegetable, fruit, sugarcane and livestock areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "continent": "Antarctica",
+      "regions": [
+        {
+          "region": "Antarctica",
+          "countries": [],
+          "note": "Antarctica has no sovereign countries, permanent civilian population, or national capital. Research stations are not countries or capital cities."
+        }
+      ]
+    },
+    {
+      "continent": "Europe",
+      "regions": [
+        {
+          "region": "Eastern Europe",
+          "countries": [
+            {
+              "country": "Belarus",
+              "capital": "Minsk",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Gomel",
+                "classification": "representative_city_or_locality",
+                "rationale": "Regional centre serving productive grain, potato, dairy and livestock areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Bulgaria",
+              "capital": "Sofia",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Plovdiv",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major agricultural plain and market for vegetables, fruit, cereals and wine grapes.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Czechia",
+              "capital": "Prague",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Brno",
+                "classification": "representative_city_or_locality",
+                "rationale": "South Moravian centre associated with grain, wine, fruit and agricultural research.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Hungary",
+              "capital": "Budapest",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Debrecen",
+                "classification": "representative_city_or_locality",
+                "rationale": "Eastern Hungary centre in a major grain, maize and livestock region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Republic of Moldova",
+              "capital": "Chișinău",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bălți",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern agricultural and trading centre associated with grain, sugar beet and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Poland",
+              "capital": "Warsaw",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Lublin",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major eastern Polish centre for cereals, vegetables, fruit and food processing.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Romania",
+              "capital": "Bucharest",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Brăila",
+                "classification": "representative_city_or_locality",
+                "rationale": "Danube Plain city in a highly productive grain and oilseed region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Russian Federation",
+              "capital": "Moscow",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Krasnodar",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major city in the Kuban agricultural region, known for grain, oilseeds and horticulture.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Slovakia",
+              "capital": "Bratislava",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Nitra",
+                "classification": "representative_city_or_locality",
+                "rationale": "Agricultural and university centre in the fertile Danubian Lowland.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Ukraine",
+              "capital": "Kyiv",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Vinnytsia",
+                "classification": "representative_city_or_locality",
+                "rationale": "Central Ukrainian agricultural centre in a major grain, sugar beet and food-producing region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Northern Europe",
+          "countries": [
+            {
+              "country": "Denmark",
+              "capital": "Copenhagen",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Odense",
+                "classification": "representative_city_or_locality",
+                "rationale": "Funen centre serving intensive dairy, pig, grain and horticulture sectors.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Estonia",
+              "capital": "Tallinn",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Tartu",
+                "classification": "representative_city_or_locality",
+                "rationale": "University and market centre in an important agricultural region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Finland",
+              "capital": "Helsinki",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Seinäjoki",
+                "classification": "representative_city_or_locality",
+                "rationale": "Ostrobothnian centre associated with dairy, grain and agricultural machinery.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Iceland",
+              "capital": "Reykjavík",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Selfoss",
+                "classification": "representative_city_or_locality",
+                "rationale": "South Iceland market centre for greenhouse horticulture, dairy and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Ireland",
+              "capital": "Dublin",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Cork",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major regional centre in a leading dairy, beef and food-processing area.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Latvia",
+              "capital": "Riga",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Jelgava",
+                "classification": "representative_city_or_locality",
+                "rationale": "Agricultural university and market centre in Latvia's fertile Zemgale region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Lithuania",
+              "capital": "Vilnius",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Šiauliai",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern regional centre serving grain, dairy and mixed-farming districts.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Norway",
+              "capital": "Oslo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Hamar",
+                "classification": "representative_city_or_locality",
+                "rationale": "Innlandet centre associated with cereal, potato, dairy and livestock production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Sweden",
+              "capital": "Stockholm",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Uppsala",
+                "classification": "representative_city_or_locality",
+                "rationale": "Mälardalen agricultural and research centre with crop and livestock activity.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "United Kingdom",
+              "capital": "London",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Lincoln",
+                "classification": "representative_city_or_locality",
+                "rationale": "Lincolnshire city in a major arable, vegetable and food-processing region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Southern Europe",
+          "countries": [
+            {
+              "country": "Albania",
+              "capital": "Tirana",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Korçë",
+                "classification": "representative_city_or_locality",
+                "rationale": "Southeastern agricultural basin known for apples, cereals, potatoes and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Andorra",
+              "capital": "Andorra la Vella",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Sant Julià de Lòria",
+                "classification": "representative_city_or_locality",
+                "rationale": "Rural parish with the country's remaining small-scale farms and tobacco cultivation.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Bosnia and Herzegovina",
+              "capital": "Sarajevo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bijeljina",
+                "classification": "representative_city_or_locality",
+                "rationale": "Semberija plain centre known for grain, vegetables, fruit and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Croatia",
+              "capital": "Zagreb",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Osijek",
+                "classification": "representative_city_or_locality",
+                "rationale": "Slavonia's main urban centre in a major grain, oilseed and livestock region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Greece",
+              "capital": "Athens",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Larissa",
+                "classification": "representative_city_or_locality",
+                "rationale": "Thessaly's principal city in a major cotton, cereal and livestock region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Holy See (Vatican City)",
+              "capital": "Vatican City",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": null,
+                "classification": "not_applicable",
+                "rationale": "No distinct farming city; the Vatican Gardens support limited horticulture, not a national agricultural sector.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "high",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Italy",
+              "capital": "Rome",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bologna",
+                "classification": "representative_city_or_locality",
+                "rationale": "Emilia-Romagna city linked to a highly productive food, dairy, grain and processing region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Malta",
+              "capital": "Valletta",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Mġarr",
+                "classification": "representative_city_or_locality",
+                "rationale": "Rural locality in one of Malta's principal agricultural areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Montenegro",
+              "capital": "Podgorica",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bijelo Polje",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern agricultural centre with mixed farming, fruit and livestock activity.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "North Macedonia",
+              "capital": "Skopje",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bitola",
+                "classification": "representative_city_or_locality",
+                "rationale": "Pelagonia plain centre associated with cereals, tobacco, vegetables and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Portugal",
+              "capital": "Lisbon",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Santarém",
+                "classification": "representative_city_or_locality",
+                "rationale": "Ribatejo agricultural centre for cereals, horticulture, livestock and vineyards.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "San Marino",
+              "capital": "City of San Marino",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Borgo Maggiore",
+                "classification": "representative_city_or_locality",
+                "rationale": "Small-scale vineyards, olive groves and mixed farming in the surrounding area.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Serbia",
+              "capital": "Belgrade",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Novi Sad",
+                "classification": "representative_city_or_locality",
+                "rationale": "Vojvodina centre in Serbia's most productive grain, maize and oilseed region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Slovenia",
+              "capital": "Ljubljana",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Maribor",
+                "classification": "representative_city_or_locality",
+                "rationale": "Styria centre associated with vineyards, orchards and mixed farming.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Spain",
+              "capital": "Madrid",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Almería",
+                "classification": "representative_city_or_locality",
+                "rationale": "Internationally significant intensive greenhouse horticulture and vegetable-export centre.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Western Europe",
+          "countries": [
+            {
+              "country": "Austria",
+              "capital": "Vienna",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Graz",
+                "classification": "representative_city_or_locality",
+                "rationale": "Styria's principal city, serving fruit, pumpkin-seed, wine and mixed-farming areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Belgium",
+              "capital": "Brussels",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Sint-Truiden",
+                "classification": "representative_city_or_locality",
+                "rationale": "Fruit-growing centre in the Haspengouw region, especially apples and pears.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "France",
+              "capital": "Paris",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Rennes",
+                "classification": "representative_city_or_locality",
+                "rationale": "Brittany centre associated with intensive livestock, dairy and food processing.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Germany",
+              "capital": "Berlin",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Hannover",
+                "classification": "representative_city_or_locality",
+                "rationale": "Lower Saxony centre in a major grain, livestock, dairy and food-processing region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Liechtenstein",
+              "capital": "Vaduz",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Eschen",
+                "classification": "representative_city_or_locality",
+                "rationale": "Municipality in the country's agricultural lowland, with farms and livestock production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Luxembourg",
+              "capital": "Luxembourg City",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Ettelbruck",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern market centre serving livestock, dairy and crop-growing areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Monaco",
+              "capital": "Monaco",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": null,
+                "classification": "not_applicable",
+                "rationale": "No distinct agricultural city or meaningful commercial farming sector within the city-state.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "high",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Netherlands",
+              "capital": "Amsterdam",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Wageningen",
+                "classification": "representative_city_or_locality",
+                "rationale": "International centre for agricultural science, food research and innovation.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Switzerland",
+              "capital": "Bern",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Fribourg",
+                "classification": "representative_city_or_locality",
+                "rationale": "Regional centre associated with dairy, livestock, cheese and mixed farming.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "continent": "Australia/Oceania",
+      "regions": [
+        {
+          "region": "Australia and the Pacific",
+          "countries": [
+            {
+              "country": "Australia",
+              "capital": "Canberra",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Toowoomba",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major agricultural service and logistics centre for the Darling Downs grain, livestock and horticulture region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Fiji",
+              "capital": "Suva",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Lautoka",
+                "classification": "representative_city_or_locality",
+                "rationale": "Sugar-industry centre in Fiji's western cane-growing belt.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Kiribati",
+              "capital": "South Tarawa (de facto seat)",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bikenibeu",
+                "classification": "representative_city_or_locality",
+                "rationale": "No large-scale farming city; South Tarawa's Bikenibeu area has small-scale food-growing activity.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Marshall Islands",
+              "capital": "Majuro",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Laura",
+                "classification": "representative_city_or_locality",
+                "rationale": "Agricultural area on Majuro Atoll with breadfruit, coconut and small-scale crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Federated States of Micronesia",
+              "capital": "Palikir",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Kolonia",
+                "classification": "representative_city_or_locality",
+                "rationale": "Pohnpei's main market centre for sakau, fruit, vegetables and subsistence agriculture.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Nauru",
+              "capital": "No official capital; government offices are in Yaren District",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Yaren District",
+                "classification": "agri_food_district_or_area",
+                "rationale": "No distinct farming city; only limited household and subsistence horticulture.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "New Zealand",
+              "capital": "Wellington",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Hamilton",
+                "classification": "representative_city_or_locality",
+                "rationale": "Waikato centre in a major dairy, beef, crop and agricultural research region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Palau",
+              "capital": "Ngerulmud",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Koror",
+                "classification": "representative_city_or_locality",
+                "rationale": "Main food-market and supply centre; farming is small-scale and dispersed.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Papua New Guinea",
+              "capital": "Port Moresby",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Mount Hagen",
+                "classification": "representative_city_or_locality",
+                "rationale": "Highlands city serving major coffee, vegetable, sweet-potato and livestock production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Samoa",
+              "capital": "Apia",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Salelologa",
+                "classification": "representative_city_or_locality",
+                "rationale": "Savai'i market centre serving taro, coconut, banana and other crop production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Solomon Islands",
+              "capital": "Honiara",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Auki",
+                "classification": "representative_city_or_locality",
+                "rationale": "Malaita centre associated with coconut, cocoa, root crops and smallholder farming.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Tonga",
+              "capital": "Nukuʻalofa",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Nukuʻalofa",
+                "classification": "representative_city_or_locality",
+                "rationale": "Main produce market and export gateway for root crops, squash, vanilla and other farm products.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Tuvalu",
+              "capital": "Funafuti",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Funafuti",
+                "classification": "representative_city_or_locality",
+                "rationale": "No distinct commercial farming city; household cultivation of pulaka, coconut and breadfruit predominates.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Vanuatu",
+              "capital": "Port Vila",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Luganville",
+                "classification": "representative_city_or_locality",
+                "rationale": "Santo's main urban centre serving cocoa, copra, kava, cattle and crop production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "continent": "Africa",
+      "regions": [
+        {
+          "region": "Northern Africa",
+          "countries": [
+            {
+              "country": "Algeria",
+              "capital": "Algiers",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Sétif",
+                "classification": "representative_city_or_locality",
+                "rationale": "High Plateau centre in a major cereal and livestock-producing area.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Egypt",
+              "capital": "Cairo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Mansoura",
+                "classification": "representative_city_or_locality",
+                "rationale": "Nile Delta agricultural centre surrounded by intensive rice, cotton, wheat and vegetable production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Libya",
+              "capital": "Tripoli",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Misrata",
+                "classification": "representative_city_or_locality",
+                "rationale": "Coastal agricultural and food-processing centre with irrigated farms and olive production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Morocco",
+              "capital": "Rabat",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Meknes",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major agricultural region associated with cereals, olives, fruit, vineyards and food processing.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Sudan",
+              "capital": "Khartoum",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Wad Madani",
+                "classification": "representative_city_or_locality",
+                "rationale": "Gezira State centre serving the large irrigated Gezira agricultural scheme.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Tunisia",
+              "capital": "Tunis",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Sfax",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major olive-growing and food-processing centre in Tunisia's agricultural economy.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Western Africa",
+          "countries": [
+            {
+              "country": "Benin",
+              "capital": "Porto-Novo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Parakou",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern market and logistics centre for cotton, maize, yam and other crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Burkina Faso",
+              "capital": "Ouagadougou",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bobo-Dioulasso",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major cotton, maize, fruit and food-processing centre in the west.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Cabo Verde",
+              "capital": "Praia",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Assomada",
+                "classification": "representative_city_or_locality",
+                "rationale": "Santiago Island market town serving horticulture, maize and livestock farming.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Côte d’Ivoire",
+              "capital": "Yamoussoukro",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bouaké",
+                "classification": "representative_city_or_locality",
+                "rationale": "Central agricultural and trading centre associated with cotton, cashew, yams and food crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "The Gambia",
+              "capital": "Banjul",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Brikama",
+                "classification": "representative_city_or_locality",
+                "rationale": "Large market centre serving groundnut, rice, horticulture and mixed-farming areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Ghana",
+              "capital": "Accra",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Kumasi",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major food-crop, cocoa-trading and agricultural market centre in the Ashanti region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Guinea",
+              "capital": "Conakry",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Kindia",
+                "classification": "representative_city_or_locality",
+                "rationale": "Fruit and vegetable-producing area known as an important agricultural supply zone.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Guinea-Bissau",
+              "capital": "Bissau",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bafatá",
+                "classification": "representative_city_or_locality",
+                "rationale": "Interior agricultural market in a major cashew, rice and food-crop region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Liberia",
+              "capital": "Monrovia",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Gbarnga",
+                "classification": "representative_city_or_locality",
+                "rationale": "Bong County centre serving rice, cassava and other smallholder production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Mali",
+              "capital": "Bamako",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Sikasso",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major cotton, maize, mango and other crop-producing region and market.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Mauritania",
+              "capital": "Nouakchott",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Rosso",
+                "classification": "representative_city_or_locality",
+                "rationale": "Senegal River valley centre for irrigated rice and vegetable production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Niger",
+              "capital": "Niamey",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Maradi",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major agricultural and trading centre for millet, sorghum, cowpea and groundnut.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Nigeria",
+              "capital": "Abuja",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Makurdi",
+                "classification": "representative_city_or_locality",
+                "rationale": "Benue State's principal city in a leading food-producing region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Senegal",
+              "capital": "Dakar",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Kaolack",
+                "classification": "representative_city_or_locality",
+                "rationale": "Major groundnut-growing and agricultural trading centre.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Sierra Leone",
+              "capital": "Freetown",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bo",
+                "classification": "representative_city_or_locality",
+                "rationale": "Southern agricultural market for rice, cassava, cocoa and palm products.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Togo",
+              "capital": "Lomé",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Kara",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern regional centre serving cotton, maize, yam and livestock production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Middle Africa",
+          "countries": [
+            {
+              "country": "Angola",
+              "capital": "Luanda",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Huambo",
+                "classification": "representative_city_or_locality",
+                "rationale": "Central Highlands city with important maize, potato, bean and livestock production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Cameroon",
+              "capital": "Yaoundé",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bafoussam",
+                "classification": "representative_city_or_locality",
+                "rationale": "Western Highlands centre in a major coffee, maize, potato and market-gardening region.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Central African Republic",
+              "capital": "Bangui",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bossangoa",
+                "classification": "representative_city_or_locality",
+                "rationale": "Ouham regional market associated with cotton, cassava, groundnuts and food crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Chad",
+              "capital": "N’Djamena",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Moundou",
+                "classification": "representative_city_or_locality",
+                "rationale": "Southern cotton-belt city with cereals, oilseeds and food processing.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Republic of the Congo",
+              "capital": "Brazzaville",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Dolisie",
+                "classification": "representative_city_or_locality",
+                "rationale": "Niari regional centre associated with cassava, market gardening and plantation crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Democratic Republic of the Congo",
+              "capital": "Kinshasa",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Kananga",
+                "classification": "representative_city_or_locality",
+                "rationale": "Kasai centre serving cassava, maize and other staple-crop production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Equatorial Guinea",
+              "capital": "Ciudad de la Paz",
+              "capitalSourceIds": [
+                "EQUATORIAL_GUINEA_CAPITAL_2026"
+              ],
+              "agricultureCity": {
+                "name": "Evinayong",
+                "classification": "representative_city_or_locality",
+                "rationale": "Mainland agricultural centre associated with cocoa, cassava, plantain and food crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Gabon",
+              "capital": "Libreville",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Franceville",
+                "classification": "representative_city_or_locality",
+                "rationale": "Southeastern urban centre serving food-crop and livestock development areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Sao Tome and Principe",
+              "capital": "São Tomé",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Trindade",
+                "classification": "representative_city_or_locality",
+                "rationale": "Agricultural settlement area associated with cocoa, coffee, banana and subsistence crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Eastern Africa",
+          "countries": [
+            {
+              "country": "Burundi",
+              "capital": "Gitega",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Ngozi",
+                "classification": "representative_city_or_locality",
+                "rationale": "Coffee-growing highland area and important agricultural market.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Comoros",
+              "capital": "Moroni",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Fomboni",
+                "classification": "representative_city_or_locality",
+                "rationale": "Mohéli centre serving ylang-ylang, cloves, vanilla and subsistence farming.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Djibouti",
+              "capital": "Djibouti",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Ali Sabieh",
+                "classification": "representative_city_or_locality",
+                "rationale": "Regional oasis and small-scale livestock/irrigated farming area; national agriculture is limited.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Eritrea",
+              "capital": "Asmara",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Keren",
+                "classification": "representative_city_or_locality",
+                "rationale": "Highland agricultural market associated with cereals, fruit and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Ethiopia",
+              "capital": "Addis Ababa",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Hawassa",
+                "classification": "representative_city_or_locality",
+                "rationale": "Sidama regional centre connected to coffee, enset, maize and mixed farming.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Kenya",
+              "capital": "Nairobi",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Nakuru",
+                "classification": "representative_city_or_locality",
+                "rationale": "Rift Valley agricultural hub for dairy, wheat, maize, flowers and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Madagascar",
+              "capital": "Antananarivo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Antsirabe",
+                "classification": "representative_city_or_locality",
+                "rationale": "Central Highlands centre for dairy, rice, vegetables and food processing.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Malawi",
+              "capital": "Lilongwe",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Lilongwe",
+                "classification": "representative_city_or_locality",
+                "rationale": "National agricultural administration and market centre serving maize, tobacco and legumes.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Mauritius",
+              "capital": "Port Louis",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Flacq",
+                "classification": "representative_city_or_locality",
+                "rationale": "Eastern district associated with sugarcane, vegetables and mixed farming.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Mozambique",
+              "capital": "Maputo",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Chimoio",
+                "classification": "representative_city_or_locality",
+                "rationale": "Manica Province centre for maize, tobacco, horticulture and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Rwanda",
+              "capital": "Kigali",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Musanze",
+                "classification": "representative_city_or_locality",
+                "rationale": "Highland agricultural centre for potatoes, vegetables, pyrethrum and dairy.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Seychelles",
+              "capital": "Victoria",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Anse Boileau",
+                "classification": "representative_city_or_locality",
+                "rationale": "Rural Mahé area with small-scale fruit, vegetable and coconut cultivation.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Somalia",
+              "capital": "Mogadishu",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Baidoa",
+                "classification": "representative_city_or_locality",
+                "rationale": "Bay region centre in a major sorghum, maize and livestock-producing area.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "South Sudan",
+              "capital": "Juba",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Wau",
+                "classification": "representative_city_or_locality",
+                "rationale": "Western regional market serving sorghum, groundnut, cassava and livestock areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Tanzania",
+              "capital": "Dodoma",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Mbeya",
+                "classification": "representative_city_or_locality",
+                "rationale": "Southern Highlands centre for maize, rice, potatoes, tea and coffee production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Uganda",
+              "capital": "Kampala",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Mbarara",
+                "classification": "representative_city_or_locality",
+                "rationale": "Western Uganda dairy and livestock hub with banana and crop production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Zambia",
+              "capital": "Lusaka",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Chipata",
+                "classification": "representative_city_or_locality",
+                "rationale": "Eastern Province centre for maize, groundnuts, cotton, tobacco and livestock.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Zimbabwe",
+              "capital": "Harare",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Bindura",
+                "classification": "representative_city_or_locality",
+                "rationale": "Mashonaland Central centre associated with tobacco, maize and other commercial crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        },
+        {
+          "region": "Southern Africa",
+          "countries": [
+            {
+              "country": "Botswana",
+              "capital": "Gaborone",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Francistown",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern urban centre serving cattle, arable farming and agricultural trade areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Eswatini",
+              "capital": "Mbabane (administrative); Lobamba (royal and legislative)",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Manzini",
+                "classification": "representative_city_or_locality",
+                "rationale": "Commercial centre serving sugarcane, citrus, forestry and mixed-farming areas.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Lesotho",
+              "capital": "Maseru",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Mohale’s Hoek",
+                "classification": "representative_city_or_locality",
+                "rationale": "District centre associated with mixed crop farming, livestock and wool/mohair production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "Namibia",
+              "capital": "Windhoek",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Grootfontein",
+                "classification": "representative_city_or_locality",
+                "rationale": "Northern farming centre for cattle, maize and other dryland crops.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            },
+            {
+              "country": "South Africa",
+              "capital": "Pretoria (executive); Cape Town (legislative); Bloemfontein (judicial)",
+              "capitalSourceIds": [
+                "UNGEGN_WORLD_GEOGRAPHICAL_NAMES"
+              ],
+              "agricultureCity": {
+                "name": "Mbombela",
+                "classification": "representative_city_or_locality",
+                "rationale": "Mpumalanga centre serving subtropical fruit, citrus, nuts and sugarcane production.",
+                "selectionStatus": "curated_representative_choice_not_an_official_global_ranking",
+                "confidence": "medium",
+                "sourceIds": [
+                  "FAOSTAT",
+                  "WORLD_BANK_AGRICULTURE"
+                ]
+              },
+              "countryClassificationSourceIds": [
+                "UN_M49"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "antarcticaStatus": {
+    "sovereignCountries": 0,
+    "capitalCities": 0,
+    "note": "Antarctica is governed through the Antarctic Treaty System. Research stations are not sovereign states or national capitals.",
+    "sourceIds": [
+      "ANTARCTIC_TREATY"
+    ]
+  },
+  "sourceRegistry": {
+    "UN_M49": {
+      "title": "United Nations Statistics Division — Standard country or area codes for statistical use (M49)",
+      "url": "https://unstats.un.org/unsd/methodology/m49/",
+      "supports": "Primary basis for continental and subregional grouping. M49 assigns each country or area to one region; this file uses its geographic logic with a sovereign-state scope and a few transparent presentation adjustments.",
+      "accessed": "2026-11-14"
+    },
+    "UN_MEMBER_STATES": {
+      "title": "United Nations — Member States",
+      "url": "https://www.un.org/en/about-us/member-states",
+      "supports": "Reference for the 193 UN member states in the dataset's country-count baseline.",
+      "accessed": "2026-11-14"
+    },
+    "UN_OBSERVER_STATES": {
+      "title": "United Nations — Non-member observer states",
+      "url": "https://www.un.org/en/about-us/non-member-states",
+      "supports": "Reference for the Holy See and State of Palestine as the two non-member observer states included to create a commonly used 195-state scope.",
+      "accessed": "2026-11-14"
+    },
+    "FAOSTAT": {
+      "title": "FAO — FAOSTAT food and agriculture statistics",
+      "url": "https://www.fao.org/faostat/en/",
+      "supports": "National-level agriculture context (crop and livestock production, land use, inputs, trade and related indicators). FAOSTAT does not by itself prove that a particular city is the country's single leading farming city.",
+      "accessed": "2026-11-14"
+    },
+    "WORLD_BANK_AGRICULTURE": {
+      "title": "World Bank — Agriculture and Rural Development indicators",
+      "url": "https://data.worldbank.org/topic/agriculture-and-rural-development",
+      "supports": "Country-level agriculture context, including agricultural land, crop production, value added and employment indicators. Not a city-level ranking source.",
+      "accessed": "2026-11-14"
+    },
+    "UNGEGN_WORLD_GEOGRAPHICAL_NAMES": {
+      "title": "United Nations Group of Experts on Geographical Names — World Geographical Names database",
+      "url": "https://unstats.un.org/unsd/geoinfo/geonames/",
+      "supports": "Authoritative geographical names database for country names, capitals and major cities, using national names authorities where available. The cited UN 2025 documentation describes coverage of 193 UN member states and two observer states.",
+      "accessed": "2026-11-14"
+    },
+    "EQUATORIAL_GUINEA_CAPITAL_2026": {
+      "title": "Government of Equatorial Guinea — Decree-Law No. 1/2026 declaring Ciudad de la Paz the capital",
+      "url": "https://www.guineaecuatorialpress.com/noticias/decreto_ley_por_el_que_se_declara_la_ciudad_de_la_paz_djibloho_capital_de_la_republica_de_guinea_ecuatorial",
+      "supports": "Official 2 January 2026 decree establishing Ciudad de la Paz as the legal capital, with a one-year period for government institutions to relocate.",
+      "accessed": "2026-11-14"
+    },
+    "INDONESIA_CAPITAL_STATUS": {
+      "title": "Indonesia Constitutional Court — October 2026 decision confirms the Presidential Decree for capital transfer had not been issued",
+      "url": "https://en.mkri.id/news/details/2026-10-29/Court_Declares_IKN_Law_Petition_Inadmissible",
+      "supports": "Current legal transition context for Indonesia: in its 29 October 2026 decision, the Constitutional Court discussed the absence of the required Presidential Decree and the continuing preparation for the transfer to Nusantara.",
+      "accessed": "2026-11-14"
+    },
+    "ANTARCTIC_TREATY": {
+      "title": "Antarctic Treaty Secretariat — The Antarctic Treaty",
+      "url": "https://www.ats.aq/e/antarctictreaty.html",
+      "supports": "International governance context; Antarctica is not a sovereign country and has no national capital.",
+      "accessed": "2026-11-14"
+    }
+  }
+}
