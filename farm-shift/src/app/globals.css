@@ -1,19 +1,96 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------
+   FarmShift theme
+   Tailwind v4: re-defining a built-in colour variable re-colours every
+   utility that uses it. So `stone-*`, `white`, `emerald-*` and `amber-*`
+   below restyle the WHOLE app (including components/ui, charts and
+   PlantHealthCard) without editing them.
+------------------------------------------------------------------- */
+
 :root {
-  --background: #fafaf9;
-  --foreground: #1c1917;
+  --background: #f4f1e6; /* paper / dried rice straw */
+  --foreground: #1b2a21; /* deep leaf-black */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+@theme {
+  /* surfaces: warm white instead of stark #fff */
+  --color-white: #fffdf7;
+
+  /* neutrals: olive-tinted instead of grey */
+  --color-stone-50: #f8f6ee;
+  --color-stone-100: #efece0;
+  --color-stone-200: #e0dccb;
+  --color-stone-300: #ccc7b0;
+  --color-stone-400: #a29d86;
+  --color-stone-500: #7a765f;
+  --color-stone-600: #5c5a47;
+  --color-stone-700: #44433a;
+  --color-stone-800: #2d2e27;
+  --color-stone-900: #1b2a21;
+  --color-stone-950: #0f1712;
+
+  /* primary: paddy green (deeper and calmer than default emerald) */
+  --color-emerald-50: #eef7ef;
+  --color-emerald-100: #d6ecda;
+  --color-emerald-200: #aedbb8;
+  --color-emerald-300: #7ec493;
+  --color-emerald-400: #4ea66e;
+  --color-emerald-500: #2f8b54;
+  --color-emerald-600: #1f7245;
+  --color-emerald-700: #195b38;
+  --color-emerald-800: #154a2f;
+  --color-emerald-900: #113c27;
+  --color-emerald-950: #082519;
+
+  /* accent: ripe-rice gold */
+  --color-amber-50: #fff9e7;
+  --color-amber-100: #fdefc2;
+  --color-amber-200: #f9de88;
+  --color-amber-300: #f2c953;
+  --color-amber-400: #e6b02d;
+  --color-amber-500: #cc9418;
+  --color-amber-600: #a67312;
+  --color-amber-700: #7f5611;
+  --color-amber-800: #5e4012;
+  --color-amber-900: #3e2b0e;
+}
+
+html {
+  background: var(--background);
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  background:
+    radial-gradient(1100px 520px at 85% -8%, rgba(242, 201, 83, 0.14), transparent 60%),
+    radial-gradient(900px 480px at -5% 12%, rgba(47, 139, 84, 0.1), transparent 55%),
+    var(--background);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: #aedbb8;
+  color: #082519;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+/* slim, tinted scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #ccc7b0 transparent;
 }
