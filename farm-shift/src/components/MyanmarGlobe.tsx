@@ -24,6 +24,8 @@ import { feature } from "topojson-client";
 type Coords = { lat: number; lon: number };
 type Ring = number[][];
 type Poly = Ring[];
+/** A farmer's field shown as a dot on the globe (lat/lon = centre of the zone). */
+export type GlobeZone = { id: string; lat: number; lon: number; mine: boolean; title: string; detail: string };
 export type City = { name: string; role: string; lat: number; lon: number };
 export type Region = {
   id: string;
@@ -162,6 +164,7 @@ function makeLabel(text: string, color: string, width: number, centered = false,
 
 type Api = {
   setPin: (c: Coords | null) => void;
+  setZones: (z: GlobeZone[]) => void;
   flyTo: (lat: number, lon: number, d: number) => void;
   select: (id: string | null, fly?: boolean) => void;
   regionIdAt: (lat: number, lon: number) => string | null;
@@ -173,11 +176,13 @@ export default function MyanmarGlobe({
   onPick,
   cities = [],
   onRegionChange,
+  zones = [],
 }: {
   value: Coords | null;
   onPick: (lat: number, lon: number) => void;
   cities?: City[];
   onRegionChange?: (region: Region | null) => void;
+  zones?: GlobeZone[];
 }) {
   const host = useRef<HTMLDivElement>(null);
   const tipRef = useRef<HTMLDivElement>(null);
@@ -297,6 +302,50 @@ export default function MyanmarGlobe({
       return { g, lat: c.lat, lon: c.lon, region: null as string | null };
     });
 
+    /* ---- farmers' fields: green = mine, brown = other farmers ---- */
+    type ZObj = { g: THREE.Group; z: GlobeZone; region?: string | null };
+    let zoneObjs: ZObj[] = [];
+    const clearZones = () => {
+      for (const o of zoneObjs) {
+        scene.remove(o.g);
+        const k = scalables.indexOf(o.g);
+        if (k >= 0) scalables.splice(k, 1);
+        o.g.traverse((c: any) => { c.geometry?.dispose?.(); c.material?.dispose?.(); });
+      }
+      zoneObjs = [];
+    };
+    const setZones = (zs: GlobeZone[]) => {
+      clearZones();
+      for (const z of zs) {
+        const g = new THREE.Group();
+        const ring = new THREE.Mesh(new THREE.SphereGeometry(0.0125, 16, 16), new THREE.MeshBasicMaterial({ color: "#ffffff" }));
+        const dot = new THREE.Mesh(new THREE.SphereGeometry(0.0095, 16, 16), new THREE.MeshBasicMaterial({ color: z.mine ? "#16a34a" : "#92400e" }));
+        dot.position.y = 0;
+        g.add(ring, dot);
+        g.position.copy(toVec3(z.lat, z.lon, 1.005));
+        g.userData.base = new THREE.Vector3(1, 1, 1);
+        g.userData.zid = z.id;
+        scene.add(g);
+        scalables.push(g);
+        zoneObjs.push({ g, z });
+      }
+      applyStyle();
+    };
+    const zoneAt = (cx: number, cy: number): GlobeZone | null => {
+      const vis = zoneObjs.filter((o) => o.g.visible);
+      if (!vis.length) return null;
+      const r = renderer.domElement.getBoundingClientRect();
+      ndc.set(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+      ray.setFromCamera(ndc, camera);
+      const hit = ray.intersectObjects(vis.map((o) => o.g), true)[0];
+      if (!hit) return null;
+      const earth = ray.intersectObject(globe, false)[0]; // ignore dots on the far side
+      if (earth && hit.distance > earth.distance + 0.02) return null;
+      let n: THREE.Object3D | null = hit.object;
+      while (n && n.userData.zid === undefined) n = n.parent;
+      return zoneObjs.find((o) => o.g === n)?.z ?? null;
+    };
+
     /* ---- region objects (filled after data loads) ---- */
     type RObj = { fill: THREE.Mesh; fillMat: THREE.MeshBasicMaterial; lines: THREE.Group; lineMat: LineMaterial; label: THREE.Sprite };
     const robjs = new Map<string, RObj>();
@@ -318,6 +367,10 @@ export default function MyanmarGlobe({
         o.lineMat.linewidth = focused ? 2.6 : 1.3;
       });
       cityObjs.forEach((c) => (c.g.visible = !s || c.region === s));
+      for (const o of zoneObjs) {
+        if (o.region === undefined && list.length) o.region = regionAt(list, o.z.lat, o.z.lon)?.id ?? null;
+        o.g.visible = !s || o.region === s;
+      }
       globeMat.map = s ? null : worldTex;
       globeMat.color.set(s ? COLORS.ocean : 0xffffff);
       globeMat.needsUpdate = true;
@@ -355,6 +408,7 @@ export default function MyanmarGlobe({
 
     api.current = {
       setPin,
+      setZones,
       flyTo,
       select,
       regionIdAt: (lat, lon) => regionAt(list, lat, lon)?.id ?? null,
@@ -399,6 +453,11 @@ export default function MyanmarGlobe({
     const onUp = (e: PointerEvent) => {
       if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 5) return;
       down = null;
+      const zh = zoneAt(e.clientX, e.clientY);
+      if (zh) {
+        showHint(`${zh.title} · ${zh.detail}`);
+        return;
+      }
       const p = groundPoint(e.clientX, e.clientY);
       if (!p || !list.length) return;
       const r = regionAt(list, p.lat, p.lon);
@@ -426,6 +485,7 @@ export default function MyanmarGlobe({
         const p = groundPoint(clientX, clientY);
         const r = p ? regionAt(list, p.lat, p.lon) : null;
         const s = selRef.current;
+        const zh = zoneAt(clientX, clientY);
         dom.style.cursor = s ? (r?.id === s ? "crosshair" : "grab") : r ? "pointer" : "grab";
         const nextHover = !s && r ? r.id : null;
         if (nextHover !== hoverId) {
@@ -433,7 +493,13 @@ export default function MyanmarGlobe({
           applyStyle();
         }
         if (tip) {
-          if (nextHover && r) {
+          if (zh) {
+            const box = el.getBoundingClientRect();
+            tip.textContent = `${zh.title} · ${zh.detail}`;
+            tip.style.transform = `translate(${clientX - box.left + 14}px, ${clientY - box.top + 14}px)`;
+            tip.style.opacity = "1";
+            dom.style.cursor = "pointer";
+          } else if (nextHover && r) {
             const box = el.getBoundingClientRect();
             tip.textContent = r.label;
             tip.style.transform = `translate(${clientX - box.left + 14}px, ${clientY - box.top + 14}px)`;
@@ -611,6 +677,11 @@ export default function MyanmarGlobe({
     };
   }, []);
 
+  // show every farmer's field on the globe
+  useEffect(() => {
+    if (ready) api.current?.setZones(zones);
+  }, [ready, zones]);
+
   // keep pin + focused region in sync with `value`
   useEffect(() => {
     const a = api.current;
@@ -651,6 +722,14 @@ export default function MyanmarGlobe({
           </div>
         )}
       </div>
+
+      {zones.length > 0 && (
+        <p className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-stone-600">
+          <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-green-600 ring-2 ring-white" /> My plants ({zones.filter((z) => z.mine).length})</span>
+          <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-amber-800 ring-2 ring-white" /> Other farmers ({zones.filter((z) => !z.mine).length})</span>
+          <span className="text-stone-500">Tap a dot to see the plant</span>
+        </p>
+      )}
 
       {ready && (
         <div className="mt-4">

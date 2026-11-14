@@ -2,7 +2,7 @@
 import type { ReactNode } from "react";
 import type { PlantHealthResult, Reliability, StressKind } from "@/types/plantHealth";
 import { Card } from "@/components/ui";
-import PlantScene from "@/components/PlantScene";
+import PlantScene, { type OwnPlant } from "@/components/PlantScene";
 import { shortDate } from "@/lib/format";
 
 const MARKER: Record<StressKind, { dot: string; name: string }> = {
@@ -24,10 +24,10 @@ export function Tag({ r }: { r: Reliability }) {
   );
 }
 
-export default function PlantHealthCard({ analysis, badge }: { analysis: PlantHealthResult | null | undefined; badge?: ReactNode }) {
+export default function PlantHealthCard({ analysis, badge, own, title }: { analysis: PlantHealthResult | null | undefined; badge?: ReactNode; own?: OwnPlant; title?: string }) {
   if (!analysis) {
     return (
-      <Card title="Your plants" subtitle="How your crop and field water are doing" icon={2} badge={badge}>
+      <Card title={title ?? "Your plants"} subtitle="How your crop and field water are doing" icon={2} badge={badge}>
         <div className="grid h-32 place-items-center rounded-2xl border-2 border-dashed border-stone-200 px-4 text-center text-base text-stone-500">
           Plant data is not available.
         </div>
@@ -51,12 +51,12 @@ export default function PlantHealthCard({ analysis, badge }: { analysis: PlantHe
   const dips = a.dips.filter((d) => d.phase === "in_season").slice(0, 3);
 
   return (
-    <Card title="Your plants" subtitle="Slide through the season to see how your crop grows" icon={2} badge={badge}>
+    <Card title={title ?? "Your plants"} subtitle="Slide through the season to see how your crop grows" icon={2} badge={badge}>
       <p className="rounded-2xl bg-emerald-50 px-5 py-4 text-lg leading-relaxed text-emerald-950 ring-1 ring-emerald-200">{a.summary.text}</p>
 
       {a.water.series.length > 0 && (
         <div className="mt-5">
-          <PlantScene key={`${a.period?.start}-${a.period?.end}-${a.ndvi.count}-${a.ndvi.peak?.value ?? "x"}-${a.water.rain.seasonTotalMm ?? "x"}`} a={a} />
+          <PlantScene own={own} key={`${own?.plantedOn ?? ""}-${a.period?.start}-${a.period?.end}-${a.ndvi.count}-${a.ndvi.peak?.value ?? "x"}-${a.water.rain.seasonTotalMm ?? "x"}`} a={a} />
         </div>
       )}
 

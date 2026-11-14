@@ -1,10 +1,15 @@
 "use client";
-import { useEffect, useState } from "react";
-import type { ApiResponse, Evaluation, EnvironmentPayload, ScenarioResponse } from "@/types/dashboard";
-import type { PlantHealthResult } from "@/types/plantHealth";
+import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
+import type { ApiResponse, Evaluation, EnvironmentPayload } from "@/types/dashboard";
 import { Card, Icon, Skeleton, toneFor } from "@/components/ui";
-import PlantHealthCard from "@/components/PlantHealthCard";
-import MyanmarGlobe from "@/components/MyanmarGlobe";
+import MyanmarGlobe, { type GlobeZone, type Region } from "@/components/MyanmarGlobe";
+import FieldStatus from "./fieldStatus";
+import { listAllZones, type PublicPlot } from "@/app/api/environment/plantsApi";
+import { pointInZone } from "@/components/ZoneOverlap";
+import { growth } from "@/types/cropingInfo";
+import { AuthModal } from "@/components/AuthModal";
+import { useAuth } from "@/lib/AuthContext";
 import { MYANMAR_CITIES } from "@/lib/myanmarCountry";
 import { avg, fmt, isNum, powerPoints, shortDate, sum } from "@/lib/format";
 
@@ -29,30 +34,39 @@ const chip = (active: boolean) =>
   }`;
 
 export default function Home() {
+  const { user, setUser, signOut } = useAuth();
+  const [authOpen, setAuthOpen] = useState(false);
+
   const [coords, setCoords] = useState<Coords | null>(null);
   const [res, setRes] = useState<ApiResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [nonce, setNonce] = useState(0);
   const [geoMsg, setGeoMsg] = useState<string | null>(null);
+  const [region, setRegion] = useState<Region | null>(null);
+  const [taken, setTaken] = useState<PublicPlot[]>([]); // every farmer's growing zone
+  const [sharedOk, setSharedOk] = useState(true);
 
+  // reload who owns what whenever the user logs in or picks a new place
   useEffect(() => {
-    if (!coords) return;
-    const ctrl = new AbortController();
-    fetch(`/api/environment?lat=${coords.lat}&lon=${coords.lon}`, { signal: ctrl.signal })
-      .then((r) => r.json())
-      .then((j: ApiResponse) => { setRes(j); setLoading(false); })
-      .catch((e) => {
-        if (e.name === "AbortError") return;
-        setRes({ success: false, error: "Could not reach the server. Is `npm run dev` running?" });
-        setLoading(false);
-      });
-    return () => ctrl.abort();
-  }, [coords, nonce]);
+    if (!user) { setTaken([]); return; }
+    listAllZones().then((r) => { setTaken(r.plots); setSharedOk(r.sharedOk); }).catch(() => setTaken([]));
+  }, [user, coords]);
+
+  // every farmer's field as a dot on the globe (green = mine)
+  const globeZones = useMemo<GlobeZone[]>(
+    () => taken.map((t) => ({ id: t.id, lat: t.lat, lon: t.lon, mine: t.is_mine, title: `${t.plant} · ${t.is_mine ? "You" : t.owner}`, detail: growth(t.plant, t.planted_on).stage })),
+    [taken],
+  );
 
   const setPin = (lat: number, lon: number) => {
     const c = { lat: round4(lat), lon: round4(normLon(lon)) };
     if (!inMyanmar(c)) {
       setGeoMsg("That spot is outside Myanmar. Only Myanmar is supported.");
+      return;
+    }
+    const owner = taken.find((t) => pointInZone([c.lat, c.lon], t.zone));
+    if (owner) {
+      setGeoMsg(`This place is already used by ${owner.is_mine ? "you" : owner.owner} (${owner.plant}). Pick a free spot.`);
       return;
     }
     setCoords(c);
@@ -75,10 +89,31 @@ export default function Home() {
       {/* simple header */}
       <header className="bg-emerald-700 text-white">
         <div className="mx-auto max-w-4xl px-5 py-8">
-          <div className="flex items-center gap-2.5">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-white text-emerald-700"><Icon name="leaf" className="h-6 w-6" /></span>
-            <span className="text-xl font-bold">FarmShift</span>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-white text-emerald-700"><Icon name="leaf" className="h-6 w-6" /></span>
+              <span className="text-xl font-bold">FarmShift</span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Link href="/my-plants" className="rounded-full bg-white/15 px-4 py-2 text-sm font-semibold hover:bg-white/25">
+                My plants
+              </Link>
+              {user ? (
+                <>
+                  <span className="text-sm font-medium">Hi, {user.username}</span>
+                  <button onClick={signOut} className="rounded-full bg-white/15 px-4 py-2 text-sm font-semibold hover:bg-white/25">
+                    Log out
+                  </button>
+                </>
+              ) : (
+                <button onClick={() => setAuthOpen(true)} className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-emerald-800 hover:bg-emerald-50">
+                  Log in / Register
+                </button>
+              )}
+            </div>
           </div>
+
           <h1 className="mt-6 text-3xl font-extrabold leading-tight md:text-4xl">Is your rice field ready for black gram?</h1>
           <p className="mt-2 text-lg text-emerald-50/90">Tap your farm on the map. We tell you in plain words.</p>
         </div>
@@ -102,8 +137,13 @@ export default function Home() {
             </button>
           </div>
 
-          <MyanmarGlobe value={coords} onPick={setPin} cities={MYANMAR_CITIES} />
+          <MyanmarGlobe value={coords} onPick={setPin} cities={MYANMAR_CITIES} onRegionChange={setRegion} zones={globeZones} />
 
+          {user && !sharedOk && (
+            <p className="mt-3 rounded-xl bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-800 ring-1 ring-amber-200">
+              Other farmers' fields are not available yet. Only your own plants are shown. (Run zone_overlap.sql and fix list_public_plots in Supabase.)
+            </p>
+          )}
           {geoMsg && <p className="mt-3 rounded-xl bg-amber-50 px-4 py-2.5 text-base font-medium text-amber-800 ring-1 ring-amber-200">{geoMsg}</p>}
         </Card>
 
@@ -112,6 +152,8 @@ export default function Home() {
             Drop a pin on the map to see your result.
           </p>
         )}
+
+        <FieldStatus coords={coords} regionName={region?.name ?? null} onLoginClick={() => setAuthOpen(true)} />
 
         {loading && <LoadingState />}
 
@@ -130,17 +172,17 @@ export default function Home() {
             <FarmFacts ev={res.evaluation} env={res.environment} />
           </>
         )}
-
-        <PlantSection
-          live={res?.success ? res.evaluation.module4_vegetation?.analysis ?? null : null}
-          liveLoading={loading}
-          hasPin={!!coords}
-        />
       </div>
 
       <footer className="bg-stone-800 px-5 py-6 text-center text-sm text-stone-400">
         Temperature and rain are live from NASA. Soil water and plant colour are estimates in this prototype.
       </footer>
+
+      <AuthModal
+        isOpen={authOpen}
+        onClose={() => setAuthOpen(false)}
+        onSuccess={(u) => setUser(u)}
+      />
     </main>
   );
 }
@@ -325,65 +367,5 @@ function FarmFacts({ ev, env }: { ev: Evaluation; env: EnvironmentPayload }) {
         />
       </div>
     </Card>
-  );
-}
-
-/* ---------------- plant health (live pin or sample seasons) ---------------- */
-type Source = "live" | "A" | "B" | "C";
-const SCENARIOS: { id: Exclude<Source, "live">; label: string }[] = [
-  { id: "A", label: "Good season" },
-  { id: "B", label: "Stress season" },
-  { id: "C", label: "Data missing" },
-];
-
-function PlantSection({ live, liveLoading, hasPin }: { live: PlantHealthResult | null; liveLoading: boolean; hasPin: boolean }) {
-  const [source, setSource] = useState<Source>("live");
-  const [scn, setScn] = useState<PlantHealthResult | null>(null);
-  const [err, setErr] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  const [currentUser, setCurrentUser] = useState<string | null>(null);
-
-  useEffect(() => {
-    setScn(null); setErr(null);
-    if (source === "live") return;
-    const ctrl = new AbortController();
-    fetch(`/api/scenario?id=${source}`, { signal: ctrl.signal })
-      .then((r) => r.json())
-      .then((j: ScenarioResponse) => (j.success ? setScn(j.analysis) : setErr(j.error)))
-      .catch((e) => { if (e.name !== "AbortError") setErr("Could not load the sample season."); });
-    return () => ctrl.abort();
-  }, [source]);
-
-  const analysis = source === "live" ? live : scn;
-  const busy = source === "live" ? liveLoading : !scn && !err;
-  const badge = source === "live" ? null : (
-    <span className="shrink-0 rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-700 ring-1 ring-amber-200">Sample season</span>
-  );
-
-  return (
-    <section className="space-y-4">
-      {err ? (
-        <div className="rounded-3xl border border-red-200 bg-red-50 p-5 text-base text-red-700">{err}</div>
-      ) : source === "live" && !hasPin ? (
-        <p className="rounded-3xl border-2 border-dashed border-emerald-300 bg-emerald-50/70 px-4 py-8 text-center text-lg font-medium text-emerald-900/80">
-          Drop a pin, or try a sample season below, to see your plants in 3D.
-        </p>
-      ) : busy ? (
-        <Skeleton className="h-96" />
-      ) : (
-        <PlantHealthCard analysis={analysis} badge={badge} />
-      )}
-
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="text-sm font-medium text-stone-500">Demo:</span>
-        <button onClick={() => setSource("live")} className={chip(source === "live")}>My farm</button>
-        {SCENARIOS.map((o) => (
-          <button key={o.id} onClick={() => setSource(o.id)} className={chip(source === o.id)}>{o.label}</button>
-        ))}
-      </div>
-    </section>
-
-      
-
   );
 }

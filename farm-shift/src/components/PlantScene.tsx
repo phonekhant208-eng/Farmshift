@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import type { PlantHealthResult, StressKind } from "@/types/plantHealth";
+import type { CropStage, PlantHealthResult, StressKind } from "@/types/plantHealth";
 import { shortDate } from "@/lib/format";
 
 /* ------------------------------- colour helpers ------------------------------ */
@@ -44,6 +44,11 @@ const GROWTH: Record<string, [number, number]> = {
 
 const greenWord = (v: number | null) => (v === null ? "No reading" : v >= 0.6 ? "Very green" : v >= 0.4 ? "Green" : v >= 0.25 ? "Light green" : "Pale / bare");
 
+/** The farmer's own plant: drives the 3D picture from the planting date instead of the fixed rice calendar. */
+export type OwnPlant = { plant: string; plantedOn: string; totalDays?: number | null };
+const isCereal = (p: string) => /rice|paddy|maize|corn|wheat|millet|sorghum|barley|sugarcane/i.test(p);
+const OWN_LABEL: Record<string, string> = { plant: "Seedling", grow: "Growing", flower: "Flowering", fill: "Filling / ripening", harvest: "Ready to harvest" };
+
 /* ------------------------------ values for one day ----------------------------- */
 type Viz = {
   sky: string; heat: boolean; heavy: boolean; rainLevel: number; waterH: number;
@@ -52,7 +57,7 @@ type Viz = {
   stubble: boolean; flowering: boolean; ripe: boolean;
 };
 
-function derive(a: PlantHealthResult, idx: number) {
+function derive(a: PlantHealthResult, idx: number, own?: OwnPlant) {
   const series = a.water.series;
   const n = series.length;
   if (!n) return null;
@@ -60,7 +65,7 @@ function derive(a: PlantHealthResult, idx: number) {
   const day = series[i];
   const date = day.date;
 
-  const stage = a.stages.find((s) => s.start <= date && s.end >= date) ?? null;
+  let stage: CropStage | null = a.stages.find((s) => s.start <= date && s.end >= date) ?? null;
   const obs = a.ndvi.observations;
   let oi = -1;
   obs.forEach((o, k) => { if (o.date <= date) oi = k; });
@@ -84,7 +89,24 @@ function derive(a: PlantHealthResult, idx: number) {
     const span = Math.max(1, daysBetween(stage.start, stage.end));
     g = g0 + (g1 - g0) * Math.min(1, daysBetween(stage.start, date) / span);
   }
-  const crop = stage?.crop === "rice" ? "rice" : stage?.crop === "black_gram" ? "bg" : null;
+  let crop: "rice" | "bg" | null = stage?.crop === "rice" ? "rice" : stage?.crop === "black_gram" ? "bg" : null;
+  let ownFlag: { flowering: boolean; ripe: boolean } | null = null;
+  if (own) {
+    const lastDay = a.water.series[a.water.series.length - 1].date;
+    const planted = own.plantedOn > lastDay ? lastDay : own.plantedOn; // just planted: show the seedling on the latest day
+    const since = daysBetween(planted, date);
+    const total = own.totalDays && own.totalDays > 0 ? own.totalDays : 110;
+    if (since < 0) {
+      g = 0; crop = null; ownFlag = { flowering: false, ripe: false };
+      stage = { id: "none", label: "Not planted yet", crop: "prep", start: date, end: date, reliability: "Assumption" };
+    } else {
+      g = Math.min(1, since / total);
+      crop = isCereal(own.plant) ? "rice" : "bg";
+      const id = g < 0.15 ? "plant" : g < 0.55 ? "grow" : g < 0.75 ? "flower" : g < 1 ? "fill" : "harvest";
+      ownFlag = { flowering: id === "flower", ripe: id === "fill" || id === "harvest" };
+      stage = { id, label: OWN_LABEL[id], crop: "rice", start: date, end: date, reliability: "Assumption" };
+    }
+  }
   const flood = has("flood");
   const heat = has("heat");
   const heavy = has("heavy_rain") || flood || (rainToday ?? 0) >= 50;
@@ -103,9 +125,9 @@ function derive(a: PlantHealthResult, idx: number) {
     crop, g,
     leaf: ndvi ? ndviColor(ndvi.value) : "#c9c4b0",
     grain: stage?.id === "flower" ? "#dfe9a6" : stage?.id === "fill" ? "#cdc34a" : "#d9a521",
-    stubble: stage?.id === "prep",
-    flowering: stage?.id === "flower",
-    ripe: stage?.id === "fill" || stage?.id === "harvest",
+    stubble: !own && stage?.id === "prep",
+    flowering: ownFlag ? ownFlag.flowering : stage?.id === "flower",
+    ripe: ownFlag ? ownFlag.ripe : stage?.id === "fill" || stage?.id === "harvest",
   };
   return { date, stage, ndvi, age, delta, rain3, rainToday, m, mRoot, active, heat, viz };
 }
@@ -240,9 +262,10 @@ function buildRoots(g: number): THREE.Group {
 }
 
 /* --------------------------------- component -------------------------------- */
-export default function PlantScene({ a, onDate }: { a: PlantHealthResult; onDate?: (d: string) => void }) {
+export default function PlantScene({ a, onDate, own }: { a: PlantHealthResult; onDate?: (d: string) => void; own?: OwnPlant }) {
   const n = a.water.series.length;
   const [idx, setIdx] = useState(() => {
+    if (own) return Math.max(0, a.water.series.length - 1); // start on the latest day
     const p = a.ndvi.peak?.date;
     const i = p ? a.water.series.findIndex((s) => s.date === p) : 0;
     return Math.max(0, i);
@@ -252,7 +275,7 @@ export default function PlantScene({ a, onDate }: { a: PlantHealthResult; onDate
   const mountRef = useRef<HTMLDivElement>(null);
   const apiRef = useRef<{ update: (v: Viz) => void } | null>(null);
 
-  const d = derive(a, idx);
+  const d = derive(a, idx, own);
   const vizKey = d ? JSON.stringify(d.viz) : "";
 
   /* play the season */
@@ -483,7 +506,7 @@ export default function PlantScene({ a, onDate }: { a: PlantHealthResult; onDate
         <div>
           <h3 className="text-lg font-bold text-stone-900">Your field on {shortDate(d.date)}</h3>
           <p className="text-sm text-stone-500">
-            {stage ? stage.label : "Outside the crop calendar"}{viz.crop === "rice" ? " · rice" : viz.crop === "bg" ? " · black gram" : ""}
+            {stage ? stage.label : "Outside the crop calendar"}{own ? ` · ${own.plant}` : viz.crop === "rice" ? " · rice" : viz.crop === "bg" ? " · black gram" : ""}
           </p>
         </div>
         <div className="flex flex-wrap gap-1.5">
@@ -527,7 +550,7 @@ export default function PlantScene({ a, onDate }: { a: PlantHealthResult; onDate
       </div>
       <div className="mt-1 flex justify-between text-xs text-stone-500"><span>{shortDate(series[0].date)}</span><span>{shortDate(series[n - 1].date)}</span></div>
 
-      <div className="mt-2 flex flex-wrap gap-2">
+      {!own && <div className="mt-2 flex flex-wrap gap-2">
         {a.stages.filter((s) => s.id !== "grow" && s.id !== "fill" && series.some((p) => p.date === s.start)).map((s) => (
           <button
             key={s.id}
@@ -537,7 +560,7 @@ export default function PlantScene({ a, onDate }: { a: PlantHealthResult; onDate
             {s.label}
           </button>
         ))}
-      </div>
+      </div>}
 
       {/* plain-language readout */}
       <dl className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">

@@ -1,0 +1,863 @@
+{
+  "metadata": {
+    "country": "Myanmar",
+    "version": "1.0-final",
+    "covers_all_15_administrative_areas": true,
+    "total_administrative_areas": 15,
+    "administrative_structure": "7 Regions + 7 States + Naypyidaw Union Territory",
+    "plants_per_region": 5,
+    "agricultural_cycles_per_region": 3,
+    "included_areas": [
+      "Kachin State",
+      "Kayah State",
+      "Kayin State",
+      "Chin State",
+      "Magway Region",
+      "Mandalay Region",
+      "Naypyidaw Union Territory",
+      "Mon State",
+      "Rakhine State",
+      "Shan State",
+      "Ayeyarwady Region",
+      "Bago Region",
+      "Yangon Region",
+      "Sagaing Region",
+      "Tanintharyi Region"
+    ],
+    "purpose": "Five recommended plants and three agricultural crop-cycle/rotation options for each of Myanmar’s 15 first-level administrative areas.",
+    "how_to_use": "Choose a crop cycle based on local rainfall, irrigation, soil test results, elevation, market access, and security conditions. Rotating cereals with pulses can improve soil fertility and reduce continuous-cropping risks.",
+    "suitability_scale": {
+      "Very High": "Widely suitable and commonly important",
+      "High": "Generally suitable with good management",
+      "Medium-High": "Suitable under favorable local conditions",
+      "Medium": "Possible with specific management or site conditions"
+    }
+  },
+  "regions": [
+    {
+      "region": "Kachin State",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "High",
+          "reason": "River plains and rainfall support staple rice.",
+          "farmer_tip": "Use certified seed, timely planting, weed control, and balanced fertilizer."
+        },
+        {
+          "plant": "Maize",
+          "suitability": "High",
+          "reason": "Reliable food, feed, and cash crop in valley and upland areas.",
+          "farmer_tip": "Plant in rows after adequate soil moisture; control weeds early."
+        },
+        {
+          "plant": "Tea",
+          "suitability": "Medium-High",
+          "reason": "Cooler, well-drained highlands support tea as a long-term cash crop.",
+          "farmer_tip": "Use shade, mulching, pruning, and erosion control."
+        },
+        {
+          "plant": "Coffee",
+          "suitability": "Medium",
+          "reason": "Suitable highland sites can support arabica coffee.",
+          "farmer_tip": "Use shade trees, mulch, and protect young plants from drought."
+        },
+        {
+          "plant": "Vegetables",
+          "suitability": "High",
+          "reason": "Fast-growing crops provide cash income where water and market access exist.",
+          "farmer_tip": "Use raised beds in wet areas and integrated pest management."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Maize Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Maize (winter/summer, where water allows)",
+          "benefit": "Uses land across seasons and diversifies income.",
+          "farmer_tip": "Plant maize only where residual moisture or irrigation is reliable."
+        },
+        {
+          "cycle_name": "Rice-Pulse Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Pulses such as black gram or green gram (post-monsoon)",
+          "benefit": "Pulses improve soil nitrogen and provide cash income.",
+          "farmer_tip": "Use residual moisture or limited irrigation; avoid waterlogging."
+        },
+        {
+          "cycle_name": "Maize-Legume Rotation",
+          "sequence": "Maize (monsoon) → Cowpea, soybean, or other legume (post-monsoon)",
+          "benefit": "Legumes improve soil fertility and reduce continuous cereal cropping.",
+          "farmer_tip": "Return crop residues to the soil as compost or mulch where possible."
+        }
+      ]
+    },
+    {
+      "region": "Kayah State",
+      "five_recommended_plants": [
+        {
+          "plant": "Upland Rice",
+          "suitability": "High",
+          "reason": "Important rain-fed staple adapted to hilly conditions.",
+          "farmer_tip": "Use locally adapted varieties and rotate with legumes."
+        },
+        {
+          "plant": "Maize",
+          "suitability": "High",
+          "reason": "Dependable cereal for food, feed, and cash income.",
+          "farmer_tip": "Use row planting, timely weeding, and drought-tolerant varieties."
+        },
+        {
+          "plant": "Vegetables",
+          "suitability": "Medium-High",
+          "reason": "Highland vegetables provide faster cash income.",
+          "farmer_tip": "Use compost, mulching, and integrated pest management."
+        },
+        {
+          "plant": "Sesame",
+          "suitability": "Medium",
+          "reason": "Oilseed option on well-drained land.",
+          "farmer_tip": "Avoid waterlogging and sow at the correct soil moisture."
+        },
+        {
+          "plant": "Groundnut",
+          "suitability": "Medium",
+          "reason": "Provides food, oil, and cash income on suitable well-drained soils.",
+          "farmer_tip": "Rotate with cereals and harvest before excessive rain damages pods."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Upland Rice-Pulse Rotation",
+          "sequence": "Upland Rice (monsoon) → Cowpea, black gram, or green gram (post-monsoon)",
+          "benefit": "Improves soil fertility and household nutrition.",
+          "farmer_tip": "Use legume residues as mulch or compost."
+        },
+        {
+          "cycle_name": "Maize-Legume Rotation",
+          "sequence": "Maize (monsoon) → Soybean, cowpea, or beans (post-monsoon)",
+          "benefit": "Reduces continuous maize cropping and improves soil nitrogen.",
+          "farmer_tip": "Choose legumes suited to local rainfall and market demand."
+        },
+        {
+          "cycle_name": "Maize-Vegetable Rotation",
+          "sequence": "Maize (monsoon) → Vegetables (cool season, where water is available)",
+          "benefit": "Provides staple food plus higher-value cash income.",
+          "farmer_tip": "Use raised beds and drip irrigation where water is limited."
+        }
+      ]
+    },
+    {
+      "region": "Kayin State",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "High",
+          "reason": "Monsoon lowlands and river plains support paddy rice.",
+          "farmer_tip": "Maintain bunds and drainage; use flood-tolerant varieties where needed."
+        },
+        {
+          "plant": "Rubber",
+          "suitability": "High",
+          "reason": "Humid, well-drained uplands support long-term rubber income.",
+          "farmer_tip": "Avoid waterlogged sites and use sustainable tapping."
+        },
+        {
+          "plant": "Vegetables",
+          "suitability": "High",
+          "reason": "Year-round production is possible where water and market access exist.",
+          "farmer_tip": "Use raised beds in wet areas and harvest early."
+        },
+        {
+          "plant": "Maize",
+          "suitability": "Medium-High",
+          "reason": "Useful cereal in suitable upland and well-drained areas.",
+          "farmer_tip": "Avoid poorly drained fields; control weeds early."
+        },
+        {
+          "plant": "Coconut",
+          "suitability": "Medium-High",
+          "reason": "Coastal and humid conditions support coconut production.",
+          "farmer_tip": "Use mulch and intercropping during early growth."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Pulse Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Black gram, green gram, or chickpea (post-monsoon)",
+          "benefit": "Adds cash income and improves soil fertility after rice.",
+          "farmer_tip": "Use residual moisture or limited irrigation."
+        },
+        {
+          "cycle_name": "Rice-Vegetable Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Vegetables (dry season, where water allows)",
+          "benefit": "Provides staple food plus higher-value vegetable income.",
+          "farmer_tip": "Use raised beds and good drainage in wet areas."
+        },
+        {
+          "cycle_name": "Rubber-Intercropping System",
+          "sequence": "Young Rubber + Banana, pineapple, or vegetables (early years)",
+          "benefit": "Uses space and generates income before rubber matures.",
+          "farmer_tip": "Do not damage rubber trees; maintain food crops alongside young rubber."
+        }
+      ]
+    },
+    {
+      "region": "Chin State",
+      "five_recommended_plants": [
+        {
+          "plant": "Maize",
+          "suitability": "High",
+          "reason": "Dependable cereal for hilly, rain-fed farming.",
+          "farmer_tip": "Use timely weeding and intercrop with legumes."
+        },
+        {
+          "plant": "Upland Rice",
+          "suitability": "Medium-High",
+          "reason": "Important staple crop for upland conditions.",
+          "farmer_tip": "Use terraces or contour cultivation to reduce erosion."
+        },
+        {
+          "plant": "Coffee",
+          "suitability": "Medium",
+          "reason": "Higher elevations with shade and drainage can support arabica coffee.",
+          "farmer_tip": "Establish shade trees, mulch, and erosion control."
+        },
+        {
+          "plant": "Millet",
+          "suitability": "Medium-High",
+          "reason": "Drought-tolerant cereal suited to marginal and steep land.",
+          "farmer_tip": "Use for food and fodder; low-input option for difficult soils."
+        },
+        {
+          "plant": "Vegetables",
+          "suitability": "Medium-High",
+          "reason": "Cabbage, tomato, chili, and leafy vegetables can provide cash income.",
+          "farmer_tip": "Use compost, mulching, and pest scouting."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Maize-Legume Rotation",
+          "sequence": "Maize (monsoon) → Cowpea, beans, or soybean (post-monsoon)",
+          "benefit": "Improves soil fertility and reduces pest/disease pressure.",
+          "farmer_tip": "Use legume residues as mulch or compost."
+        },
+        {
+          "cycle_name": "Upland Rice-Pulse Rotation",
+          "sequence": "Upland Rice (monsoon) → Pulses (post-monsoon)",
+          "benefit": "Maintains food production while improving soil nitrogen.",
+          "farmer_tip": "Use short-duration varieties where rainfall is uncertain."
+        },
+        {
+          "cycle_name": "Maize-Millet Rotation",
+          "sequence": "Maize (monsoon) → Millet (following season, where conditions allow)",
+          "benefit": "Diversifies cereals and reduces reliance on one staple.",
+          "farmer_tip": "Use millet on marginal or drier plots; retain residues for soil cover."
+        }
+      ]
+    },
+    {
+      "region": "Magway Region",
+      "five_recommended_plants": [
+        {
+          "plant": "Sesame",
+          "suitability": "High",
+          "reason": "Leading dry-zone oilseed with strong market demand.",
+          "farmer_tip": "Sow at correct soil moisture; use well-drained land and early weed control."
+        },
+        {
+          "plant": "Groundnut",
+          "suitability": "High",
+          "reason": "Provides oil, food, and cash income in dry-zone soils.",
+          "farmer_tip": "Rotate with cereals and harvest before pod deterioration."
+        },
+        {
+          "plant": "Pigeon Pea",
+          "suitability": "High",
+          "reason": "Drought-tolerant pulse that improves soil nitrogen and fits rotations.",
+          "farmer_tip": "Use timely planting, weed control, and rotation with cereals/oilseeds."
+        },
+        {
+          "plant": "Cotton",
+          "suitability": "Medium-High",
+          "reason": "Important fiber and cash crop in suitable dry-zone areas.",
+          "farmer_tip": "Use good drainage and integrated pest management."
+        },
+        {
+          "plant": "Sorghum",
+          "suitability": "High",
+          "reason": "Drought-tolerant cereal for food, feed, and fodder.",
+          "farmer_tip": "Use on drier plots where rice is risky; retain residues for soil cover."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Sesame-Pulse Rotation",
+          "sequence": "Sesame (monsoon/post-monsoon) → Chickpea, pigeon pea, or black gram (following season)",
+          "benefit": "Diversifies oilseed and pulse income while improving soil fertility.",
+          "farmer_tip": "Use well-drained soil and avoid waterlogging."
+        },
+        {
+          "cycle_name": "Groundnut-Cereal Rotation",
+          "sequence": "Groundnut (monsoon/post-monsoon) → Sorghum or maize (following season)",
+          "benefit": "Groundnut helps soil fertility before a cereal crop.",
+          "farmer_tip": "Do not grow groundnut continuously on the same land."
+        },
+        {
+          "cycle_name": "Cotton-Pulse Rotation",
+          "sequence": "Cotton (monsoon) → Chickpea or other pulse (post-monsoon)",
+          "benefit": "Breaks pest cycles and adds a legume crop.",
+          "farmer_tip": "Use integrated pest management and avoid continuous cotton."
+        }
+      ]
+    },
+    {
+      "region": "Mandalay Region",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "High",
+          "reason": "Irrigated tracts support reliable paddy production.",
+          "farmer_tip": "Use controlled irrigation and avoid water stress during flowering/grain filling."
+        },
+        {
+          "plant": "Wheat",
+          "suitability": "High",
+          "reason": "Important winter cereal after rice in irrigated areas.",
+          "farmer_tip": "Plant after rice with irrigation; manage heat stress near maturity."
+        },
+        {
+          "plant": "Chickpea",
+          "suitability": "High",
+          "reason": "Strong winter pulse after rice with good market value.",
+          "farmer_tip": "Use well-drained soil and avoid excessive irrigation."
+        },
+        {
+          "plant": "Onion",
+          "suitability": "High",
+          "reason": "High-value irrigated vegetable with strong market potential.",
+          "farmer_tip": "Use raised beds, drip/furrow irrigation, and proper curing."
+        },
+        {
+          "plant": "Sesame",
+          "suitability": "High",
+          "reason": "Well suited to dry-zone conditions and provides oilseed income.",
+          "farmer_tip": "Avoid waterlogging and sow at the correct soil moisture."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Wheat Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Wheat (winter, irrigated)",
+          "benefit": "Uses irrigation and produces two major cereal crops per year.",
+          "farmer_tip": "Ensure enough irrigation water and manage heat stress near wheat maturity."
+        },
+        {
+          "cycle_name": "Rice-Chickpea Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Chickpea (winter)",
+          "benefit": "Adds a pulse crop, improves soil fertility, and diversifies income.",
+          "farmer_tip": "Use residual moisture or limited irrigation; avoid waterlogging."
+        },
+        {
+          "cycle_name": "Rice-Onion Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Onion (winter/summer, irrigated)",
+          "benefit": "Combines staple rice with a high-value vegetable.",
+          "farmer_tip": "Use raised beds, drip/furrow irrigation, and proper curing before sale."
+        }
+      ]
+    },
+    {
+      "region": "Naypyidaw Union Territory",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "High",
+          "reason": "Irrigated areas support rice as a major staple and income crop.",
+          "farmer_tip": "Use timely transplanting, balanced fertilizer, and alternate wetting and drying where water is limited."
+        },
+        {
+          "plant": "Chickpea",
+          "suitability": "High",
+          "reason": "Strong post-rice pulse for the cool, dry season.",
+          "farmer_tip": "Plant after rice with residual moisture or irrigation; avoid waterlogging."
+        },
+        {
+          "plant": "Maize",
+          "suitability": "High",
+          "reason": "Useful cereal for food, feed, and market income.",
+          "farmer_tip": "Use adapted varieties, row planting, and fall-armyworm monitoring."
+        },
+        {
+          "plant": "Tomato",
+          "suitability": "High",
+          "reason": "High-value irrigated vegetable with good market potential.",
+          "farmer_tip": "Use raised beds, drip irrigation, staking where needed, and integrated pest management."
+        },
+        {
+          "plant": "Sesame",
+          "suitability": "High",
+          "reason": "Dry-zone oilseed suited to well-drained soils.",
+          "farmer_tip": "Avoid waterlogging and sow at the correct soil moisture."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Chickpea Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Chickpea (winter)",
+          "benefit": "Adds a pulse crop, improves soil fertility, and diversifies income.",
+          "farmer_tip": "Use residual moisture or limited irrigation; avoid waterlogging."
+        },
+        {
+          "cycle_name": "Rice-Maize Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Maize (winter/summer, where water allows)",
+          "benefit": "Uses land across seasons and diversifies income.",
+          "farmer_tip": "Plant maize only where residual moisture or irrigation is reliable."
+        },
+        {
+          "cycle_name": "Rice-Tomato Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Tomato (dry season, irrigated)",
+          "benefit": "Combines staple rice with a high-value vegetable.",
+          "farmer_tip": "Use raised beds, drip irrigation, and integrated pest management."
+        }
+      ]
+    },
+    {
+      "region": "Mon State",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "High",
+          "reason": "Monsoon lowlands are highly suitable for rice.",
+          "farmer_tip": "Maintain drainage and use flood-tolerant varieties in flood-prone areas."
+        },
+        {
+          "plant": "Rubber",
+          "suitability": "High",
+          "reason": "Humid, well-drained uplands support long-term rubber income.",
+          "farmer_tip": "Avoid waterlogged sites and use sustainable tapping."
+        },
+        {
+          "plant": "Coconut",
+          "suitability": "Medium-High",
+          "reason": "Coastal/humid conditions support coconut production.",
+          "farmer_tip": "Use mulch and intercropping during establishment."
+        },
+        {
+          "plant": "Vegetables",
+          "suitability": "High",
+          "reason": "Year-round production is possible where water and drainage are adequate.",
+          "farmer_tip": "Use raised beds in wet areas and integrated pest management."
+        },
+        {
+          "plant": "Black Gram",
+          "suitability": "Medium-High",
+          "reason": "Useful post-rice pulse crop for income and soil health.",
+          "farmer_tip": "Plant after rice where residual moisture or irrigation is available."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Black Gram Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Black gram (post-monsoon)",
+          "benefit": "Adds pulse income and improves soil fertility.",
+          "farmer_tip": "Use residual moisture or limited irrigation; avoid waterlogging."
+        },
+        {
+          "cycle_name": "Rice-Vegetable Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Vegetables (dry season, where water allows)",
+          "benefit": "Provides staple food plus higher-value vegetable income.",
+          "farmer_tip": "Use raised beds and good drainage in wet areas."
+        },
+        {
+          "cycle_name": "Rubber-Intercropping System",
+          "sequence": "Young Rubber + Banana, pineapple, or vegetables (early years)",
+          "benefit": "Uses space and generates income before rubber matures.",
+          "farmer_tip": "Do not damage rubber trees; maintain food crops alongside young rubber."
+        }
+      ]
+    },
+    {
+      "region": "Rakhine State",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "High",
+          "reason": "Heavy monsoon rainfall and coastal plains support rice.",
+          "farmer_tip": "Use salt/flood-tolerant varieties in exposed areas and maintain embankments/drainage."
+        },
+        {
+          "plant": "Coconut",
+          "suitability": "High",
+          "reason": "Coastal conditions are highly suitable for coconut.",
+          "farmer_tip": "Use windbreaks, mulch, and proper planting density."
+        },
+        {
+          "plant": "Cashew",
+          "suitability": "Medium-High",
+          "reason": "Well-drained upland/coastal soils support cashew as a cash crop.",
+          "farmer_tip": "Avoid waterlogged sites; establish at the beginning of the rainy season."
+        },
+        {
+          "plant": "Black Gram",
+          "suitability": "Medium",
+          "reason": "Post-rice pulse option where drainage is adequate.",
+          "farmer_tip": "Plant after rice with residual moisture; avoid saline or flooded fields."
+        },
+        {
+          "plant": "Vegetables",
+          "suitability": "Medium-High",
+          "reason": "Vegetables can diversify income where drainage and market access allow.",
+          "farmer_tip": "Use raised beds and integrated pest management in humid conditions."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Black Gram Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Black gram (post-monsoon)",
+          "benefit": "Adds pulse income and improves soil fertility.",
+          "farmer_tip": "Use only where drainage and residual moisture are adequate."
+        },
+        {
+          "cycle_name": "Rice-Vegetable Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Vegetables (dry season, where conditions allow)",
+          "benefit": "Diversifies food production and cash income.",
+          "farmer_tip": "Use raised beds and good drainage in wet areas."
+        },
+        {
+          "cycle_name": "Coconut-Intercropping System",
+          "sequence": "Young Coconut + Banana, vegetables, or pineapple (early years)",
+          "benefit": "Uses space and generates income before coconut palms mature.",
+          "farmer_tip": "Maintain mulch and avoid damaging young palms."
+        }
+      ]
+    },
+    {
+      "region": "Shan State",
+      "five_recommended_plants": [
+        {
+          "plant": "Maize",
+          "suitability": "High",
+          "reason": "Major plateau crop with food, feed, and market value.",
+          "farmer_tip": "Use timely planting, row spacing, early weed control, and fall-armyworm monitoring."
+        },
+        {
+          "plant": "Potato",
+          "suitability": "High",
+          "reason": "Cooler highland conditions support potato production and good returns.",
+          "farmer_tip": "Use disease-free seed, well-drained soil, and crop rotation."
+        },
+        {
+          "plant": "Tea",
+          "suitability": "High",
+          "reason": "Elevation and climate support tea as a high-value perennial crop.",
+          "farmer_tip": "Maintain shade, mulching, pruning, and soil organic matter."
+        },
+        {
+          "plant": "Soybean",
+          "suitability": "High",
+          "reason": "Good rotation crop for soil fertility and market income.",
+          "farmer_tip": "Use timely planting and inoculation where available."
+        },
+        {
+          "plant": "Vegetables",
+          "suitability": "High",
+          "reason": "Cabbage, tomato, chili, cauliflower, and flowers provide high-value income.",
+          "farmer_tip": "Use drip irrigation where water is limited and scout pests weekly."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Maize-Soybean Rotation",
+          "sequence": "Maize (monsoon) → Soybean (post-monsoon/winter)",
+          "benefit": "Soybean improves soil nitrogen and reduces continuous maize cropping.",
+          "farmer_tip": "Use legume residues as mulch or compost."
+        },
+        {
+          "cycle_name": "Rice-Potato Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Potato (cool season)",
+          "benefit": "Uses cooler months for a high-value root crop after rice.",
+          "farmer_tip": "Use disease-free potato seed and well-drained soil."
+        },
+        {
+          "cycle_name": "Maize-Vegetable Rotation",
+          "sequence": "Maize (monsoon) → Vegetables (cool season, where water is available)",
+          "benefit": "Provides staple food plus high-value vegetable income.",
+          "farmer_tip": "Use drip irrigation and integrated pest management."
+        }
+      ]
+    },
+    {
+      "region": "Ayeyarwady Region",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "Very High",
+          "reason": "Myanmar’s major rice-producing delta with fertile soils and abundant water.",
+          "farmer_tip": "Use timely transplanting, balanced fertilizer, drainage management, and proper paddy drying."
+        },
+        {
+          "plant": "Black Gram",
+          "suitability": "High",
+          "reason": "Valuable post-rice pulse for income and soil health.",
+          "farmer_tip": "Plant after rice where residual moisture or irrigation is available."
+        },
+        {
+          "plant": "Groundnut",
+          "suitability": "Medium-High",
+          "reason": "Oilseed option on suitable, well-drained fields.",
+          "farmer_tip": "Rotate with rice or pulses; avoid waterlogged soil."
+        },
+        {
+          "plant": "Sugarcane",
+          "suitability": "Medium-High",
+          "reason": "Requires reliable water, drainage, and market access.",
+          "farmer_tip": "Manage ratoon crops and nutrient recycling."
+        },
+        {
+          "plant": "Coconut",
+          "suitability": "Medium-High",
+          "reason": "Delta/coastal conditions support coconut as a diversification crop.",
+          "farmer_tip": "Use mulch and intercropping during establishment."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Black Gram Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Black gram (post-monsoon)",
+          "benefit": "Adds pulse income and improves soil fertility.",
+          "farmer_tip": "Use residual moisture or irrigation; avoid waterlogging."
+        },
+        {
+          "cycle_name": "Rice-Groundnut Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Groundnut (post-monsoon, well-drained fields)",
+          "benefit": "Diversifies into oilseed production after rice.",
+          "farmer_tip": "Use well-drained fields and rotate to reduce soil-borne disease."
+        },
+        {
+          "cycle_name": "Rice-Vegetable Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Vegetables (dry season, irrigated)",
+          "benefit": "Provides staple rice plus higher-value vegetable income.",
+          "farmer_tip": "Use raised beds and good drainage in wet areas."
+        }
+      ]
+    },
+    {
+      "region": "Bago Region",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "High",
+          "reason": "Southern/delta areas are major rice-producing zones.",
+          "farmer_tip": "Use timely planting, weed control, and drainage management."
+        },
+        {
+          "plant": "Groundnut",
+          "suitability": "High",
+          "reason": "Well suited to well-drained upland and dry-zone parts.",
+          "farmer_tip": "Rotate with cereals; harvest before pod deterioration."
+        },
+        {
+          "plant": "Pigeon Pea",
+          "suitability": "High",
+          "reason": "Useful pulse for rotation, soil fertility, food, and cash income.",
+          "farmer_tip": "Use timely planting and weed control; rotate with rice, maize, or oilseeds."
+        },
+        {
+          "plant": "Maize",
+          "suitability": "Medium-High",
+          "reason": "Useful cereal in suitable upland and dry-zone areas.",
+          "farmer_tip": "Use adapted varieties and manage fall armyworm early."
+        },
+        {
+          "plant": "Vegetables",
+          "suitability": "High",
+          "reason": "High-value crops where water, drainage, and market access are available.",
+          "farmer_tip": "Use raised beds in wet areas and integrated pest management."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Pigeon Pea Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Pigeon pea (post-monsoon)",
+          "benefit": "Adds pulse income and improves soil fertility.",
+          "farmer_tip": "Use residual moisture or limited irrigation."
+        },
+        {
+          "cycle_name": "Rice-Groundnut Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Groundnut (post-monsoon, well-drained fields)",
+          "benefit": "Diversifies into oilseed production after rice.",
+          "farmer_tip": "Use well-drained fields and rotate to reduce disease."
+        },
+        {
+          "cycle_name": "Rice-Vegetable Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Vegetables (dry season, irrigated)",
+          "benefit": "Provides staple rice plus higher-value vegetable income.",
+          "farmer_tip": "Use raised beds and good drainage in wet areas."
+        }
+      ]
+    },
+    {
+      "region": "Yangon Region",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "High",
+          "reason": "Delta conditions support rice for food supply and local markets.",
+          "farmer_tip": "Use good water management and timely planting."
+        },
+        {
+          "plant": "Leafy Vegetables",
+          "suitability": "Very High",
+          "reason": "Close access to Yangon markets supports frequent vegetable production.",
+          "farmer_tip": "Use raised beds, compost, drip irrigation where possible, and harvest early morning."
+        },
+        {
+          "plant": "Banana",
+          "suitability": "High",
+          "reason": "Perennial fruit crop with steady urban market demand.",
+          "farmer_tip": "Use well-drained soil, mulching, and removal of diseased leaves."
+        },
+        {
+          "plant": "Black Gram",
+          "suitability": "Medium-High",
+          "reason": "Post-rice pulse option for rotation income.",
+          "farmer_tip": "Plant after rice where residual moisture or irrigation is available."
+        },
+        {
+          "plant": "Flowers/Ornamentals",
+          "suitability": "High",
+          "reason": "Urban market demand supports flowers and ornamental plants.",
+          "farmer_tip": "Use quality seed/seedlings, packaging, and reliable delivery."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Leafy Vegetable Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Leafy vegetables (dry season/year-round with irrigation)",
+          "benefit": "Provides staple rice plus fast-turnover vegetable income.",
+          "farmer_tip": "Use raised beds, compost, and rapid delivery to market."
+        },
+        {
+          "cycle_name": "Rice-Black Gram Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Black gram (post-monsoon)",
+          "benefit": "Adds pulse income and improves soil fertility.",
+          "farmer_tip": "Use residual moisture or limited irrigation."
+        },
+        {
+          "cycle_name": "Vegetable-Legume Rotation",
+          "sequence": "Leafy vegetables → Black gram, cowpea, or other legume (following cycle)",
+          "benefit": "Reduces continuous vegetable cropping and improves soil health.",
+          "farmer_tip": "Rotate plant families and use compost or legume residues."
+        }
+      ]
+    },
+    {
+      "region": "Sagaing Region",
+      "five_recommended_plants": [
+        {
+          "plant": "Sesame",
+          "suitability": "Very High",
+          "reason": "Leading dry-zone oilseed with strong suitability and market value.",
+          "farmer_tip": "Use well-drained soil, timely sowing, and early weed control."
+        },
+        {
+          "plant": "Chickpea",
+          "suitability": "Very High",
+          "reason": "Major winter pulse after rice where residual moisture or irrigation exists.",
+          "farmer_tip": "Plant after rice; avoid waterlogging."
+        },
+        {
+          "plant": "Wheat",
+          "suitability": "High",
+          "reason": "Irrigated post-rice areas support wheat as a winter cereal.",
+          "farmer_tip": "Plant after rice with irrigation; manage heat stress near maturity."
+        },
+        {
+          "plant": "Groundnut",
+          "suitability": "High",
+          "reason": "Provides oil, food, and cash income on well-drained soils.",
+          "farmer_tip": "Rotate with cereals and harvest before pod deterioration."
+        },
+        {
+          "plant": "Pigeon Pea",
+          "suitability": "High",
+          "reason": "Drought-tolerant pulse that improves soil fertility and income.",
+          "farmer_tip": "Use timely planting, weed control, and rotation with cereals/oilseeds."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Chickpea Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Chickpea (winter)",
+          "benefit": "Adds a pulse crop, improves soil fertility, and diversifies income.",
+          "farmer_tip": "Use residual moisture or limited irrigation; avoid waterlogging."
+        },
+        {
+          "cycle_name": "Rice-Wheat Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Wheat (winter, irrigated)",
+          "benefit": "Produces two major cereal crops per year where irrigation is reliable.",
+          "farmer_tip": "Ensure enough irrigation water and manage heat stress near wheat maturity."
+        },
+        {
+          "cycle_name": "Sesame-Pigeon Pea Rotation",
+          "sequence": "Sesame (monsoon/post-monsoon) → Pigeon pea (following season)",
+          "benefit": "Diversifies oilseed and pulse income while improving soil fertility.",
+          "farmer_tip": "Use well-drained soil and avoid waterlogging."
+        }
+      ]
+    },
+    {
+      "region": "Tanintharyi Region",
+      "five_recommended_plants": [
+        {
+          "plant": "Rice/Paddy",
+          "suitability": "High",
+          "reason": "Monsoon lowlands support rice production.",
+          "farmer_tip": "Maintain field bunds and drainage; use adapted varieties."
+        },
+        {
+          "plant": "Rubber",
+          "suitability": "Very High",
+          "reason": "Humid, well-drained uplands are highly suitable for rubber.",
+          "farmer_tip": "Avoid flood-prone land, use sustainable tapping, and maintain food crops alongside rubber."
+        },
+        {
+          "plant": "Coconut",
+          "suitability": "High",
+          "reason": "Coastal humidity and rainfall support coconut as a long-term cash crop.",
+          "farmer_tip": "Use mulch, wind protection, and intercropping during early growth."
+        },
+        {
+          "plant": "Cashew",
+          "suitability": "High",
+          "reason": "Well-drained upland/coastal soils support cashew production.",
+          "farmer_tip": "Avoid waterlogged sites and establish at the start of the rainy season."
+        },
+        {
+          "plant": "Vegetables",
+          "suitability": "Medium-High",
+          "reason": "Vegetables diversify income where drainage and market access allow.",
+          "farmer_tip": "Use raised beds and integrated pest management in humid conditions."
+        }
+      ],
+      "three_agricultural_cycles": [
+        {
+          "cycle_name": "Rice-Vegetable Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Vegetables (dry season, where drainage/water allow)",
+          "benefit": "Provides staple food plus higher-value vegetable income.",
+          "farmer_tip": "Use raised beds and good drainage in wet areas."
+        },
+        {
+          "cycle_name": "Rice-Black Gram Rotation",
+          "sequence": "Rice/Paddy (monsoon) → Black gram (post-monsoon, where drainage allows)",
+          "benefit": "Adds pulse income and improves soil fertility.",
+          "farmer_tip": "Use residual moisture or limited irrigation; avoid waterlogging."
+        },
+        {
+          "cycle_name": "Rubber-Intercropping System",
+          "sequence": "Young Rubber + Banana, pineapple, or vegetables (early years)",
+          "benefit": "Uses space and generates income before rubber matures.",
+          "farmer_tip": "Do not damage rubber trees; maintain food crops alongside young rubber."
+        }
+      ]
+    }
+  ]
+}
