@@ -1,10 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Figtree, Fraunces } from "next/font/google";
+import { Figtree } from "next/font/google";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 
 const sans = Figtree({ subsets: ["latin"], variable: "--font-figtree", display: "swap" });
-const display = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
 
 export const metadata: Metadata = {
   title: "FarmShift – Rice to Black Gram Advisor",
@@ -12,15 +11,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#113c27",
+  themeColor: "#1d702f",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${sans.variable} ${display.variable} ${GeistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${sans.variable} ${GeistMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">{children}</body>
     </html>
   );

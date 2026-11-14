@@ -1,96 +1,126 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   FarmShift theme
+   FarmShift theme: leaf green, white, ground brown.
    Tailwind v4: re-defining a built-in colour variable re-colours every
-   utility that uses it. So `stone-*`, `white`, `emerald-*` and `amber-*`
-   below restyle the WHOLE app (including components/ui, charts and
-   PlantHealthCard) without editing them.
+   utility that uses it, so these tokens restyle the whole app:
+     emerald-*  -> leaf green   (actions, success, brand)
+     stone-*    -> ground brown (text, borders, soft surfaces)
+     amber-*    -> warm soil gold (warnings)
+     white      -> clean white
 ------------------------------------------------------------------- */
 
 :root {
-  --background: #f4f1e6; /* paper / dried rice straw */
-  --foreground: #1b2a21; /* deep leaf-black */
+  --background: #f6faf5; /* white with a breath of leaf green */
+  --foreground: #2a2018; /* dark soil */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-display: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 @theme {
-  /* surfaces: warm white instead of stark #fff */
-  --color-white: #fffdf7;
+  --color-white: #ffffff;
 
-  /* neutrals: olive-tinted instead of grey */
-  --color-stone-50: #f8f6ee;
-  --color-stone-100: #efece0;
-  --color-stone-200: #e0dccb;
-  --color-stone-300: #ccc7b0;
-  --color-stone-400: #a29d86;
-  --color-stone-500: #7a765f;
-  --color-stone-600: #5c5a47;
-  --color-stone-700: #44433a;
-  --color-stone-800: #2d2e27;
-  --color-stone-900: #1b2a21;
-  --color-stone-950: #0f1712;
+  /* ground brown neutrals */
+  --color-stone-50: #faf6f1;
+  --color-stone-100: #f3ece3;
+  --color-stone-200: #e6dacb;
+  --color-stone-300: #d2c0a9;
+  --color-stone-400: #b09378;
+  --color-stone-500: #8a6f55;
+  --color-stone-600: #6b5440;
+  --color-stone-700: #503e2f;
+  --color-stone-800: #3a2d22;
+  --color-stone-900: #2a2018;
+  --color-stone-950: #1c140e;
 
-  /* primary: paddy green (deeper and calmer than default emerald) */
-  --color-emerald-50: #eef7ef;
-  --color-emerald-100: #d6ecda;
-  --color-emerald-200: #aedbb8;
-  --color-emerald-300: #7ec493;
-  --color-emerald-400: #4ea66e;
-  --color-emerald-500: #2f8b54;
-  --color-emerald-600: #1f7245;
-  --color-emerald-700: #195b38;
-  --color-emerald-800: #154a2f;
-  --color-emerald-900: #113c27;
-  --color-emerald-950: #082519;
+  /* leaf green */
+  --color-emerald-50: #f0faf0;
+  --color-emerald-100: #dcf3dc;
+  --color-emerald-200: #b9e6bb;
+  --color-emerald-300: #8ad48f;
+  --color-emerald-400: #57bd62;
+  --color-emerald-500: #34a247;
+  --color-emerald-600: #258a39;
+  --color-emerald-700: #1d702f;
+  --color-emerald-800: #185a28;
+  --color-emerald-900: #134822;
+  --color-emerald-950: #0a2e14;
 
-  /* accent: ripe-rice gold */
-  --color-amber-50: #fff9e7;
-  --color-amber-100: #fdefc2;
-  --color-amber-200: #f9de88;
-  --color-amber-300: #f2c953;
-  --color-amber-400: #e6b02d;
-  --color-amber-500: #cc9418;
-  --color-amber-600: #a67312;
-  --color-amber-700: #7f5611;
-  --color-amber-800: #5e4012;
-  --color-amber-900: #3e2b0e;
+  /* warm soil gold for warnings */
+  --color-amber-50: #fff8ea;
+  --color-amber-100: #fdecc0;
+  --color-amber-200: #f8d98a;
+  --color-amber-300: #efc255;
+  --color-amber-400: #e0a52c;
+  --color-amber-500: #c88a16;
+  --color-amber-600: #a36c10;
+  --color-amber-700: #7e520f;
+  --color-amber-800: #5e3d10;
+  --color-amber-900: #3e2910;
 }
 
 html {
   background: var(--background);
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
   font-family: var(--font-sans);
-  background:
-    radial-gradient(1100px 520px at 85% -8%, rgba(242, 201, 83, 0.14), transparent 60%),
-    radial-gradient(900px 480px at -5% 12%, rgba(47, 139, 84, 0.1), transparent 55%),
-    var(--background);
+  background: linear-gradient(180deg, #eef8ee 0, #f6faf5 520px, #ffffff 100%);
   background-attachment: fixed;
 }
 
 ::selection {
-  background: #aedbb8;
-  color: #082519;
+  background: #b9e6bb;
+  color: #0a2e14;
 }
 
 h1,
 h2,
 h3 {
   text-wrap: balance;
+  letter-spacing: -0.015em;
 }
 
-/* slim, tinted scrollbars */
+:focus-visible {
+  outline: 2px solid #258a39;
+  outline-offset: 2px;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary::after {
+  content: "+";
+  float: right;
+  font-weight: 600;
+  color: #8a6f55;
+}
+details[open] > summary::after {
+  content: "–";
+}
+
 * {
   scrollbar-width: thin;
-  scrollbar-color: #ccc7b0 transparent;
+  scrollbar-color: #d2c0a9 transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
