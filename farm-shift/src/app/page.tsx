@@ -8,6 +8,7 @@ import PlantHealthCard from "@/components/PlantHealthCard";
 // import LocationMap from "@/components/LocationMap";
 import MyanmarGlobe from "@/components/MyanmarGlobe";
 import { avg, fmt, isNum, powerPoints, shortDate, sum } from "@/lib/format";
+import { AuthModal } from "@/components/AuthModal";
 
 const LOCATIONS = [
   { name: "Pathein Township (Delta Center)", lat: 16.7845, lon: 94.7336 },
@@ -334,6 +335,9 @@ function ImageryCard({ env }: { env: EnvironmentPayload }) {
   );
 }
 
+
+
+
 type Source = "live" | "A" | "B" | "C";
 const SCENARIOS: { id: Exclude<Source, "live">; label: string }[] = [
   { id: "A", label: "A · Good season" },
@@ -394,6 +398,7 @@ function Module4({ live, liveLoading, hasPin }: { live: PlantHealthResult | null
         )}
       </div>
 
+
       {err ? (
         <div className="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">{err}</div>
       ) : source === "live" && !hasPin ? (
@@ -405,6 +410,7 @@ function Module4({ live, liveLoading, hasPin }: { live: PlantHealthResult | null
       )}
     </section>
   );
+
 }
 
 function Empty({ text }: { text: string }) {
