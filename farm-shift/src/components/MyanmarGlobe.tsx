@@ -1,20 +1,24 @@
 "use client";
 /**
- * MyanmarGlobe v2
+ * MyanmarGlobe v3
  *
- * - World globe (Three.js). Only Myanmar is active.
- * - Myanmar is split into its 14 states/regions (public/data/myanmar-regions.geojson).
- * - Click a region  -> it is selected and the globe zooms to it.
- * - Click inside the SELECTED region -> pin is placed (onPick).
- * - A list of all 14 regions under the globe does the same as clicking on the map.
- * - If `value` is set from outside (GPS, quick-jump, typed lat/lon) the matching region is auto-selected.
+ * - World globe (Three.js); only Myanmar is active.
+ * - Myanmar's 14 states/regions are real vector meshes + fat lines, so they stay SHARP at any zoom.
+ * - Click a region (or pick it in the list) -> FOCUS MODE: the camera zooms until the region fills the
+ *   whole container and everything else (world, other regions) is hidden. Click inside the focused region to drop the pin.
+ * - Pin / labels keep a constant on-screen size (they scale with zoom).
+ * - No corner overlays: just the globe + the region list underneath.
  *
  * npm i three topojson-client
  * npm i -D @types/three @types/topojson-client
+ * Needs /public/data/myanmar-regions.geojson
  */
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { Line2 } from "three/examples/jsm/lines/Line2.js";
+import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
+import { LineGeometry } from "three/examples/jsm/lines/LineGeometry.js";
 import { feature } from "topojson-client";
 
 type Coords = { lat: number; lon: number };
@@ -30,25 +34,27 @@ export type Region = {
   lat: number;
   lon: number;
   polys: Poly[];
-  bbox: [number, number, number, number]; // minLon, minLat, maxLon, maxLat
+  bbox: [number, number, number, number];
   center: Coords;
-  span: number; // degrees
+  span: number;
 };
 
 const WORLD_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json";
-const REGIONS_URL = "/data/myanmar-regions.geojson"; // served from /public
-const MYANMAR_ID = 104;
-const MYANMAR_CENTER = { lat: 20.5, lon: 96.5 };
+const REGIONS_URL = "/data/myanmar-regions.geojson";
+const MYANMAR_CENTER = { lat: 20.3, lon: 96.5 };
+const START_DIST = 2.5;
+const OVERVIEW_DIST = 1.75;
 
 const COLORS = {
-  ocean: "#07151f",
-  grid: "rgba(120,170,190,0.10)",
-  land: "#1f2c34",
-  landLine: "#33444f",
-  mm: "#2e8f5f",
-  mmDim: "#1f6a47",
-  mmSel: "#4fd89c",
-  mmLine: "#a6f0c4",
+  ocean: "#06141d",
+  grid: "rgba(120,170,190,0.09)",
+  land: "#22313a",
+  landLine: "#364853",
+  fills: ["#2f8f62", "#37a06d", "#2a8459"],
+  hover: "#4bbf86",
+  sel: "#58d9a0",
+  line: "#a6f0c4",
+  lineSel: "#eafff3",
   pin: "#ff5a36",
   city: "#f2b84b",
 };
@@ -96,30 +102,59 @@ function toLatLon(p: THREE.Vector3) {
   return { lat, lon };
 }
 
-// camera distance that frames a region of `span` degrees
-const distFor = (spanDeg: number) =>
-  THREE.MathUtils.clamp(1 + 2.4 * THREE.MathUtils.degToRad(spanDeg), 1.15, 2.2);
+/** Filled region mesh: triangulate in lon/lat, subdivide, project onto the sphere. */
+function fillGeometry(polys: Poly[], radius: number, maxEdge = 1.5) {
+  const pos: number[] = [];
+  const emit = (a: number[], b: number[], c: number[], depth = 0) => {
+    const d = (p: number[], q: number[]) => Math.hypot(p[0] - q[0], p[1] - q[1]);
+    if (depth < 6 && Math.max(d(a, b), d(b, c), d(c, a)) > maxEdge) {
+      const m = (p: number[], q: number[]) => [(p[0] + q[0]) / 2, (p[1] + q[1]) / 2];
+      const ab = m(a, b), bc = m(b, c), ca = m(c, a);
+      emit(a, ab, ca, depth + 1);
+      emit(ab, b, bc, depth + 1);
+      emit(ca, bc, c, depth + 1);
+      emit(ab, bc, ca, depth + 1);
+    } else {
+      for (const p of [a, b, c]) {
+        const v = toVec3(p[1], p[0], radius);
+        pos.push(v.x, v.y, v.z);
+      }
+    }
+  };
+  for (const poly of polys) {
+    const outer = poly[0].map(([x, y]) => new THREE.Vector2(x, y));
+    const holes = poly.slice(1).map((h) => h.map(([x, y]) => new THREE.Vector2(x, y)));
+    const tris = THREE.ShapeUtils.triangulateShape(outer, holes);
+    const all = outer.concat(...holes); // same order the triangulator used
+    for (const [i, j, k] of tris) emit([all[i].x, all[i].y], [all[j].x, all[j].y], [all[k].x, all[k].y]);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  return g;
+}
 
-function makeLabel(text: string, opts: { color: string; centered?: boolean; size?: number }) {
+function makeLabel(text: string, color: string, width: number, centered = false) {
+  const CW = 320, CH = 64;
   const c = document.createElement("canvas");
-  c.width = 384;
-  c.height = 64;
+  c.width = CW;
+  c.height = CH;
   const g = c.getContext("2d")!;
-  g.font = "600 28px ui-sans-serif, system-ui, sans-serif";
+  g.font = "600 30px ui-sans-serif, system-ui, sans-serif";
   g.textBaseline = "middle";
-  g.textAlign = opts.centered ? "center" : "left";
-  const x = opts.centered ? 192 : 8;
-  g.lineWidth = 6;
-  g.strokeStyle = "rgba(7,21,31,0.9)";
-  g.strokeText(text, x, 32);
-  g.fillStyle = opts.color;
-  g.fillText(text, x, 32);
+  g.textAlign = centered ? "center" : "left";
+  const x = centered ? CW / 2 : 6;
+  g.lineWidth = 7;
+  g.lineJoin = "round";
+  g.strokeStyle = "rgba(4,14,20,0.92)";
+  g.strokeText(text, x, CH / 2);
+  g.fillStyle = color;
+  g.fillText(text, x, CH / 2);
   const tex = new THREE.CanvasTexture(c);
   tex.colorSpace = THREE.SRGBColorSpace;
   const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false }));
-  const w = opts.size ?? 0.16;
-  s.scale.set(w, w / 6, 1);
-  s.center.set(opts.centered ? 0.5 : -0.03, 0.5);
+  s.center.set(centered ? 0.5 : -0.04, 0.5);
+  s.userData.base = new THREE.Vector3(width, (width * CH) / CW, 1);
+  s.scale.copy(s.userData.base);
   return s;
 }
 
@@ -130,6 +165,7 @@ type Api = {
   flyTo: (lat: number, lon: number, d: number) => void;
   select: (id: string | null, fly?: boolean) => void;
   regionIdAt: (lat: number, lon: number) => string | null;
+  fitDist: (id: string) => number;
 };
 
 export default function MyanmarGlobe({
@@ -140,22 +176,23 @@ export default function MyanmarGlobe({
 }: {
   value: Coords | null;
   onPick: (lat: number, lon: number) => void;
-  cities?: City[]; // e.g. capital + agriculture city read from the main JSON
+  cities?: City[];
   onRegionChange?: (region: Region | null) => void;
 }) {
   const host = useRef<HTMLDivElement>(null);
+  const tipRef = useRef<HTMLDivElement>(null);
   const pickRef = useRef(onPick);
   const regionCb = useRef(onRegionChange);
   const citiesRef = useRef(cities);
   const fromMap = useRef(false);
   const api = useRef<Api | null>(null);
   const selRef = useRef<string | null>(null);
+  const hintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hint, setHint] = useState<string | null>(null);
   const [regions, setRegions] = useState<Region[]>([]);
   const [sel, setSel] = useState<string | null>(null);
-  const hintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     pickRef.current = onPick;
@@ -168,11 +205,12 @@ export default function MyanmarGlobe({
     let disposed = false;
     let raf = 0;
     let list: Region[] = [];
+    let hoverId: string | null = null;
 
     const showHint = (msg: string) => {
       setHint(msg);
       if (hintTimer.current) clearTimeout(hintTimer.current);
-      hintTimer.current = setTimeout(() => setHint(null), 2600);
+      hintTimer.current = setTimeout(() => setHint(null), 2400);
     };
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -187,46 +225,104 @@ export default function MyanmarGlobe({
     controls.enablePan = false;
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
-    controls.minDistance = 1.1;
+    controls.minDistance = 1.04;
     controls.maxDistance = 4.5;
-    controls.rotateSpeed = 0.6;
+    controls.rotateSpeed = 0.55;
     controls.zoomSpeed = 0.7;
 
     // stars
-    const starPos = new Float32Array(900 * 3);
-    for (let i = 0; i < 900; i++) {
+    const starPos = new Float32Array(700 * 3);
+    for (let i = 0; i < 700; i++) {
       const v = new THREE.Vector3().randomDirection().multiplyScalar(14 + Math.random() * 6);
       starPos.set([v.x, v.y, v.z], i * 3);
     }
     const starGeo = new THREE.BufferGeometry();
     starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
-    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x8fa9b8, size: 0.035, sizeAttenuation: true })));
+    const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x8fa9b8, size: 0.03 }));
+    scene.add(stars);
 
-    scene.add(
-      new THREE.Mesh(
-        new THREE.SphereGeometry(1.045, 64, 64),
-        new THREE.MeshBasicMaterial({ color: 0x3aa0c9, transparent: true, opacity: 0.1, side: THREE.BackSide })
-      )
+    const atmo = new THREE.Mesh(
+      new THREE.SphereGeometry(1.04, 64, 64),
+      new THREE.MeshBasicMaterial({ color: 0x3aa0c9, transparent: true, opacity: 0.09, side: THREE.BackSide })
     );
+    scene.add(atmo);
 
     const globeMat = new THREE.MeshBasicMaterial({ color: COLORS.ocean });
-    const globe = new THREE.Mesh(new THREE.SphereGeometry(1, 96, 96), globeMat);
+    const globe = new THREE.Mesh(new THREE.SphereGeometry(1, 128, 128), globeMat);
     scene.add(globe);
 
-    const pinGroup = new THREE.Group();
-    const cityGroup = new THREE.Group();
-    const regionLabels = new THREE.Group();
-    const outlines = new Map<string, THREE.LineBasicMaterial>();
-    scene.add(pinGroup, cityGroup, regionLabels);
-    regionLabels.visible = false;
+    // objects whose on-screen size should stay constant while zooming
+    const scalables: THREE.Object3D[] = [];
 
-    for (const c of citiesRef.current) {
-      const dot = new THREE.Mesh(new THREE.SphereGeometry(0.0085, 16, 16), new THREE.MeshBasicMaterial({ color: COLORS.city }));
-      dot.position.copy(toVec3(c.lat, c.lon, 1.006));
-      const label = makeLabel(c.name, { color: "#f6e7c1", size: 0.13 });
-      label.position.copy(toVec3(c.lat, c.lon, 1.02));
-      cityGroup.add(dot, label);
-    }
+    /* ---- pin (built in a local frame: +Y = surface normal) ---- */
+    const pin = new THREE.Group();
+    const pinMat = new THREE.MeshBasicMaterial({ color: COLORS.pin });
+    const stick = new THREE.Mesh(new THREE.CylinderGeometry(0.0011, 0.0011, 0.03, 8), pinMat);
+    stick.position.y = 0.015;
+    const ball = new THREE.Mesh(new THREE.SphereGeometry(0.0085, 20, 20), pinMat);
+    ball.position.y = 0.034;
+    const halo = new THREE.Mesh(
+      new THREE.RingGeometry(0.0085, 0.0125, 40).rotateX(-Math.PI / 2),
+      new THREE.MeshBasicMaterial({ color: COLORS.pin, transparent: true, opacity: 0.55, side: THREE.DoubleSide })
+    );
+    halo.position.y = 0.0004;
+    pin.add(stick, ball, halo);
+    pin.visible = false;
+    pin.userData.base = new THREE.Vector3(1, 1, 1);
+    scene.add(pin);
+    scalables.push(pin);
+
+    const setPin = (c: Coords | null) => {
+      if (!c) {
+        pin.visible = false;
+        return;
+      }
+      const p = toVec3(c.lat, c.lon, 1.0012);
+      pin.position.copy(p);
+      pin.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), p.clone().normalize());
+      pin.visible = true;
+    };
+
+    /* ---- city markers ---- */
+    const cityObjs = citiesRef.current.map((c) => {
+      const g = new THREE.Group();
+      const dot = new THREE.Mesh(new THREE.SphereGeometry(0.006, 16, 16), new THREE.MeshBasicMaterial({ color: COLORS.city }));
+      dot.position.copy(toVec3(c.lat, c.lon, 1.003));
+      dot.userData.base = new THREE.Vector3(1, 1, 1);
+      const label = makeLabel(c.name, "#f6e7c1", 0.2);
+      label.position.copy(toVec3(c.lat, c.lon, 1.006));
+      g.add(dot, label);
+      scene.add(g);
+      scalables.push(dot, label);
+      return { g, lat: c.lat, lon: c.lon, region: null as string | null };
+    });
+
+    /* ---- region objects (filled after data loads) ---- */
+    type RObj = { fill: THREE.Mesh; fillMat: THREE.MeshBasicMaterial; lines: THREE.Group; lineMat: LineMaterial; label: THREE.Sprite };
+    const robjs = new Map<string, RObj>();
+    const lineMats: LineMaterial[] = [];
+    let worldTex: THREE.CanvasTexture | null = null;
+
+    const applyStyle = () => {
+      const s = selRef.current;
+      list.forEach((r, i) => {
+        const o = robjs.get(r.id);
+        if (!o) return;
+        const focused = s === r.id;
+        const vis = !s || focused;
+        o.fill.visible = vis;
+        o.lines.visible = vis;
+        o.label.visible = focused;
+        o.fillMat.color.set(focused ? COLORS.sel : hoverId === r.id && !s ? COLORS.hover : COLORS.fills[i % 3]);
+        o.lineMat.color.set(focused ? COLORS.lineSel : COLORS.line);
+        o.lineMat.linewidth = focused ? 2.6 : 1.3;
+      });
+      cityObjs.forEach((c) => (c.g.visible = !s || c.region === s));
+      globeMat.map = s ? null : worldTex;
+      globeMat.color.set(s ? COLORS.ocean : 0xffffff);
+      globeMat.needsUpdate = true;
+      stars.visible = !s;
+    };
 
     /* ---- fly-to ---- */
     let fly: null | { from: THREE.Vector3; to: THREE.Vector3; d0: number; d1: number; t: number } = null;
@@ -235,71 +331,25 @@ export default function MyanmarGlobe({
     };
     controls.addEventListener("start", () => (fly = null));
 
-    const setPin = (c: Coords | null) => {
-      pinGroup.clear();
-      if (!c) return;
-      const base = toVec3(c.lat, c.lon, 1);
-      const head = toVec3(c.lat, c.lon, 1.035);
-      const stick = new THREE.Line(new THREE.BufferGeometry().setFromPoints([base, head]), new THREE.LineBasicMaterial({ color: COLORS.pin }));
-      const ball = new THREE.Mesh(new THREE.SphereGeometry(0.014, 20, 20), new THREE.MeshBasicMaterial({ color: COLORS.pin }));
-      ball.position.copy(head);
-      const ring = new THREE.Mesh(
-        new THREE.RingGeometry(0.016, 0.022, 40),
-        new THREE.MeshBasicMaterial({ color: COLORS.pin, transparent: true, opacity: 0.7, side: THREE.DoubleSide })
-      );
-      ring.position.copy(toVec3(c.lat, c.lon, 1.003));
-      ring.lookAt(ring.position.clone().multiplyScalar(2));
-      pinGroup.add(stick, ball, ring);
-    };
-
-    /* ---- painting (base world once, regions repainted on selection) ---- */
-    const W = 4096;
-    const H = 2048;
-    const X = (lon: number) => ((lon + 180) / 360) * W;
-    const Y = (lat: number) => ((90 - lat) / 180) * H;
-    const baseCv = document.createElement("canvas");
-    baseCv.width = W;
-    baseCv.height = H;
-    const outCv = document.createElement("canvas");
-    outCv.width = W;
-    outCv.height = H;
-    let tex: THREE.CanvasTexture | null = null;
-
-    const trace = (g: CanvasRenderingContext2D, polys: Poly[]) => {
-      g.beginPath();
-      for (const poly of polys)
-        for (const ring of poly) {
-          ring.forEach(([lon, lat], i) => (i ? g.lineTo(X(lon), Y(lat)) : g.moveTo(X(lon), Y(lat))));
-          g.closePath();
-        }
-    };
-
-    const repaint = () => {
-      const g = outCv.getContext("2d")!;
-      g.drawImage(baseCv, 0, 0);
-      g.lineJoin = "round";
-      const selected = selRef.current;
-      for (const r of list) {
-        trace(g, r.polys);
-        g.fillStyle = !selected ? COLORS.mm : r.id === selected ? COLORS.mmSel : COLORS.mmDim;
-        g.fill("evenodd");
-        g.strokeStyle = COLORS.mmLine;
-        g.lineWidth = r.id === selected ? 3.5 : 1.4;
-        g.stroke();
-      }
-      outlines.forEach((m, id) => m.color.set(id === selected ? "#ffffff" : COLORS.mmLine));
-      if (tex) tex.needsUpdate = true;
+    // camera distance at which the region's bounding box fills the whole container
+    const fitDist = (r: Region) => {
+      const t = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+      const [x0, y0, x1, y1] = r.bbox;
+      const hArc = THREE.MathUtils.degToRad(y1 - y0);
+      const wArc = THREE.MathUtils.degToRad((x1 - x0) * Math.cos(THREE.MathUtils.degToRad(r.center.lat)));
+      const need = Math.max(hArc / (2 * t), wArc / (2 * t * camera.aspect)) / 0.94;
+      return Math.max(1.045, 1 + need);
     };
 
     const select = (id: string | null, doFly = true) => {
       selRef.current = id;
       setSel(id);
-      repaint();
+      applyStyle();
       const r = list.find((x) => x.id === id) ?? null;
       regionCb.current?.(r);
       if (doFly) {
-        if (r) flyTo(r.center.lat, r.center.lon, distFor(r.span));
-        else flyTo(MYANMAR_CENTER.lat, MYANMAR_CENTER.lon, 2.0);
+        if (r) flyTo(r.center.lat, r.center.lon, fitDist(r));
+        else flyTo(MYANMAR_CENTER.lat, MYANMAR_CENTER.lon, OVERVIEW_DIST);
       }
     };
 
@@ -308,6 +358,10 @@ export default function MyanmarGlobe({
       flyTo,
       select,
       regionIdAt: (lat, lon) => regionAt(list, lat, lon)?.id ?? null,
+      fitDist: (id) => {
+        const r = list.find((x) => x.id === id);
+        return r ? fitDist(r) : 1.4;
+      },
     };
 
     /* ---- sizing ---- */
@@ -319,12 +373,13 @@ export default function MyanmarGlobe({
       renderer.domElement.style.height = "100%";
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      lineMats.forEach((m) => m.resolution.set(w, h));
     };
     const ro = new ResizeObserver(resize);
     ro.observe(el);
     resize();
 
-    camera.position.copy(toVec3(MYANMAR_CENTER.lat, MYANMAR_CENTER.lon, 2.9));
+    camera.position.copy(toVec3(MYANMAR_CENTER.lat, MYANMAR_CENTER.lon, START_DIST));
     controls.update();
 
     /* ---- picking ---- */
@@ -342,37 +397,62 @@ export default function MyanmarGlobe({
     let down: { x: number; y: number } | null = null;
     const onDown = (e: PointerEvent) => (down = { x: e.clientX, y: e.clientY });
     const onUp = (e: PointerEvent) => {
-      if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 5) return; // drag, not click
+      if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 5) return;
       down = null;
       const p = groundPoint(e.clientX, e.clientY);
       if (!p || !list.length) return;
       const r = regionAt(list, p.lat, p.lon);
-      if (!r) {
-        showHint("Only Myanmar is active — click inside its borders");
-        return;
-      }
-      if (selRef.current === r.id) {
-        fromMap.current = true;
-        pickRef.current(Number(p.lat.toFixed(5)), Number(p.lon.toFixed(5)));
-      } else {
-        select(r.id);
-        showHint(`${r.label} selected — click inside it to place your pin`);
-      }
+      const s = selRef.current;
+      if (s) {
+        if (r?.id === s) {
+          fromMap.current = true;
+          pickRef.current(Number(p.lat.toFixed(5)), Number(p.lon.toFixed(5)));
+        } else showHint("Click inside the highlighted region, or choose another one below");
+      } else if (r) select(r.id);
+      else showHint("Only Myanmar is active");
     };
     let moveQueued = false;
     const onMove = (e: PointerEvent) => {
-      if (moveQueued || e.buttons) return;
+      if (moveQueued) return;
+      const { clientX, clientY, buttons } = e;
       moveQueued = true;
       requestAnimationFrame(() => {
         moveQueued = false;
-        const p = groundPoint(e.clientX, e.clientY);
+        const tip = tipRef.current;
+        if (buttons) {
+          if (tip) tip.style.opacity = "0";
+          return;
+        }
+        const p = groundPoint(clientX, clientY);
         const r = p ? regionAt(list, p.lat, p.lon) : null;
-        dom.style.cursor = !r ? "grab" : r.id === selRef.current ? "crosshair" : "pointer";
+        const s = selRef.current;
+        dom.style.cursor = s ? (r?.id === s ? "crosshair" : "grab") : r ? "pointer" : "grab";
+        const nextHover = !s && r ? r.id : null;
+        if (nextHover !== hoverId) {
+          hoverId = nextHover;
+          applyStyle();
+        }
+        if (tip) {
+          if (nextHover && r) {
+            const box = el.getBoundingClientRect();
+            tip.textContent = r.label;
+            tip.style.transform = `translate(${clientX - box.left + 14}px, ${clientY - box.top + 14}px)`;
+            tip.style.opacity = "1";
+          } else tip.style.opacity = "0";
+        }
       });
+    };
+    const onLeave = () => {
+      if (tipRef.current) tipRef.current.style.opacity = "0";
+      if (hoverId) {
+        hoverId = null;
+        applyStyle();
+      }
     };
     dom.addEventListener("pointerdown", onDown);
     dom.addEventListener("pointerup", onUp);
     dom.addEventListener("pointermove", onMove);
+    dom.addEventListener("pointerleave", onLeave);
 
     /* ---- loop ---- */
     const clock = new THREE.Clock();
@@ -386,13 +466,15 @@ export default function MyanmarGlobe({
         camera.position.copy(dir.multiplyScalar(THREE.MathUtils.lerp(fly.d0, fly.d1, e)));
         if (fly.t >= 1) fly = null;
       }
-      regionLabels.visible = camera.position.length() < 1.9;
+      // keep pin / labels the same size on screen at every zoom level
+      const s = THREE.MathUtils.clamp(camera.position.length() - 1, 0.04, 1.6);
+      for (const o of scalables) o.scale.copy(o.userData.base).multiplyScalar(s);
       controls.update();
       renderer.render(scene, camera);
     };
     loop();
 
-    /* ---- load world + 14 regions ---- */
+    /* ---- load world + regions ---- */
     (async () => {
       try {
         const [topo, geo]: any[] = await Promise.all([
@@ -405,8 +487,14 @@ export default function MyanmarGlobe({
         if (disposed) return;
         const fc: any = feature(topo, topo.objects.countries);
 
-        // base: ocean, graticule, every country except Myanmar
-        const g = baseCv.getContext("2d")!;
+        // world basemap texture (only visible in the overview)
+        const W = 4096, H = 2048;
+        const cv = document.createElement("canvas");
+        cv.width = W;
+        cv.height = H;
+        const g = cv.getContext("2d")!;
+        const X = (lon: number) => ((lon + 180) / 360) * W;
+        const Y = (lat: number) => ((90 - lat) / 180) * H;
         g.fillStyle = COLORS.ocean;
         g.fillRect(0, 0, W, H);
         g.strokeStyle = COLORS.grid;
@@ -425,14 +513,21 @@ export default function MyanmarGlobe({
         }
         g.lineJoin = "round";
         for (const f of fc.features) {
-          if (Number(f.id) === MYANMAR_ID) continue;
-          trace(g, polysOf(f.geometry));
+          g.beginPath();
+          for (const poly of polysOf(f.geometry))
+            for (const ring of poly) {
+              ring.forEach(([lon, lat], i) => (i ? g.lineTo(X(lon), Y(lat)) : g.moveTo(X(lon), Y(lat))));
+              g.closePath();
+            }
           g.fillStyle = COLORS.land;
           g.fill("evenodd");
           g.strokeStyle = COLORS.landLine;
           g.lineWidth = 1.2;
           g.stroke();
         }
+        worldTex = new THREE.CanvasTexture(cv);
+        worldTex.colorSpace = THREE.SRGBColorSpace;
+        worldTex.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
         // regions
         list = geo.features.map((f: any): Region => {
@@ -454,26 +549,36 @@ export default function MyanmarGlobe({
           };
         });
 
+        const w = el.clientWidth || 1;
+        const h = el.clientHeight || 1;
         for (const r of list) {
-          const mat = new THREE.LineBasicMaterial({ color: COLORS.mmLine });
-          outlines.set(r.id, mat);
+          const fillMat = new THREE.MeshBasicMaterial({ color: COLORS.fills[0], side: THREE.DoubleSide });
+          const fill = new THREE.Mesh(fillGeometry(r.polys, 1.001), fillMat);
+          const lineMat = new LineMaterial({ color: 0xa6f0c4, linewidth: 1.3 });
+          lineMat.resolution.set(w, h);
+          lineMats.push(lineMat);
+          const lines = new THREE.Group();
           for (const poly of r.polys)
             for (const ring of poly) {
-              const pts = ring.map(([lon, lat]) => toVec3(lat, lon, 1.0015));
-              scene.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(pts), mat));
+              const arr: number[] = [];
+              for (const [lon, lat] of ring) {
+                const v = toVec3(lat, lon, 1.0015);
+                arr.push(v.x, v.y, v.z);
+              }
+              const lg = new LineGeometry();
+              lg.setPositions(arr);
+              lines.add(new Line2(lg, lineMat));
             }
-          const lab = makeLabel(r.name, { color: "#ffffff", centered: true, size: 0.15 });
-          lab.position.copy(toVec3(r.lat, r.lon, 1.012));
-          regionLabels.add(lab);
+          const label = makeLabel(r.name, "#ffffff", 0.3, true);
+          label.position.copy(toVec3(r.lat, r.lon, 1.004));
+          label.visible = false;
+          scene.add(fill, lines, label);
+          scalables.push(label);
+          robjs.set(r.id, { fill, fillMat, lines, lineMat, label });
         }
+        cityObjs.forEach((c) => (c.region = regionAt(list, c.lat, c.lon)?.id ?? null));
 
-        tex = new THREE.CanvasTexture(outCv);
-        tex.colorSpace = THREE.SRGBColorSpace;
-        tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        globeMat.map = tex;
-        globeMat.color.set(0xffffff);
-        globeMat.needsUpdate = true;
-        repaint();
+        applyStyle();
         setRegions(list);
         setReady(true);
       } catch (err: any) {
@@ -489,6 +594,7 @@ export default function MyanmarGlobe({
       dom.removeEventListener("pointerdown", onDown);
       dom.removeEventListener("pointerup", onUp);
       dom.removeEventListener("pointermove", onMove);
+      dom.removeEventListener("pointerleave", onLeave);
       controls.dispose();
       scene.traverse((o: any) => {
         o.geometry?.dispose?.();
@@ -498,13 +604,14 @@ export default function MyanmarGlobe({
           x.dispose?.();
         });
       });
+      worldTex?.dispose();
       renderer.dispose();
       renderer.domElement.remove();
       api.current = null;
     };
   }, []);
 
-  // keep pin + selected region in sync with `value`
+  // keep pin + focused region in sync with `value`
   useEffect(() => {
     const a = api.current;
     if (!ready || !a) return;
@@ -514,84 +621,73 @@ export default function MyanmarGlobe({
     if (rid && rid !== selRef.current) a.select(rid, false);
     if (fromMap.current) fromMap.current = false;
     else {
-      const r = regions.find((x) => x.id === rid);
-      a.flyTo(value.lat, value.lon, r ? Math.max(distFor(r.span), 1.2) : 1.4);
+      a.flyTo(value.lat, value.lon, rid ? a.fitDist(rid) : 1.4);
     }
-  }, [ready, value, regions]);
+  }, [ready, value]);
 
-  const current = regions.find((r) => r.id === sel) ?? null;
   const pinRegion = value ? regions.find((r) => regionAt([r], value.lat, value.lon)) : null;
 
   return (
     <div>
-      <div className="relative isolate h-80 w-full overflow-hidden rounded-xl border border-stone-800 bg-[#050d14] md:h-[26rem]">
+      <div className="relative isolate h-80 w-full overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_at_50%_40%,#10303a_0%,#071922_55%,#040b10_100%)] shadow-inner ring-1 ring-emerald-950/30 md:h-[28rem]">
         <div
           ref={host}
           className="absolute inset-0 cursor-grab"
-          aria-label="3D globe: Myanmar only. Click a region to zoom in, then click inside it to place your pin."
+          aria-label="3D globe of Myanmar. Choose a region to zoom in, then click inside it to place your pin."
+        />
+        <div
+          ref={tipRef}
+          className="pointer-events-none absolute left-0 top-0 rounded-md bg-black/75 px-2 py-1 text-[11px] font-medium text-emerald-50 opacity-0 transition-opacity"
         />
 
-        {!ready && !error && <div className="absolute inset-0 grid place-items-center text-sm text-emerald-200/70">Loading globe…</div>}
+        {!ready && !error && (
+          <div className="absolute inset-0 grid place-items-center text-sm text-emerald-100/70">Loading globe…</div>
+        )}
         {error && <div className="absolute inset-0 grid place-items-center px-6 text-center text-sm text-red-300">{error}</div>}
 
-        {ready && (
-          <>
-            <div className="pointer-events-none absolute left-3 top-3 rounded-md bg-black/45 px-2.5 py-1.5 text-xs leading-tight text-emerald-100 backdrop-blur">
-              <div className="font-semibold tracking-wide">{current ? current.label.toUpperCase() : "MYANMAR · ACTIVE"}</div>
-              <div className="text-[10px] text-stone-400">
-                {current ? `Capital: ${current.capital} · click inside to pin` : "Click a region to zoom in"}
-              </div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => api.current?.select(null)}
-              className="absolute right-3 top-3 rounded-md bg-emerald-600/90 px-2.5 py-1.5 text-xs font-medium text-white hover:bg-emerald-500"
-            >
-              All Myanmar
-            </button>
-
-            {value && (
-              <div className="pointer-events-none absolute bottom-3 left-3 rounded-md bg-black/50 px-2.5 py-1 font-mono text-xs text-amber-200 backdrop-blur">
-                {value.lat.toFixed(4)}°N {value.lon.toFixed(4)}°E
-              </div>
-            )}
-
-            {hint && (
-              <div className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center px-3">
-                <div className="rounded-full bg-black/75 px-3 py-1.5 text-center text-xs text-amber-100">{hint}</div>
-              </div>
-            )}
-          </>
+        {hint && (
+          <div className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center px-3">
+            <div className="rounded-full bg-black/75 px-3.5 py-1.5 text-center text-xs text-amber-100 backdrop-blur">{hint}</div>
+          </div>
         )}
       </div>
 
       {ready && (
-        <div className="mt-3">
-          <div className="mb-1.5 flex items-baseline justify-between">
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-stone-500">{regions.length} states &amp; regions</h3>
-            <span className="text-[11px] text-stone-400">Tap one to zoom in</span>
+        <div className="mt-4">
+          <div className="mb-2 flex items-center justify-between">
+            <h3 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-emerald-900/70">
+              {regions.length} states &amp; regions
+            </h3>
+            <span className="text-[11px] text-stone-400">Pick one to zoom in</span>
           </div>
-          <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-5">
+          <div className="flex flex-wrap gap-1.5">
+            <button
+              type="button"
+              onClick={() => api.current?.select(null)}
+              className={`rounded-full px-3 py-1.5 text-xs font-semibold ring-1 transition ${
+                sel === null
+                  ? "bg-emerald-800 text-white shadow-sm ring-emerald-800"
+                  : "bg-white text-emerald-900 ring-emerald-200 hover:bg-emerald-50"
+              }`}
+            >
+              All Myanmar
+            </button>
             {regions.map((r) => {
               const active = r.id === sel;
-              const hasPin = pinRegion?.id === r.id;
               return (
                 <button
                   key={r.id}
                   type="button"
                   onClick={() => api.current?.select(r.id)}
-                  className={`rounded-lg px-2.5 py-1.5 text-left text-xs ring-1 transition ${
-                    active ? "bg-emerald-600 text-white ring-emerald-600" : "bg-white text-stone-700 ring-stone-300 hover:bg-stone-50"
+                  title={`${r.label} · capital ${r.capital}`}
+                  className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition ${
+                    active
+                      ? "bg-emerald-700 text-white shadow-sm ring-emerald-700"
+                      : "bg-white text-stone-700 ring-stone-200 hover:bg-emerald-50 hover:ring-emerald-300"
                   }`}
                 >
-                  <span className="flex items-center justify-between gap-1 font-medium">
-                    <span className="truncate">{r.name}</span>
-                    {hasPin && <span aria-label="pinned here">📍</span>}
-                  </span>
-                  <span className={`block text-[10px] ${active ? "text-emerald-100" : "text-stone-400"}`}>
-                    {r.type} · {r.capital}
-                  </span>
+                  {r.name}
+                  {pinRegion?.id === r.id && <span className="h-1.5 w-1.5 rounded-full bg-orange-500" aria-label="pin is here" />}
                 </button>
               );
             })}
