@@ -1,8 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
-import type { ApiResponse, Evaluation, EnvironmentPayload } from "@/types/dashboard";
+import type { ApiResponse, Evaluation, EnvironmentPayload, ScenarioResponse } from "@/types/dashboard";
+import type { PlantHealthResult } from "@/types/plantHealth";
 import { Card, Gauge, Pill, ScoreRing, Skeleton, SourceBadge, Stat, toneFor } from "@/components/ui";
 import { Chart } from "@/components/charts";
+import PlantHealthCard from "@/components/PlantHealthCard";
 import LocationMap from "@/components/LocationMap";
 import { avg, fmt, isNum, powerPoints, shortDate, sum } from "@/lib/format";
 
@@ -131,15 +133,20 @@ export default function Home() {
             <Summary res={res} />
             <div className="grid gap-5 lg:grid-cols-2">
               <SoilCard ev={res.evaluation} env={res.environment} />
-              <ClimateCard ev={res.evaluation} env={res.environment} />
-              <VegetationCard ev={res.evaluation} env={res.environment} />
               <ImageryCard env={res.environment} />
+              <ClimateCard ev={res.evaluation} env={res.environment} />
             </div>
           </>
         )}
 
+        <Module4
+          live={res?.success ? res.evaluation.module4_vegetation?.analysis ?? null : null}
+          liveLoading={loading}
+          hasPin={!!coords}
+        />
+
         <footer className="pb-6 text-center text-xs text-stone-400">
-          Temperature &amp; rainfall come from the live NASA POWER API. Soil moisture, NDVI, GPM rainfall and imagery metadata are prototype estimates in this build.
+          Temperature &amp; rainfall come from the live NASA POWER API. Soil moisture, NDVI, GPM rainfall and imagery metadata are prototype estimates in this build. Module 4 can also be tested with the synthetic scenarios A/B/C.
         </footer>
       </div>
     </main>
@@ -296,27 +303,6 @@ function ClimateCard({ ev, env }: { ev: Evaluation; env: EnvironmentPayload }) {
   );
 }
 
-function VegetationCard({ ev, env }: { ev: Evaluation; env: EnvironmentPayload }) {
-  const m = ev.module4_vegetation;
-  const pts = (m?.timeSeries ?? []).map((p) => ({ label: shortDate(p.date), value: p.ndvi }));
-  const mean = env.vegetation?.meanNdvi;
-  return (
-    <Card title="Vegetation health (NDVI)" subtitle="VIIRS / MODIS greenness trend" badge={<SourceBadge live={false} />}>
-      {!m || !pts.length ? <Empty text="NDVI time-series is unavailable." /> : (
-        <>
-          <div className="mb-4 grid grid-cols-2 gap-3">
-            <Stat label="Mean NDVI" value={fmt(mean, 2)} />
-            <Stat label="Latest" value={fmt(pts[pts.length - 1].value, 2)} />
-          </div>
-          <Chart decimals={2} series={[{ name: "NDVI", color: "#059669", points: pts }]} />
-          <p className="mt-3 text-sm text-stone-600">{m.trend}</p>
-          <p className="mt-1 text-xs text-stone-400">{m.healthVerdict}</p>
-        </>
-      )}
-    </Card>
-  );
-}
-
 function ImageryCard({ env }: { env: EnvironmentPayload }) {
   const im = env.imagery;
   const [failed, setFailed] = useState(false);
@@ -340,6 +326,79 @@ function ImageryCard({ env }: { env: EnvironmentPayload }) {
         </>
       )}
     </Card>
+  );
+}
+
+type Source = "live" | "A" | "B" | "C";
+const SCENARIOS: { id: Exclude<Source, "live">; label: string }[] = [
+  { id: "A", label: "A · Good season" },
+  { id: "B", label: "B · Stress season" },
+  { id: "C", label: "C · Soil + NDVI missing" },
+];
+
+function Module4({ live, liveLoading, hasPin }: { live: PlantHealthResult | null; liveLoading: boolean; hasPin: boolean }) {
+  const [source, setSource] = useState<Source>("live");
+  const [compare, setCompare] = useState(false);
+  const [scn, setScn] = useState<PlantHealthResult | null>(null);
+  const [base, setBase] = useState<PlantHealthResult | null>(null);
+  const [err, setErr] = useState<string | null>(null);
+
+  const load = (id: string, ok: (a: PlantHealthResult) => void, ctrl: AbortController) =>
+    fetch(`/api/scenario?id=${id}`, { signal: ctrl.signal })
+      .then((r) => r.json())
+      .then((j: ScenarioResponse) => (j.success ? ok(j.analysis) : setErr(j.error)))
+      .catch((e) => { if (e.name !== "AbortError") setErr("Could not load the scenario."); });
+
+  useEffect(() => {
+    setScn(null); setErr(null);
+    if (source === "live") return;
+    const ctrl = new AbortController();
+    load(source, setScn, ctrl);
+    return () => ctrl.abort();
+  }, [source]);
+
+  const canCompare = source === "B" || source === "C";
+  useEffect(() => {
+    setBase(null);
+    if (!compare || !canCompare) return;
+    const ctrl = new AbortController();
+    load("A", setBase, ctrl);
+    return () => ctrl.abort();
+  }, [compare, canCompare]);
+
+  const analysis = source === "live" ? live : scn;
+  const busy = source === "live" ? liveLoading : !scn && !err;
+  const badge = source === "live"
+    ? <span className="shrink-0 rounded-full bg-amber-50 px-2.5 py-1 text-[11px] font-medium text-amber-700 ring-1 ring-amber-200">POWER live · NDVI/soil estimated</span>
+    : <span className="shrink-0 rounded-full bg-sky-50 px-2.5 py-1 text-[11px] font-medium text-sky-700 ring-1 ring-sky-200">Synthetic test data</span>;
+
+  return (
+    <section className="space-y-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs text-stone-500">Module 4 data:</span>
+        {([{ id: "live", label: "Pinned farm" }, ...SCENARIOS] as { id: Source; label: string }[]).map((o) => (
+          <button key={o.id} onClick={() => { setSource(o.id); if (o.id !== "B" && o.id !== "C") setCompare(false); }} className={`rounded-full px-3 py-1 text-xs font-medium ring-1 transition ${source === o.id ? "bg-emerald-600 text-white ring-emerald-600" : "bg-white text-stone-600 ring-stone-300 hover:bg-stone-50"}`}>
+            {o.label}
+          </button>
+        ))}
+        {canCompare && (
+          <label className="ml-2 flex items-center gap-1.5 text-xs text-stone-600">
+            <input type="checkbox" checked={compare} onChange={(e) => setCompare(e.target.checked)} />
+            Compare with scenario A
+          </label>
+        )}
+      </div>
+
+      {err ? (
+        <div className="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">{err}</div>
+      ) : source === "live" && !hasPin ? (
+        <div className="grid h-32 place-items-center rounded-2xl border border-dashed border-stone-300 bg-white px-4 text-center text-sm text-stone-500">Pin a farm above, or pick a test scenario, to see plant health and water level.</div>
+      ) : busy ? (
+        <Skeleton className="h-96" />
+      ) : (
+        <PlantHealthCard analysis={analysis} badge={badge} baseline={base?.ndvi.observations ?? null} baselineLabel="Scenario A (good season)" />
+      )}
+    </section>
   );
 }
 

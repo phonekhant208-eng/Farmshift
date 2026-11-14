@@ -1,4 +1,4 @@
-
+import type { PlantHealthResult } from "./plantHealth";
 
 export type Num = number | "unknown";
 
@@ -14,7 +14,14 @@ export type EnvironmentPayload = {
     PRECTOTCORR?: PowerSeries;
   } | null;
   weatherStatus: string;
-  soil?: { status: string; soilState?: string; drainageRisk?: string; prototypeAssumption?: string };
+  soil?: {
+    status: string;
+    soilState?: string;
+    drainageRisk?: string;
+    prototypeAssumption?: string;
+    // optional: a real SMAP daily series, picked up automatically by Module 4
+    timeSeries?: { date: string; surface: number | null; root: number | null }[];
+  };
   vegetation?: { status: string; meanNdvi?: Num };
   rainfall?: {
     status: string;
@@ -68,9 +75,14 @@ export type Evaluation = {
     trend: string;
     healthVerdict: string;
     prototypeAssumption?: string;
+    analysis?: PlantHealthResult; // Module 4: NDVI trend + stages + stress markers + water level
   };
 };
 
 export type ApiResponse =
   | { success: true; queryLocation: { lat: number; lon: number }; environment: EnvironmentPayload; evaluation: Evaluation }
+  | { success: false; error: string };
+
+export type ScenarioResponse =
+  | { success: true; scenario: string; analysis: PlantHealthResult }
   | { success: false; error: string };

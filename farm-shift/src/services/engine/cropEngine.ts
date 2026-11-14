@@ -1,3 +1,5 @@
+import { analyzePlantHealth, rowsFromEnvironment, soilSnapshotFromEnvironment } from "@/lib/plantHealth";
+
 export function evaluateCrops(envData: any) {
   const reasons: string[] = [];
   const limitations: string[] = [];
@@ -42,6 +44,20 @@ export function evaluateCrops(envData: any) {
     reasons.push(`Surface volumetric moisture (${surfaceMoisture} m³/m³) exceeds black gram drainage safety thresholds. Delayed sowing incurs yield cost.`);
   }
 
+  // --- MODULE 4: PLANT HEALTH + WATER LEVEL (pure analysis, never invents data) ---
+  const plantHealth = analyzePlantHealth(rowsFromEnvironment(envData), {
+    soilSnapshot: soilSnapshotFromEnvironment(envData),
+  });
+  const module4_vegetation = {
+    description: "VIIRS NDVI trend, crop calendar, stress markers and water level",
+    status: plantHealth.ndvi.count ? "Active" : "unknown",
+    timeSeries: plantHealth.ndvi.observations.map((o) => ({ date: o.date, ndvi: o.value })),
+    trend: plantHealth.summary.text,
+    healthVerdict: "Trend only: no sourced NDVI thresholds, so no healthy/stressed verdict (prototype assumption).",
+    prototypeAssumption: envData.vegetation?.prototypeAssumption,
+    analysis: plantHealth,
+  };
+
   // If both core climate and soil are missing, output no recommendation
   if (!hasWeather && !hasSoil) {
     return {
@@ -53,7 +69,8 @@ export function evaluateCrops(envData: any) {
         reasons: ["No recommendation produced: Both temperature and rainfall telemetry are missing."],
         limitations,
         dataCoverage: { nasaPower: "unknown", smap: "unknown", viirs: "unknown" }
-      }
+      },
+      module4_vegetation
     };
   }
 
@@ -94,14 +111,7 @@ export function evaluateCrops(envData: any) {
       prototypeAssumption: "Daily max temperature thresholds checked against crop calendar schedules."
     },
 
-    // --- MODULE 4: VEGETATION NDVI TIME-SERIES OUTPUT ---
-    module4_vegetation: {
-      description: "MODIS/VIIRS NDVI Time-Series Trend & Stress Overlay",
-      status: envData.vegetation?.status || "unknown",
-      timeSeries: envData.vegetation?.timeSeries || [],
-      trend: envData.vegetation?.trend || "unknown",
-      healthVerdict: "Trend displayed; verdict label is unverified.",
-      prototypeAssumption: envData.vegetation?.prototypeAssumption
-    }
+    // --- MODULE 4: PLANT HEALTH + WATER LEVEL OUTPUT ---
+    module4_vegetation
   };
 }
