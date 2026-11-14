@@ -76,8 +76,10 @@ export default function PlantScene({ a, onDate }: { a: PlantHealthResult; onDate
   const last3 = [series[idx - 2], series[idx - 1], series[idx]];
   const rain3 = idx >= 2 && last3.every((s) => s && s.rain !== null) ? last3.reduce((t, s) => t + (s.rain as number), 0) : null;
   const rainToday = day.rain;
-  const m = day.surface;
-  const mRoot = day.root;
+  // Live mode has one SMAP reading instead of a daily series: use it when the day has no value.
+  const snap = a.water.soil.mode === "snapshot" ? a.water.soil : null;
+  const m = day.surface ?? snap?.latestSurface ?? null;
+  const mRoot = day.root ?? snap?.latestRoot ?? null;
   const active = a.markers.filter((k) => k.start <= date && k.end >= date);
   const has = (k: StressKind) => active.some((x) => x.kind === k);
 
