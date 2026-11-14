@@ -9,6 +9,7 @@
     "verify": "node --experimental-strip-types scripts/verify-module4.ts"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.119.0",
     "geist": "^1.9.2",
     "leaflet": "^1.9.4",
     "next": "^16.0.0",

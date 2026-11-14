@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { supabase } from '../lib/supabaseClient'; 
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -44,9 +45,42 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onSuccess
 
     setLoading(true);
     try {
-      // Replace this block with your Supabase query / API call
-      // e.g., supabase.from('userhandler').insert([{ username, password }])
-      await new Promise((resolve) => setTimeout(resolve, 600));
+      if (isSignUp) {
+        // --- SIGN UP: Check if username already exists in 'useraccess' ---
+        const { data: existingUser, error: checkError } = await supabase
+          .from('useraccess')
+          .select('username')
+          .eq('username', username)
+          .maybeSingle();
+
+        if (checkError) throw checkError;
+
+        if (existingUser) {
+          throw new Error('Username is already taken. Please choose another.');
+        }
+
+        // Insert new user into 'useraccess'
+        const { error: insertError } = await supabase
+          .from('useraccess')
+          .insert([{ username, password }]);
+
+        if (insertError) throw insertError;
+
+      } else {
+        // --- SIGN IN: Check credentials against 'useraccess' ---
+        const { data: userRecord, error: fetchError } = await supabase
+          .from('useraccess')
+          .select('*')
+          .eq('username', username)
+          .eq('password', password)
+          .maybeSingle();
+
+        if (fetchError) throw fetchError;
+
+        if (!userRecord) {
+          throw new Error('Invalid username or password.');
+        }
+      }
 
       onSuccess?.({ username });
       resetForm();

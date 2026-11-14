@@ -405,6 +405,8 @@ function Module4({ live, liveLoading, hasPin }: { live: PlantHealthResult | null
   const [scn, setScn] = useState<PlantHealthResult | null>(null);
   const [base, setBase] = useState<PlantHealthResult | null>(null);
   const [err, setErr] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
 
   const load = (id: string, ok: (a: PlantHealthResult) => void, ctrl: AbortController) =>
     fetch(`/api/scenario?id=${id}`, { signal: ctrl.signal })
@@ -419,6 +421,8 @@ function Module4({ live, liveLoading, hasPin }: { live: PlantHealthResult | null
     load(source, setScn, ctrl);
     return () => ctrl.abort();
   }, [source]);
+
+ 
 
   const canCompare = source === "B" || source === "C";
   useEffect(() => {
@@ -451,7 +455,16 @@ function Module4({ live, liveLoading, hasPin }: { live: PlantHealthResult | null
           </label>
         )}
       </div>
-
+        
+        <AuthModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} 
+        onSuccess={(user) => {
+          // This runs automatically on successful Sign In or Sign Up!
+          setCurrentUser(user.username);
+          console.log('Successfully authenticated as:', user.username);
+        }}
+      />
 
       {err ? (
         <div className="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-700">{err}</div>
@@ -463,9 +476,14 @@ function Module4({ live, liveLoading, hasPin }: { live: PlantHealthResult | null
         <PlantHealthCard analysis={analysis} badge={badge} baseline={base?.ndvi.observations ?? null} baselineLabel="Scenario A (good season)" />
       )}
     </section>
+
+      
+
   );
 
+ 
 }
+
 
 function Empty({ text }: { text: string }) {
   return <div className="grid h-40 place-items-center rounded-xl border border-dashed border-stone-200 bg-stone-50/60 px-4 text-center text-sm text-stone-400">{text}</div>;
