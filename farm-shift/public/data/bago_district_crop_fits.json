@@ -1,0 +1,70 @@
+{
+  "region": {
+    "name_en": "Bago",
+    "name_my": "ပဲခူးတိုင်းဒေသကြီး",
+    "country": "Myanmar"
+  },
+  "districts": [
+    {
+      "name_en": "Bago",
+      "name_my": "ပဲခူးခရိုင်",
+      "primary_crop_fit": "Monsoon rice",
+      "conditional_alternatives": [
+        "Black gram",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Post-rice pulse options are conditional regional candidates; verify drainage, residual moisture and local crop history."
+    },
+    {
+      "name_en": "Nattalin",
+      "name_my": "နတ်တလင်းခရိုင်",
+      "primary_crop_fit": "Monsoon rice",
+      "conditional_alternatives": [
+        "Black gram",
+        "Green gram",
+        "Oilseeds (species to verify locally)"
+      ],
+      "conditions_and_caveats": "Rice and oilseeds are reported in Nattalin Township, not established as optimal throughout the district. Pulse options require local verification."
+    },
+    {
+      "name_en": "Nyaunglebin",
+      "name_my": "ညောင်လေးပင်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice",
+      "conditional_alternatives": [
+        "Black gram",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Post-rice pulse options require suitable drainage, moisture and planting timing; not a district-wide measured suitability result."
+    },
+    {
+      "name_en": "Pyay",
+      "name_my": "ပြည်ခရိုင်",
+      "primary_crop_fit": "Rice on suitable lowland fields; groundnut or sesame on suitable non-waterlogged fields",
+      "conditional_alternatives": [
+        "Black gram",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Reported cultivation does not establish district-wide superiority. Pulse options require local verification."
+    },
+    {
+      "name_en": "Taungoo",
+      "name_my": "တောင်ငူခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [
+        "Black gram",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Verify second-season moisture and drainage. Do not extend lowland guidance to hill or forest land."
+    },
+    {
+      "name_en": "Thayarwady",
+      "name_my": "သာယာဝတီခရိုင်",
+      "primary_crop_fit": "Monsoon rice",
+      "conditional_alternatives": [
+        "Black gram",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Post-rice pulses are conditional candidates, not a district-specific ranking; verify local soil, drainage and water availability."
+    }
+  ]
+}

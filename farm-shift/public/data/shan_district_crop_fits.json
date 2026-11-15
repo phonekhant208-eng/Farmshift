@@ -1,0 +1,252 @@
+{
+  "region": {
+    "name_en": "Shan",
+    "name_my": "ရှမ်းပြည်နယ်",
+    "country": "Myanmar",
+    "type": "state"
+  },
+  "scope": "Remaining 12 states and regions; excludes previously generated Ayeyarwady and Bago, and excludes Nay Pyi Taw Union Territory.",
+  "administrative_basis": "Primarily the expanded 2022 district framework. Administrative listings differ; this is not a verified live boundary or territorial-control dataset. Self-administered zones are listed separately, not relabelled as districts.",
+  "crop_fit_basis": "Preliminary agro-ecological and state/region-level candidate shortlists, not verified district-level best-crop rankings.",
+  "limitations": [
+    "Crop lists do not establish profitability, current cultivation, yield potential or parcel-level suitability.",
+    "Many entries extrapolate regional farming systems rather than district-specific studies.",
+    "Verify local crop history, soil, slope, salinity, drainage, irrigation, season and market access.",
+    "Assess current security, land tenure, explosive-ordnance risk and safe field access locally before any activity.",
+    "A null primary_crop_fit means no broad-acre recommendation was assigned, not that all cultivation is impossible."
+  ],
+  "districts": [
+    {
+      "name_en": "Kalaw",
+      "name_my": "ကလောခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean",
+        "Potato on suitable cool uplands",
+        "Coffee where locally proven"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Kengtung",
+      "name_my": "ကျိုင်းတုံခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Kutkai",
+      "name_my": "ကွတ်ခိုင်ခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Kyaukme",
+      "name_my": "ကျောက်မဲခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean",
+        "Tea where locally proven"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Langhko",
+      "name_my": "လင်းခေးခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Lashio",
+      "name_my": "လားရှိုးခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Loilen",
+      "name_my": "လွိုင်လင်ခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Mong Hsat",
+      "name_my": "မိုင်းဆတ်ခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Mong Hsu",
+      "name_my": "မိုင်းရှူးခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Mong La",
+      "name_my": "မိုင်းလားခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Mongmit",
+      "name_my": "မိုးမိတ်ခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Mong Ton",
+      "name_my": "မိုင်းတုံခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Mong Yang",
+      "name_my": "မိုင်းယန်းခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Mong Yawng",
+      "name_my": "မိုင်းယောင်းခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Muse",
+      "name_my": "မူဆယ်ခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Nansang",
+      "name_my": "နမ့်စန်ခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Tachileik",
+      "name_my": "တာချီလိတ်ခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Tangyan",
+      "name_my": "တန့်ယန်းခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Taunggyi",
+      "name_my": "တောင်ကြီးခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean",
+        "Potato on suitable cool uplands",
+        "Coffee where locally proven"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest."
+    },
+    {
+      "name_en": "Hopang",
+      "name_my": "ဟိုပန်ခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest. District is within the Wa Self-Administered Division in the administrative framework used."
+    },
+    {
+      "name_en": "Matman",
+      "name_my": "မက်မန်းခရိုင်",
+      "primary_crop_fit": "Maize on suitable established agricultural land; rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Soybean"
+      ],
+      "conditions_and_caveats": "State-level shortlist only. Verify elevation, rainfall, soil and market access. Prevent erosion and do not convert forest. District is within the Wa Self-Administered Division in the administrative framework used."
+    }
+  ],
+  "self_administered_areas": [
+    {
+      "name_en": "Danu Self-Administered Zone",
+      "name_my": "ဓနုကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ",
+      "primary_crop_fit": "Rice or maize on suitable existing agricultural land",
+      "conditional_alternatives": [
+        "Soybean where locally proven"
+      ],
+      "conditions_and_caveats": "Not a district. State-level candidates only, not a verified zone-specific suitability assessment; check elevation, soil, water and access."
+    },
+    {
+      "name_en": "Pa-O Self-Administered Zone",
+      "name_my": "ပအိုဝ်းကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ",
+      "primary_crop_fit": "Rice or maize on suitable existing agricultural land",
+      "conditional_alternatives": [
+        "Soybean where locally proven"
+      ],
+      "conditions_and_caveats": "Not a district. State-level candidates only, not a verified zone-specific suitability assessment; check elevation, soil, water and access."
+    },
+    {
+      "name_en": "Palaung Self-Administered Zone",
+      "name_my": "ပလောင်ကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ",
+      "primary_crop_fit": "Rice or maize on suitable existing agricultural land",
+      "conditional_alternatives": [
+        "Tea where locally proven"
+      ],
+      "conditions_and_caveats": "Not a district. State-level candidates only, not a verified zone-specific suitability assessment; check elevation, soil, water and access."
+    },
+    {
+      "name_en": "Kokang Self-Administered Zone",
+      "name_my": "ကိုးကန့်ကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ",
+      "primary_crop_fit": "Rice or maize on suitable existing agricultural land",
+      "conditional_alternatives": [
+        "Soybean where locally proven"
+      ],
+      "conditions_and_caveats": "Not a district. State-level candidates only, not a verified zone-specific suitability assessment; check elevation, soil, water and access."
+    }
+  ]
+}

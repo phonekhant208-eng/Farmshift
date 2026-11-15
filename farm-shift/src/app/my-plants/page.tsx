@@ -131,6 +131,7 @@ function PlotCard({ plot: p, logs, onChange, onError }: { plot: Plot; logs: Plot
   const tip = tipFor(p.region, p.plant);
   const last = (k: LogKind) => logs.find((l) => l.kind === k);
   const harvested = p.status === "harvested";
+  const district = (p as Plot & { district?: string | null }).district; // set once the plot saves its district
   const grownDays = harvested && p.harvested_on ? daysGrown(p.planted_on, p.harvested_on) : null;
 
   const run = async (fn: () => Promise<unknown>) => {
@@ -145,7 +146,7 @@ function PlotCard({ plot: p, logs, onChange, onError }: { plot: Plot; logs: Plot
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-xs font-bold uppercase tracking-widest text-[#8a6a4c]">
-              {p.region ?? "Myanmar"}{p.area_ha ? ` · ${p.area_ha.toFixed(2)} ha (${haToAcre(p.area_ha).toFixed(1)} acres)` : ""}
+              {district ? `${district} District · ` : ""}{p.region ?? "Myanmar"}{p.area_ha ? ` · ${p.area_ha.toFixed(2)} ha (${haToAcre(p.area_ha).toFixed(1)} acres)` : ""}
             </p>
             <h2 className="mt-1 text-3xl font-extrabold leading-tight text-[#1f7a3d] md:text-4xl">{p.plant}</h2>
           </div>

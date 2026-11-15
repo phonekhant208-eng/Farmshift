@@ -1,0 +1,74 @@
+{
+  "region": {
+    "name_en": "Kachin",
+    "name_my": "ကချင်ပြည်နယ်",
+    "country": "Myanmar",
+    "type": "state"
+  },
+  "scope": "Remaining 12 states and regions; excludes previously generated Ayeyarwady and Bago, and excludes Nay Pyi Taw Union Territory.",
+  "administrative_basis": "Primarily the expanded 2022 district framework. Administrative listings differ; this is not a verified live boundary or territorial-control dataset. Self-administered zones are listed separately, not relabelled as districts.",
+  "crop_fit_basis": "Preliminary agro-ecological and state/region-level candidate shortlists, not verified district-level best-crop rankings.",
+  "limitations": [
+    "Crop lists do not establish profitability, current cultivation, yield potential or parcel-level suitability.",
+    "Many entries extrapolate regional farming systems rather than district-specific studies.",
+    "Verify local crop history, soil, slope, salinity, drainage, irrigation, season and market access.",
+    "Assess current security, land tenure, explosive-ordnance risk and safe field access locally before any activity.",
+    "A null primary_crop_fit means no broad-acre recommendation was assigned, not that all cultivation is impossible."
+  ],
+  "districts": [
+    {
+      "name_en": "Bhamo",
+      "name_my": "ဗန်းမော်ခရိုင်",
+      "primary_crop_fit": "Rice on suitable lowland or established upland fields",
+      "conditional_alternatives": [
+        "Maize on suitable established uplands"
+      ],
+      "conditions_and_caveats": "Hill-region shortlist only, not district-specific evidence. Elevation, slope, soil depth, erosion risk and local growing season can rule out either crop; no forest conversion."
+    },
+    {
+      "name_en": "Chipwi",
+      "name_my": "ချီဖွေခရိုင်",
+      "primary_crop_fit": "Rice on suitable lowland or established upland fields",
+      "conditional_alternatives": [
+        "Maize on suitable established uplands"
+      ],
+      "conditions_and_caveats": "Hill-region shortlist only, not district-specific evidence. Elevation, slope, soil depth, erosion risk and local growing season can rule out either crop; no forest conversion."
+    },
+    {
+      "name_en": "Mohnyin",
+      "name_my": "မိုးညှင်းခရိုင်",
+      "primary_crop_fit": "Rice on suitable lowland or established upland fields",
+      "conditional_alternatives": [
+        "Maize on suitable established uplands"
+      ],
+      "conditions_and_caveats": "Hill-region shortlist only, not district-specific evidence. Elevation, slope, soil depth, erosion risk and local growing season can rule out either crop; no forest conversion."
+    },
+    {
+      "name_en": "Myitkyina",
+      "name_my": "မြစ်ကြီးနားခရိုင်",
+      "primary_crop_fit": "Rice on suitable lowland or established upland fields",
+      "conditional_alternatives": [
+        "Maize on suitable established uplands"
+      ],
+      "conditions_and_caveats": "Hill-region shortlist only, not district-specific evidence. Elevation, slope, soil depth, erosion risk and local growing season can rule out either crop; no forest conversion."
+    },
+    {
+      "name_en": "Putao",
+      "name_my": "ပူတာအိုခရိုင်",
+      "primary_crop_fit": "Rice on suitable lowland or established upland fields",
+      "conditional_alternatives": [
+        "Maize on suitable established uplands"
+      ],
+      "conditions_and_caveats": "Hill-region shortlist only, not district-specific evidence. Elevation, slope, soil depth, erosion risk and local growing season can rule out either crop; no forest conversion."
+    },
+    {
+      "name_en": "Tanai",
+      "name_my": "တနိုင်းခရိုင်",
+      "primary_crop_fit": "Rice on suitable lowland or established upland fields",
+      "conditional_alternatives": [
+        "Maize on suitable established uplands"
+      ],
+      "conditions_and_caveats": "Hill-region shortlist only, not district-specific evidence. Elevation, slope, soil depth, erosion risk and local growing season can rule out either crop; no forest conversion."
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "region": {
+    "name_en": "Yangon",
+    "name_my": "ရန်ကုန်တိုင်းဒေသကြီး",
+    "country": "Myanmar",
+    "type": "region"
+  },
+  "scope": "Remaining 12 states and regions; excludes previously generated Ayeyarwady and Bago, and excludes Nay Pyi Taw Union Territory.",
+  "administrative_basis": "Primarily the expanded 2022 district framework. Administrative listings differ; this is not a verified live boundary or territorial-control dataset. Self-administered zones are listed separately, not relabelled as districts.",
+  "crop_fit_basis": "Preliminary agro-ecological and state/region-level candidate shortlists, not verified district-level best-crop rankings.",
+  "limitations": [
+    "Crop lists do not establish profitability, current cultivation, yield potential or parcel-level suitability.",
+    "Many entries extrapolate regional farming systems rather than district-specific studies.",
+    "Verify local crop history, soil, slope, salinity, drainage, irrigation, season and market access.",
+    "Assess current security, land tenure, explosive-ordnance risk and safe field access locally before any activity.",
+    "A null primary_crop_fit means no broad-acre recommendation was assigned, not that all cultivation is impossible."
+  ],
+  "districts": [
+    {
+      "name_en": "Taikkyi",
+      "name_my": "တိုက်ကြီးခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable agricultural lowlands",
+      "conditional_alternatives": [
+        "Black gram after rice",
+        "Green gram after rice"
+      ],
+      "conditions_and_caveats": "Regional candidate only. Verify agricultural land availability, drainage, salinity and residual moisture before selecting a second crop."
+    },
+    {
+      "name_en": "Hlegu",
+      "name_my": "လှည်းကူးခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable agricultural lowlands",
+      "conditional_alternatives": [
+        "Black gram after rice",
+        "Green gram after rice"
+      ],
+      "conditions_and_caveats": "Regional candidate only. Verify agricultural land availability, drainage, salinity and residual moisture before selecting a second crop."
+    },
+    {
+      "name_en": "Hmawbi",
+      "name_my": "မှော်ဘီခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable agricultural lowlands",
+      "conditional_alternatives": [
+        "Black gram after rice",
+        "Green gram after rice"
+      ],
+      "conditions_and_caveats": "Regional candidate only. Verify agricultural land availability, drainage, salinity and residual moisture before selecting a second crop."
+    },
+    {
+      "name_en": "Mingaladon",
+      "name_my": "မင်္ဂလာဒုံခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable agricultural lowlands",
+      "conditional_alternatives": [
+        "Black gram after rice",
+        "Green gram after rice"
+      ],
+      "conditions_and_caveats": "Regional candidate only. Verify agricultural land availability, drainage, salinity and residual moisture before selecting a second crop. Urban and peri-urban land use requires parcel-level verification."
+    },
+    {
+      "name_en": "Insein",
+      "name_my": "အင်းစိန်ခရိုင်",
+      "primary_crop_fit": null,
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "No broad-acre crop fit assigned to this predominantly urban district. Verify actual agricultural land and site conditions before any crop recommendation."
+    },
+    {
+      "name_en": "Kyauktada",
+      "name_my": "ကျောက်တံတားခရိုင်",
+      "primary_crop_fit": null,
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "No broad-acre crop fit assigned to this predominantly urban district. Verify actual agricultural land and site conditions before any crop recommendation."
+    },
+    {
+      "name_en": "Ahlon",
+      "name_my": "အလုံခရိုင်",
+      "primary_crop_fit": null,
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "No broad-acre crop fit assigned to this predominantly urban district. Verify actual agricultural land and site conditions before any crop recommendation."
+    },
+    {
+      "name_en": "Kamayut",
+      "name_my": "ကမာရွတ်ခရိုင်",
+      "primary_crop_fit": null,
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "No broad-acre crop fit assigned to this predominantly urban district. Verify actual agricultural land and site conditions before any crop recommendation."
+    },
+    {
+      "name_en": "Mayangon",
+      "name_my": "မရမ်းကုန်းခရိုင်",
+      "primary_crop_fit": null,
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "No broad-acre crop fit assigned to this predominantly urban district. Verify actual agricultural land and site conditions before any crop recommendation."
+    },
+    {
+      "name_en": "Thingangyun",
+      "name_my": "သင်္ဃန်းကျွန်းခရိုင်",
+      "primary_crop_fit": null,
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "No broad-acre crop fit assigned to this predominantly urban district. Verify actual agricultural land and site conditions before any crop recommendation."
+    },
+    {
+      "name_en": "Botataung",
+      "name_my": "ဗိုလ်တထောင်ခရိုင်",
+      "primary_crop_fit": null,
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "No broad-acre crop fit assigned to this predominantly urban district. Verify actual agricultural land and site conditions before any crop recommendation."
+    },
+    {
+      "name_en": "Dagon Myothit",
+      "name_my": "ဒဂုံမြို့သစ်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable agricultural lowlands",
+      "conditional_alternatives": [
+        "Black gram after rice",
+        "Green gram after rice"
+      ],
+      "conditions_and_caveats": "Regional candidate only. Verify agricultural land availability, drainage, salinity and residual moisture before selecting a second crop. Urban and peri-urban land use requires parcel-level verification."
+    },
+    {
+      "name_en": "Twante",
+      "name_my": "တွံတေးခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable agricultural lowlands",
+      "conditional_alternatives": [
+        "Black gram after rice",
+        "Green gram after rice"
+      ],
+      "conditions_and_caveats": "Regional candidate only. Verify agricultural land availability, drainage, salinity and residual moisture before selecting a second crop."
+    },
+    {
+      "name_en": "Thanlyin",
+      "name_my": "သန်လျင်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable agricultural lowlands",
+      "conditional_alternatives": [
+        "Black gram after rice",
+        "Green gram after rice"
+      ],
+      "conditions_and_caveats": "Regional candidate only. Verify agricultural land availability, drainage, salinity and residual moisture before selecting a second crop."
+    }
+  ]
+}

@@ -6,8 +6,9 @@
  * - Myanmar's 14 states/regions are real vector meshes + fat lines, so they stay SHARP at any zoom.
  * - Click a region (or pick it in the list) -> FOCUS MODE: the camera zooms until the region fills the
  *   whole container and everything else (world, other regions) is hidden. Click inside the focused region to drop the pin.
- * - DISTRICTS: only Ayeyarwady has districts. When Ayeyarwady is focused its districts are drawn on top,
- *   with names, hover, tap-to-select and a crop-fit panel. Every other region stays as before (no districts).
+ * - DISTRICTS: every state/region has a district list with crop notes. When a region is focused its district
+ *   list + crop-fit panel show up. If the region also has a boundary file, the districts are drawn on top
+ *   of the map (names, hover, tap-to-select). Regions without a boundary file show the list only.
  * - Pin / labels keep a constant on-screen size (they scale with zoom).
  * - MANY FIELDS: when there are lots of farmer fields they are grouped into numbered circles that split
  *   apart as you zoom in (tap a circle to zoom into it). Your own fields are never grouped.
@@ -16,8 +17,9 @@
  * npm i -D @types/three @types/topojson-client
  * Needs in /public/data:
  *   myanmar-regions.geojson
- *   ayeyarwady-districts.geojson            (district shapes, optional: no districts are drawn if missing)
- *   ayeyarwady_district_crop_fits.json      (crop notes per district, optional)
+ *   <region-id>_district_crop_fits.json     (crop notes per district, one file per region, e.g. bago_district_crop_fits.json)
+ *   <region-id>-districts.geojson           (district shapes, OPTIONAL, e.g. ayeyarwady-districts.geojson.
+ *                                            Drop one in for any region and its districts get drawn on the map.)
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import * as THREE from "three";
@@ -64,17 +66,16 @@ export type DistrictPick = { id: string; name: string };
 type Fit = {
   name_en: string;
   name_my?: string;
-  primary_crop_fit: string;
+  primary_crop_fit: string | null;
   conditional_alternatives: string[];
   conditions_and_caveats: string;
 };
-type Fits = { limitations?: string[]; districts: Fit[] };
+type Fits = { limitations?: string[]; districts: Fit[]; self_administered_areas?: Fit[] };
 
 const WORLD_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json";
 const REGIONS_URL = "/data/myanmar-regions.geojson";
-const DISTRICTS_URL = "/data/ayeyarwady-districts.geojson";
-const FITS_URL = "/data/ayeyarwady_district_crop_fits.json";
-const DISTRICT_REGION = "ayeyarwady"; // the only region that shows districts
+const districtsUrl = (regionId: string) => `/data/${regionId}-districts.geojson`; // optional boundary file
+const fitsUrl = (regionId: string) => `/data/${regionId}_district_crop_fits.json`;
 const MYANMAR_CENTER = { lat: 20.3, lon: 96.5 };
 const START_DIST = 2.5;
 const OVERVIEW_DIST = 1.75;
@@ -250,6 +251,7 @@ type Api = {
   selectDistrict: (id: string | null, fly?: boolean) => void;
   regionIdAt: (lat: number, lon: number) => string | null;
   districtIdAt: (lat: number, lon: number) => string | null;
+  loadDistricts: (regionId: string) => void;
   fitDist: (id: string) => number;
 };
 
@@ -267,7 +269,7 @@ export default function MyanmarGlobe({
   onPick: (lat: number, lon: number) => void;
   cities?: City[];
   onRegionChange?: (region: Region | null) => void;
-  /** Called when a district of Ayeyarwady is selected (null = none). Other regions never report a district. */
+  /** Called when a district of the focused region is selected (null = none). */
   onDistrictChange?: (d: DistrictPick | null) => void;
   zones?: GlobeZone[];
 }) {
@@ -282,14 +284,13 @@ export default function MyanmarGlobe({
   const selRef = useRef<string | null>(null);
   const distSelRef = useRef<string | null>(null);
   const hintTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const fitsTried = useRef(false);
+  const fitsTried = useRef<Set<string>>(new Set());
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [hint, setHint] = useState<string | null>(null);
   const [regions, setRegions] = useState<Region[]>([]);
   const [districts, setDistricts] = useState<District[]>([]);
-  const [fits, setFits] = useState<Fits | null>(null);
-  const [fitsErr, setFitsErr] = useState(false);
+  const [fitsMap, setFitsMap] = useState<Record<string, Fits | "err">>({});
   const [sel, setSel] = useState<string | null>(null);
   const [distSel, setDistSel] = useState<string | null>(null);
 
@@ -506,20 +507,20 @@ export default function MyanmarGlobe({
     const lineMats: LineMaterial[] = [];
     let worldTex: THREE.CanvasTexture | null = null;
 
-    /* ---- district objects (Ayeyarwady only) ---- */
+    /* ---- district objects (one boundary set per region, loaded the first time that region is opened) ---- */
     type DObj = { fillMat: THREE.MeshBasicMaterial; lineMat: LineMaterial; label: THREE.Sprite };
-    const distGroup = new THREE.Group();
-    distGroup.visible = false;
-    scene.add(distGroup);
-    const dobjs = new Map<string, DObj>();
-    let dlist: District[] = [];
+    type DSet = { list: District[]; group: THREE.Group; objs: Map<string, DObj> };
+    const dsets = new Map<string, DSet>(); // regionId -> its drawn districts (list may be empty = no boundary file)
+    const dloading = new Set<string>();
+    let dlist: District[] = []; // districts of the focused region
+    let dobjs: Map<string, DObj> = new Map();
     let dHover: string | null = null;
 
-    const districtsOn = () => selRef.current === DISTRICT_REGION && dlist.length > 0;
+    const districtsOn = () => dlist.length > 0;
 
     const applyDistrict = () => {
       const on = districtsOn();
-      distGroup.visible = on;
+      dsets.forEach((ds, rid) => (ds.group.visible = on && selRef.current === rid));
       const picked = distSelRef.current;
       dlist.forEach((d, i) => {
         const o = dobjs.get(d.id);
@@ -529,8 +530,8 @@ export default function MyanmarGlobe({
         o.fillMat.color.set(isPicked ? COLORS.distSel : isHover ? COLORS.hover : COLORS.distFills[i % COLORS.distFills.length]);
         o.lineMat.linewidth = isPicked ? 3.2 : 1.5;
       });
-      const rObj = robjs.get(DISTRICT_REGION);
-      if (rObj) rObj.label.visible = selRef.current === DISTRICT_REGION && !on; // district names replace the region name
+      const rObj = selRef.current ? robjs.get(selRef.current) : null;
+      if (rObj) rObj.label.visible = !on; // district names replace the region name
     };
 
     const applyStyle = () => {
@@ -578,10 +579,92 @@ export default function MyanmarGlobe({
       applyDistrict();
     };
 
+    /** Build the drawn districts of one region from its (optional) boundary file. Safe to call many times. */
+    const buildDistricts = (regionId: string, dgeo: any) => {
+      const group = new THREE.Group();
+      group.visible = false;
+      scene.add(group);
+      const objs = new Map<string, DObj>();
+      const list2: District[] = (dgeo?.features ?? []).map((f: any): District => {
+        const polys = polysOf(f.geometry);
+        const p = f.properties ?? {};
+        const b = boundsOf(polys);
+        return {
+          id: p.id ?? slug(p.name_en ?? ""),
+          name: p.name_en,
+          name_my: p.name_my ?? "",
+          pcode: p.pcode ?? "",
+          lat: p.lat ?? b.center.lat,
+          lon: p.lon ?? b.center.lon,
+          polys,
+          ...b,
+        };
+      });
+      const w = el.clientWidth || 1;
+      const h = el.clientHeight || 1;
+      list2.forEach((d, i) => {
+        const fillMat = new THREE.MeshBasicMaterial({
+          color: COLORS.distFills[i % COLORS.distFills.length],
+          side: THREE.DoubleSide,
+          polygonOffset: true,
+          polygonOffsetFactor: -2,
+          polygonOffsetUnits: -2,
+        });
+        const fill = new THREE.Mesh(fillGeometry(d.polys, 1.0013), fillMat);
+        const lineMat = new LineMaterial({ color: 0xffffff, linewidth: 1.5 });
+        lineMat.resolution.set(w, h);
+        lineMats.push(lineMat);
+        const lines = new THREE.Group();
+        for (const poly of d.polys)
+          for (const ring of poly) {
+            const arr: number[] = [];
+            for (const [lon, lat] of ring) {
+              const v = toVec3(lat, lon, 1.0019);
+              arr.push(v.x, v.y, v.z);
+            }
+            const lg = new LineGeometry();
+            lg.setPositions(arr);
+            lines.add(new Line2(lg, lineMat));
+          }
+        const label = makeLabel(d.name, "#ffffff", 0.2, true, "rgba(19,72,34,0.92)");
+        label.position.copy(toVec3(d.lat, d.lon, 1.0045));
+        group.add(fill, lines, label);
+        scalables.push(label);
+        objs.set(d.id, { fillMat, lineMat, label });
+      });
+      dsets.set(regionId, { list: list2, group, objs });
+    };
+
+    const loadDistricts = (regionId: string) => {
+      if (dsets.has(regionId) || dloading.has(regionId)) return;
+      dloading.add(regionId);
+      fetch(districtsUrl(regionId))
+        .then((r) => (r.ok ? r.json() : null))
+        .catch(() => null)
+        .then((dgeo) => {
+          dloading.delete(regionId);
+          if (disposed) return;
+          buildDistricts(regionId, dgeo); // no file = empty set, the region just has the list
+          if (selRef.current === regionId) {
+            const ds = dsets.get(regionId)!;
+            dlist = ds.list;
+            dobjs = ds.objs;
+            setDistricts(dlist);
+            applyStyle();
+          }
+        });
+    };
+
     const select = (id: string | null, doFly = true) => {
+      const changed = selRef.current !== id;
       selRef.current = id;
       setSel(id);
-      if (id !== DISTRICT_REGION && distSelRef.current) setDistrictId(null); // other regions have no districts
+      if (changed && distSelRef.current) setDistrictId(null); // districts belong to one region
+      const ds = id ? dsets.get(id) : null;
+      dlist = ds?.list ?? [];
+      dobjs = ds?.objs ?? new Map();
+      setDistricts(dlist);
+      if (id) loadDistricts(id); // fetch this region's district boundaries the first time (optional file)
       dHover = null;
       applyStyle();
       refreshVis();
@@ -594,7 +677,7 @@ export default function MyanmarGlobe({
     };
 
     const selectDistrict = (id: string | null, doFly = true) => {
-      if (id && selRef.current !== DISTRICT_REGION) return; // districts only exist inside Ayeyarwady
+      if (id && !selRef.current) return; // districts only exist inside a focused region
       setDistrictId(id);
       if (!doFly) return;
       const d = id ? dlist.find((x) => x.id === id) : null;
@@ -613,6 +696,7 @@ export default function MyanmarGlobe({
       selectDistrict,
       regionIdAt: (lat, lon) => regionAt(list, lat, lon)?.id ?? null,
       districtIdAt: (lat, lon) => regionAt(dlist, lat, lon)?.id ?? null,
+      loadDistricts,
       fitDist: (id) => {
         const r = list.find((x) => x.id === id);
         return r ? fitDist(r) : 1.4;
@@ -700,7 +784,7 @@ export default function MyanmarGlobe({
           hoverId = nextHover;
           applyStyle();
         }
-        // district under the cursor (Ayeyarwady only)
+        // district under the cursor (only when this region has boundaries)
         const dd = p && districtsOn() && r?.id === s ? regionAt(dlist, p.lat, p.lon) : null;
         const nextD = dd?.id ?? null;
         if (nextD !== dHover) {
@@ -767,17 +851,15 @@ export default function MyanmarGlobe({
     };
     loop();
 
-    /* ---- load world + regions (+ Ayeyarwady districts, optional) ---- */
+    /* ---- load world + regions (districts load per region, later) ---- */
     (async () => {
       try {
-        const [topo, geo, dgeo]: any[] = await Promise.all([
+        const [topo, geo]: any[] = await Promise.all([
           fetch(WORLD_URL).then((r) => r.json()),
           fetch(REGIONS_URL).then((r) => {
             if (!r.ok) throw new Error(`Missing ${REGIONS_URL} — put myanmar-regions.geojson in /public/data`);
             return r.json();
           }),
-          // districts are optional: if the file is missing the map just shows regions
-          fetch(DISTRICTS_URL).then((r) => (r.ok ? r.json() : null)).catch(() => null),
         ]);
         if (disposed) return;
         const fc: any = feature(topo, topo.objects.countries);
@@ -873,56 +955,6 @@ export default function MyanmarGlobe({
         }
         cityObjs.forEach((c) => (c.region = regionAt(list, c.lat, c.lon)?.id ?? null));
 
-        // districts: drawn above the Ayeyarwady region, hidden for every other region
-        if (dgeo?.features?.length) {
-          dlist = dgeo.features.map((f: any): District => {
-            const polys = polysOf(f.geometry);
-            const p = f.properties ?? {};
-            const b = boundsOf(polys);
-            return {
-              id: p.id ?? slug(p.name_en ?? ""),
-              name: p.name_en,
-              name_my: p.name_my ?? "",
-              pcode: p.pcode ?? "",
-              lat: p.lat ?? b.center.lat,
-              lon: p.lon ?? b.center.lon,
-              polys,
-              ...b,
-            };
-          });
-          dlist.forEach((d, i) => {
-            const fillMat = new THREE.MeshBasicMaterial({
-              color: COLORS.distFills[i % COLORS.distFills.length],
-              side: THREE.DoubleSide,
-              polygonOffset: true,
-              polygonOffsetFactor: -2,
-              polygonOffsetUnits: -2,
-            });
-            const fill = new THREE.Mesh(fillGeometry(d.polys, 1.0013), fillMat);
-            const lineMat = new LineMaterial({ color: 0xffffff, linewidth: 1.5 });
-            lineMat.resolution.set(w, h);
-            lineMats.push(lineMat);
-            const lines = new THREE.Group();
-            for (const poly of d.polys)
-              for (const ring of poly) {
-                const arr: number[] = [];
-                for (const [lon, lat] of ring) {
-                  const v = toVec3(lat, lon, 1.0019);
-                  arr.push(v.x, v.y, v.z);
-                }
-                const lg = new LineGeometry();
-                lg.setPositions(arr);
-                lines.add(new Line2(lg, lineMat));
-              }
-            const label = makeLabel(d.name, "#ffffff", 0.2, true, "rgba(19,72,34,0.92)");
-            label.position.copy(toVec3(d.lat, d.lon, 1.0045));
-            distGroup.add(fill, lines, label);
-            scalables.push(label);
-            dobjs.set(d.id, { fillMat, lineMat, label });
-          });
-          setDistricts(dlist);
-        }
-
         applyStyle();
         refreshVis();
         setRegions(list);
@@ -971,23 +1003,36 @@ export default function MyanmarGlobe({
     if (!value) return;
     const rid = a.regionIdAt(value.lat, value.lon);
     if (rid && rid !== selRef.current) a.select(rid, false);
-    // only Ayeyarwady has districts
-    a.selectDistrict(rid === DISTRICT_REGION ? a.districtIdAt(value.lat, value.lon) : null, false);
+    // pick the district under the pin (works once that region's boundaries are loaded)
+    a.selectDistrict(a.districtIdAt(value.lat, value.lon), false);
     if (fromMap.current) fromMap.current = false;
     else {
       a.flyTo(value.lat, value.lon, rid ? a.fitDist(rid) : 1.4);
     }
   }, [ready, value]);
 
-  // crop notes for the Ayeyarwady districts: loaded the first time that region is opened
+  // boundaries finished loading after the pin was dropped: pick the district under it
   useEffect(() => {
-    if (sel !== DISTRICT_REGION || fitsTried.current) return;
-    fitsTried.current = true;
-    fetch(FITS_URL)
+    const a = api.current;
+    if (!ready || !a || !value || !districts.length) return;
+    a.selectDistrict(a.districtIdAt(value.lat, value.lon), false);
+  }, [districts]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // crop notes: loaded the first time each region is opened
+  useEffect(() => {
+    if (!sel || fitsTried.current.has(sel)) return;
+    fitsTried.current.add(sel);
+    const id = sel;
+    fetch(fitsUrl(id))
       .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((j: Fits) => setFits(j))
-      .catch(() => setFitsErr(true));
+      .then((j: Fits) => setFitsMap((m) => ({ ...m, [id]: j })))
+      .catch(() => setFitsMap((m) => ({ ...m, [id]: "err" })));
   }, [sel]);
+
+  const rawFits = sel ? fitsMap[sel] : undefined;
+  const fits = rawFits && rawFits !== "err" ? rawFits : null;
+  const fitsErr = rawFits === "err";
+  const selRegion = regions.find((r) => r.id === sel) ?? null;
 
   const pinRegion = value ? regions.find((r) => regionAt([r], value.lat, value.lon)) : null;
 
@@ -1016,7 +1061,9 @@ export default function MyanmarGlobe({
     return [...items.values()].sort((x, y) => x.name.localeCompare(y.name));
   }, [fits, districts]);
 
-  const pickedDistrict = districtItems.find((d) => d.id === distSel) ?? null;
+  const saItems = (fits?.self_administered_areas ?? []).map((f) => ({ id: slug(f.name_en), name: f.name_en, name_my: f.name_my ?? "", hasShape: false, fit: f }));
+  const pickedDistrict = districtItems.find((d) => d.id === distSel) ?? saItems.find((d) => d.id === distSel) ?? null;
+  const pickedIsSA = !!pickedDistrict && saItems.some((d) => d.id === pickedDistrict.id);
 
   useEffect(() => {
     districtCb.current?.(pickedDistrict ? { id: pickedDistrict.id, name: pickedDistrict.name } : null);
@@ -1024,7 +1071,8 @@ export default function MyanmarGlobe({
 
   const mineCount = zones.filter((z) => z.mine).length;
   const otherCount = zones.length - mineCount;
-  const showDistricts = ready && sel === DISTRICT_REGION && districtItems.length > 0;
+  const showDistricts = ready && !!sel && (districtItems.length > 0 || fitsErr);
+  const anyShape = districts.length > 0;
 
   return (
     <div>
@@ -1065,12 +1113,12 @@ export default function MyanmarGlobe({
         </div>
       )}
 
-      {/* Ayeyarwady only: districts + crop notes */}
+      {/* districts + crop notes for the focused region */}
       {showDistricts && (
         <div className="mt-4 rounded-3xl bg-white p-4 ring-1 ring-[#e8dcc8]">
           <div className="mb-3 flex flex-wrap items-baseline justify-between gap-2">
-            <h3 className="text-base font-extrabold text-[#2d2218]">Ayeyarwady districts ({districtItems.length})</h3>
-            <span className="text-xs text-[#8a6a4c]">Tap a district on the map or pick one</span>
+            <h3 className="text-base font-extrabold text-[#2d2218]">{selRegion?.name ?? "Region"} districts ({districtItems.length})</h3>
+            <span className="text-xs text-[#8a6a4c]">{anyShape ? "Tap a district on the map or pick one" : "Pick a district to see crop notes"}</span>
           </div>
 
           <div className="flex flex-wrap gap-1.5">
@@ -1105,20 +1153,44 @@ export default function MyanmarGlobe({
             })}
           </div>
 
+          {saItems.length > 0 && (
+            <div className="mt-3">
+              <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-[#8a6a4c]">Self-administered areas (not districts)</p>
+              <div className="flex flex-wrap gap-1.5">
+                {saItems.map((d) => (
+                  <button
+                    key={d.id}
+                    type="button"
+                    onClick={() => api.current?.selectDistrict(d.id)}
+                    className={`rounded-full px-3.5 py-2 text-sm font-medium ring-1 transition ${
+                      d.id === distSel ? "bg-[#c28a3e] text-white ring-[#c28a3e]" : "border border-dashed border-[#d9c9b0] bg-white text-[#8a6a4c] ring-0 hover:bg-[#faf6ef]"
+                    }`}
+                  >
+                    {d.name.replace(" Self-Administered Zone", "").replace(" Self-Administered Division", "")}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {!anyShape && districtItems.length > 0 && (
+            <p className="mt-3 text-xs text-[#8a6a4c]">District boundaries for this region are not on the map yet, so these are crop notes only.</p>
+          )}
+
           {pickedDistrict ? (
             <div className="mt-4 rounded-2xl bg-[#faf6ef] p-4 ring-1 ring-[#e8dcc8]">
               <div className="flex flex-wrap items-baseline gap-x-3">
-                <h4 className="text-xl font-extrabold text-[#1f7a3d]">{pickedDistrict.name} District</h4>
+                <h4 className="text-xl font-extrabold text-[#1f7a3d]">{pickedDistrict.name}{pickedIsSA ? "" : " District"}</h4>
                 {pickedDistrict.name_my && <span className="text-base text-[#8a6a4c]">{pickedDistrict.name_my}</span>}
               </div>
-              {!pickedDistrict.hasShape && (
+              {!pickedDistrict.hasShape && anyShape && !pickedIsSA && (
                 <p className="mt-2 text-sm text-[#8a6a4c]">This district is not drawn on the map yet because its boundary is not in the map file.</p>
               )}
               {pickedDistrict.fit ? (
                 <dl className="mt-3 space-y-3 text-base text-[#2d2218]">
                   <div>
                     <dt className="text-xs font-bold uppercase tracking-wide text-[#8a6a4c]">Best fit</dt>
-                    <dd className="mt-0.5 font-semibold">{pickedDistrict.fit.primary_crop_fit}</dd>
+                    <dd className="mt-0.5 font-semibold">{pickedDistrict.fit.primary_crop_fit ?? "No broad-acre crop suggested (mostly urban or built-up)"}</dd>
                   </div>
                   {pickedDistrict.fit.conditional_alternatives.length > 0 && (
                     <div>
@@ -1140,7 +1212,7 @@ export default function MyanmarGlobe({
               )}
             </div>
           ) : (
-            <p className="mt-3 text-sm text-[#8a6a4c]">Pick a district to see which crops usually fit there.</p>
+            <p className="mt-3 text-sm text-[#8a6a4c]">{fitsErr && !districtItems.length ? "Crop notes are not available for this region." : "Pick a district to see which crops usually fit there."}</p>
           )}
 
           {fits?.limitations && fits.limitations.length > 0 && (

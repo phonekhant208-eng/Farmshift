@@ -1,0 +1,158 @@
+{
+  "region": {
+    "name_en": "Sagaing",
+    "name_my": "စစ်ကိုင်းတိုင်းဒေသကြီး",
+    "country": "Myanmar",
+    "type": "region"
+  },
+  "scope": "Remaining 12 states and regions; excludes previously generated Ayeyarwady and Bago, and excludes Nay Pyi Taw Union Territory.",
+  "administrative_basis": "Primarily the expanded 2022 district framework. Administrative listings differ; this is not a verified live boundary or territorial-control dataset. Self-administered zones are listed separately, not relabelled as districts.",
+  "crop_fit_basis": "Preliminary agro-ecological and state/region-level candidate shortlists, not verified district-level best-crop rankings.",
+  "limitations": [
+    "Crop lists do not establish profitability, current cultivation, yield potential or parcel-level suitability.",
+    "Many entries extrapolate regional farming systems rather than district-specific studies.",
+    "Verify local crop history, soil, slope, salinity, drainage, irrigation, season and market access.",
+    "Assess current security, land tenure, explosive-ordnance risk and safe field access locally before any activity.",
+    "A null primary_crop_fit means no broad-acre recommendation was assigned, not that all cultivation is impossible."
+  ],
+  "districts": [
+    {
+      "name_en": "Hkamti",
+      "name_my": "ခန္တီးခရိုင်",
+      "primary_crop_fit": "Rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Maize on suitable uplands"
+      ],
+      "conditions_and_caveats": "Northern/valley regional shortlist only; district-specific suitability is not verified. Check flood exposure, elevation and water access."
+    },
+    {
+      "name_en": "Homalin",
+      "name_my": "ဟုမ္မလင်းခရိုင်",
+      "primary_crop_fit": "Rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Maize on suitable uplands"
+      ],
+      "conditions_and_caveats": "Northern/valley regional shortlist only; district-specific suitability is not verified. Check flood exposure, elevation and water access."
+    },
+    {
+      "name_en": "Kanbalu",
+      "name_my": "ကန့်ဘလူခရိုင်",
+      "primary_crop_fit": "Rice on suitable irrigated or rainfed lowlands",
+      "conditional_alternatives": [
+        "Chickpea on suitable post-rice fields",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Regional crop-system candidate, not a verified district-wide ranking. Confirm reliable water, drainage and the second-season planting window."
+    },
+    {
+      "name_en": "Kale",
+      "name_my": "ကလေးခရိုင်",
+      "primary_crop_fit": "Rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Maize on suitable uplands"
+      ],
+      "conditions_and_caveats": "Northern/valley regional shortlist only; district-specific suitability is not verified. Check flood exposure, elevation and water access."
+    },
+    {
+      "name_en": "Katha",
+      "name_my": "ကသာခရိုင်",
+      "primary_crop_fit": "Rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Maize on suitable uplands"
+      ],
+      "conditions_and_caveats": "Northern/valley regional shortlist only; district-specific suitability is not verified. Check flood exposure, elevation and water access."
+    },
+    {
+      "name_en": "Kawlin",
+      "name_my": "ကောလင်းခရိုင်",
+      "primary_crop_fit": "Rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Maize on suitable uplands"
+      ],
+      "conditions_and_caveats": "Northern/valley regional shortlist only; district-specific suitability is not verified. Check flood exposure, elevation and water access."
+    },
+    {
+      "name_en": "Mawlaik",
+      "name_my": "မော်လိုက်ခရိုင်",
+      "primary_crop_fit": "Rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Maize on suitable uplands"
+      ],
+      "conditions_and_caveats": "Northern/valley regional shortlist only; district-specific suitability is not verified. Check flood exposure, elevation and water access."
+    },
+    {
+      "name_en": "Monywa",
+      "name_my": "မုံရွာခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions."
+    },
+    {
+      "name_en": "Sagaing",
+      "name_my": "စစ်ကိုင်းခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions."
+    },
+    {
+      "name_en": "Shwebo",
+      "name_my": "ရွှေဘိုခရိုင်",
+      "primary_crop_fit": "Rice on suitable irrigated or rainfed lowlands",
+      "conditional_alternatives": [
+        "Chickpea on suitable post-rice fields",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Regional crop-system candidate, not a verified district-wide ranking. Confirm reliable water, drainage and the second-season planting window."
+    },
+    {
+      "name_en": "Tamu",
+      "name_my": "တမူးခရိုင်",
+      "primary_crop_fit": "Rice on suitable valley lowlands",
+      "conditional_alternatives": [
+        "Maize on suitable uplands"
+      ],
+      "conditions_and_caveats": "Northern/valley regional shortlist only; district-specific suitability is not verified. Check flood exposure, elevation and water access."
+    },
+    {
+      "name_en": "Ye-U",
+      "name_my": "ရေဦးခရိုင်",
+      "primary_crop_fit": "Rice on suitable irrigated or rainfed lowlands",
+      "conditional_alternatives": [
+        "Chickpea on suitable post-rice fields",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Regional crop-system candidate, not a verified district-wide ranking. Confirm reliable water, drainage and the second-season planting window."
+    },
+    {
+      "name_en": "Yinmabin",
+      "name_my": "ယင်းမာပင်ခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions."
+    }
+  ],
+  "self_administered_areas": [
+    {
+      "name_en": "Naga Self-Administered Zone",
+      "name_my": "နာဂကိုယ်ပိုင်အုပ်ချုပ်ခွင့်ရဒေသ",
+      "primary_crop_fit": "Rice or maize only where locally established and suitable",
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "Not a district. Regional hill-crop candidates only; verify slope, elevation, erosion control and local growing season."
+    }
+  ]
+}

@@ -39,7 +39,7 @@ function Shell({ title, subtitle, badge, children }: { title: string; subtitle: 
   );
 }
 
-export default function PlantHealthCard({ analysis, badge, own, title }: { analysis: PlantHealthResult | null | undefined; badge?: ReactNode; own?: OwnPlant; title?: string }) {
+export default function PlantHealthCard({ analysis, badge, own, title, district }: { analysis: PlantHealthResult | null | undefined; badge?: ReactNode; own?: OwnPlant; title?: string; district?: string | null }) {
   if (!analysis) {
     return (
       <Shell title={title ?? "Your plants"} subtitle="How your crop and field water are doing" badge={badge}>
@@ -93,7 +93,7 @@ export default function PlantHealthCard({ analysis, badge, own, title }: { analy
   }
 
   return (
-    <Shell title={title ?? "Your plants"} subtitle={own ? "How your plant looks" : "How your crop grows through the season"} badge={badge}>
+    <Shell title={title ?? "Your plants"} subtitle={`${own ? "How your plant looks" : "How your crop grows through the season"}${district ? ` · ${district} District` : ""}`} badge={badge}>
       <p className="rounded-2xl bg-white px-5 py-4 text-lg font-medium leading-relaxed text-[#2d2218] ring-1 ring-[#e8dcc8]">{own ? simpleText : a.summary.text}</p>
 
       {a.water.series.length > 0 && (

@@ -1,0 +1,143 @@
+{
+  "region": {
+    "name_en": "Mandalay",
+    "name_my": "မန္တလေးတိုင်းဒေသကြီး",
+    "country": "Myanmar",
+    "type": "region"
+  },
+  "scope": "Remaining 12 states and regions; excludes previously generated Ayeyarwady and Bago, and excludes Nay Pyi Taw Union Territory.",
+  "administrative_basis": "Primarily the expanded 2022 district framework. Administrative listings differ; this is not a verified live boundary or territorial-control dataset. Self-administered zones are listed separately, not relabelled as districts.",
+  "crop_fit_basis": "Preliminary agro-ecological and state/region-level candidate shortlists, not verified district-level best-crop rankings.",
+  "limitations": [
+    "Crop lists do not establish profitability, current cultivation, yield potential or parcel-level suitability.",
+    "Many entries extrapolate regional farming systems rather than district-specific studies.",
+    "Verify local crop history, soil, slope, salinity, drainage, irrigation, season and market access.",
+    "Assess current security, land tenure, explosive-ordnance risk and safe field access locally before any activity.",
+    "A null primary_crop_fit means no broad-acre recommendation was assigned, not that all cultivation is impossible."
+  ],
+  "districts": [
+    {
+      "name_en": "Amarapura",
+      "name_my": "အမရပူရခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions. Contains urban areas; apply only to confirmed agricultural parcels."
+    },
+    {
+      "name_en": "Aungmyethazan",
+      "name_my": "အောင်မြေသာစံခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions. Contains urban areas; apply only to confirmed agricultural parcels."
+    },
+    {
+      "name_en": "Maha Aungmye",
+      "name_my": "မဟာအောင်မြေခရိုင်",
+      "primary_crop_fit": null,
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "No broad-acre crop fit assigned to this predominantly urban district. Verify actual agricultural land and site conditions before any crop recommendation."
+    },
+    {
+      "name_en": "Kyaukse",
+      "name_my": "ကျောက်ဆည်ခရိုင်",
+      "primary_crop_fit": "Rice on suitable irrigated or rainfed lowlands",
+      "conditional_alternatives": [
+        "Chickpea on suitable post-rice fields",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Regional crop-system candidate, not a verified district-wide ranking. Confirm reliable water, drainage and the second-season planting window."
+    },
+    {
+      "name_en": "Meiktila",
+      "name_my": "မိတ္ထီလာခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions."
+    },
+    {
+      "name_en": "Myingyan",
+      "name_my": "မြင်းခြံခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions."
+    },
+    {
+      "name_en": "Nyaung-U",
+      "name_my": "ညောင်ဦးခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions."
+    },
+    {
+      "name_en": "Pyin Oo Lwin",
+      "name_my": "ပြင်ဦးလွင်ခရိုင်",
+      "primary_crop_fit": "Maize or rice where local elevation and water conditions permit",
+      "conditional_alternatives": [
+        "Potato on suitable cool upland fields",
+        "Coffee where locally proven"
+      ],
+      "conditions_and_caveats": "Preliminary upland candidates, not a measured district suitability ranking. Verify altitude, temperature, soil drainage, irrigation and local crop performance."
+    },
+    {
+      "name_en": "Tada-U",
+      "name_my": "တံတားဦးခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions."
+    },
+    {
+      "name_en": "Thabeikkyin",
+      "name_my": "သပိတ်ကျင်းခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions."
+    },
+    {
+      "name_en": "Yamethin",
+      "name_my": "ရမည်းသင်းခရိုင်",
+      "primary_crop_fit": "Sesame or groundnut on suitable rainfed dryland",
+      "conditional_alternatives": [
+        "Pigeon pea",
+        "Green gram",
+        "Chickpea on suitable cool-season fields",
+        "Rice only with adequate water"
+      ],
+      "conditions_and_caveats": "Dry-zone regional shortlist only; match soil texture, rainfall and planting window. Rice requires suitable lowland water conditions."
+    }
+  ]
+}

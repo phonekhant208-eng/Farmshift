@@ -1,0 +1,69 @@
+{
+  "region": {
+    "name_en": "Rakhine",
+    "name_my": "ရခိုင်ပြည်နယ်",
+    "country": "Myanmar",
+    "type": "state"
+  },
+  "scope": "Remaining 12 states and regions; excludes previously generated Ayeyarwady and Bago, and excludes Nay Pyi Taw Union Territory.",
+  "administrative_basis": "Primarily the expanded 2022 district framework. Administrative listings differ; this is not a verified live boundary or territorial-control dataset. Self-administered zones are listed separately, not relabelled as districts.",
+  "crop_fit_basis": "Preliminary agro-ecological and state/region-level candidate shortlists, not verified district-level best-crop rankings.",
+  "limitations": [
+    "Crop lists do not establish profitability, current cultivation, yield potential or parcel-level suitability.",
+    "Many entries extrapolate regional farming systems rather than district-specific studies.",
+    "Verify local crop history, soil, slope, salinity, drainage, irrigation, season and market access.",
+    "Assess current security, land tenure, explosive-ordnance risk and safe field access locally before any activity.",
+    "A null primary_crop_fit means no broad-acre recommendation was assigned, not that all cultivation is impossible."
+  ],
+  "districts": [
+    {
+      "name_en": "Ann",
+      "name_my": "အမ်းခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "State-level rice evidence only. Check salinity, drainage, freshwater availability, flooding and access; no district-specific alternative established."
+    },
+    {
+      "name_en": "Kyaukphyu",
+      "name_my": "ကျောက်ဖြူခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "State-level rice evidence only. Check salinity, drainage, freshwater availability, flooding and access; no district-specific alternative established."
+    },
+    {
+      "name_en": "Maungdaw",
+      "name_my": "မောင်တောခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "State-level rice evidence only. Check salinity, drainage, freshwater availability, flooding and access; no district-specific alternative established."
+    },
+    {
+      "name_en": "Mrauk-U",
+      "name_my": "မြောက်ဦးခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "State-level rice evidence only. Check salinity, drainage, freshwater availability, flooding and access; no district-specific alternative established."
+    },
+    {
+      "name_en": "Sittwe",
+      "name_my": "စစ်တွေခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "State-level rice evidence only. Check salinity, drainage, freshwater availability, flooding and access; no district-specific alternative established."
+    },
+    {
+      "name_en": "Thandwe",
+      "name_my": "သံတွဲခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "State-level rice evidence only. Check salinity, drainage, freshwater availability, flooding and access; no district-specific alternative established."
+    },
+    {
+      "name_en": "Taungup",
+      "name_my": "တောင်ကုတ်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [],
+      "conditions_and_caveats": "State-level rice evidence only. Check salinity, drainage, freshwater availability, flooding and access; no district-specific alternative established."
+    }
+  ]
+}

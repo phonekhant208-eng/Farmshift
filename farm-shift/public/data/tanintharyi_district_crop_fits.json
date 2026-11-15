@@ -1,0 +1,56 @@
+{
+  "region": {
+    "name_en": "Tanintharyi",
+    "name_my": "တနင်္သာရီတိုင်းဒေသကြီး",
+    "country": "Myanmar",
+    "type": "region"
+  },
+  "scope": "Remaining 12 states and regions; excludes previously generated Ayeyarwady and Bago, and excludes Nay Pyi Taw Union Territory.",
+  "administrative_basis": "Primarily the expanded 2022 district framework. Administrative listings differ; this is not a verified live boundary or territorial-control dataset. Self-administered zones are listed separately, not relabelled as districts.",
+  "crop_fit_basis": "Preliminary agro-ecological and state/region-level candidate shortlists, not verified district-level best-crop rankings.",
+  "limitations": [
+    "Crop lists do not establish profitability, current cultivation, yield potential or parcel-level suitability.",
+    "Many entries extrapolate regional farming systems rather than district-specific studies.",
+    "Verify local crop history, soil, slope, salinity, drainage, irrigation, season and market access.",
+    "Assess current security, land tenure, explosive-ordnance risk and safe field access locally before any activity.",
+    "A null primary_crop_fit means no broad-acre recommendation was assigned, not that all cultivation is impossible."
+  ],
+  "districts": [
+    {
+      "name_en": "Dawei",
+      "name_my": "ထားဝယ်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [
+        "Rubber on suitable existing agricultural land"
+      ],
+      "conditions_and_caveats": "Regional shortlist only. Rubber requires site-specific climate, drainage, land-tenure and multi-year financial assessment; do not clear forest or displace food production."
+    },
+    {
+      "name_en": "Myeik",
+      "name_my": "မြိတ်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [
+        "Rubber on suitable existing agricultural land"
+      ],
+      "conditions_and_caveats": "Regional shortlist only. Rubber requires site-specific climate, drainage, land-tenure and multi-year financial assessment; do not clear forest or displace food production."
+    },
+    {
+      "name_en": "Bokepyin",
+      "name_my": "ဘုတ်ပြင်းခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [
+        "Rubber on suitable existing agricultural land"
+      ],
+      "conditions_and_caveats": "Regional shortlist only. Rubber requires site-specific climate, drainage, land-tenure and multi-year financial assessment; do not clear forest or displace food production."
+    },
+    {
+      "name_en": "Kawthaung",
+      "name_my": "ကော့သောင်းခရိုင်",
+      "primary_crop_fit": "Monsoon rice on suitable lowlands",
+      "conditional_alternatives": [
+        "Rubber on suitable existing agricultural land"
+      ],
+      "conditions_and_caveats": "Regional shortlist only. Rubber requires site-specific climate, drainage, land-tenure and multi-year financial assessment; do not clear forest or displace food production."
+    }
+  ]
+}
