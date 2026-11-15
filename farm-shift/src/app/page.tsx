@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type { ApiResponse, Evaluation, EnvironmentPayload } from "@/types/dashboard";
 import { Icon, Skeleton, toneFor } from "@/components/ui";
-import MyanmarGlobe, { type GlobeZone, type Region } from "@/components/MyanmarGlobe";
+import MyanmarGlobe, { type DistrictPick, type GlobeZone, type Region } from "@/components/MyanmarGlobe";
 import FieldStatus from "./fieldStatus";
 import { listAllZones, type PublicPlot } from "@/app/api/environment/plantsApi";
 import { pointInZone } from "@/components/ZoneOverlap";
@@ -27,6 +27,7 @@ const STEPS = [
 ];
 
 type Ok = Extract<ApiResponse, { success: true }>;
+type AnswerTab = "summary" | "field" | "satellite";
 type Coords = { lat: number; lon: number };
 const round4 = (n: number) => Math.round(n * 10000) / 10000;
 const normLon = (lon: number) => (((lon + 180) % 360) + 360) % 360 - 180;
@@ -51,6 +52,9 @@ export default function Home() {
   const [nonce, setNonce] = useState(0);
   const [geoMsg, setGeoMsg] = useState<string | null>(null);
   const [region, setRegion] = useState<Region | null>(null);
+  const [district, setDistrict] = useState<DistrictPick | null>(null);
+  const [tab, setTab] = useState<AnswerTab>("summary");
+  const [detailOpen, setDetailOpen] = useState(false);
   const [taken, setTaken] = useState<PublicPlot[]>([]);
   const [sharedOk, setSharedOk] = useState(true);
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -93,6 +97,8 @@ export default function Home() {
     setCoords(c);
     setLoading(true);
     setGeoMsg(null);
+    setTab("summary"); // a new pin starts on the Summary tab
+    setDetailOpen(false);
   };
 
   const useMyLocation = () => {
@@ -185,7 +191,7 @@ export default function Home() {
 
           <div className="w-full min-w-0 overflow-hidden rounded-[2rem] bg-[#e8dcc8] p-1.5 shadow-[0_20px_50px_-28px_rgba(90,62,40,0.55)]">
             <div className="overflow-hidden rounded-[1.6rem]">
-              <MyanmarGlobe value={coords} onPick={setPin} cities={MYANMAR_CITIES} onRegionChange={setRegion} zones={globeZones} />
+              <MyanmarGlobe value={coords} onPick={setPin} cities={MYANMAR_CITIES} onRegionChange={setRegion} onDistrictChange={setDistrict} zones={globeZones} />
             </div>
           </div>
 
@@ -199,7 +205,7 @@ export default function Home() {
 
         {/* 2 · answer */}
         <div ref={resultsRef} className="scroll-mt-20">
-          <Section n={2} title="Your answer" sub={coords ? `Pin at ${coords.lat}, ${coords.lon}` : "Your result will show here."}>
+          <Section n={2} title="Your answer" sub={coords ? `Pin at ${coords.lat}, ${coords.lon}${region ? ` · ${region.name}` : ""}${district ? ` · ${district.name} District` : ""}` : "Your result will show here."}>
             <div className="space-y-5">
               {!coords && (
                 <div className="flex items-center gap-4 rounded-3xl border-2 border-dashed border-[#d9c9b0] bg-white/60 px-5 py-6">
@@ -223,9 +229,36 @@ export default function Home() {
 
               {!loading && coords && res?.success && (
                 <>
-                  <Verdict res={res} />
-                  <FarmFacts ev={res.evaluation} env={res.environment} />
-                  <SatellitePhoto key={`${res.queryLocation.lat}-${res.queryLocation.lon}`} env={res.environment} lat={res.queryLocation.lat} lon={res.queryLocation.lon} />
+                  {/* tabs keep the answer short — new sections become new tabs, not more scrolling */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    {([
+                      ["summary", "Summary"],
+                      ["field", "Soil, rain & heat"],
+                      ["satellite", "Satellite photo"],
+                    ] as const).map(([id, label]) => (
+                      <button key={id} type="button" onClick={() => setTab(id)} className={chip(tab === id)}>
+                        {label}
+                      </button>
+                    ))}
+                    <button type="button" onClick={() => setDetailOpen(true)} className={`${chip(false)} ml-auto inline-flex items-center gap-1.5`}>
+                      <Icon name="alert" className="h-4 w-4" /> Details
+                    </button>
+                  </div>
+
+                  {tab === "summary" && (
+                    <div className="space-y-5">
+                      <Verdict res={res} />
+                      <FarmFacts ev={res.evaluation} env={res.environment} />
+                    </div>
+                  )}
+                  {tab === "field" && <FarmFacts ev={res.evaluation} env={res.environment} />}
+                  {tab === "satellite" && (
+                    <SatellitePhoto key={`${res.queryLocation.lat}-${res.queryLocation.lon}`} env={res.environment} lat={res.queryLocation.lat} lon={res.queryLocation.lon} />
+                  )}
+
+                  {detailOpen && (
+                    <DetailScreen res={res} regionName={region?.name ?? null} districtName={district?.name ?? null} onClose={() => setDetailOpen(false)} />
+                  )}
                 </>
               )}
             </div>
@@ -488,6 +521,70 @@ function SatellitePhoto({ env, lat, lon }: { env: EnvironmentPayload; lat: numbe
         <a href={worldview} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white px-4 py-2 text-sm font-bold text-[#1f7a3d] ring-1 ring-[#1f7a3d]/40 hover:bg-[#f1f8f2]">
           Open bigger in NASA Worldview
         </a>
+      </div>
+    </div>
+  );
+}
+/* ------------------------------ detail screen ------------------------------ */
+/** Full-screen (modal) detail view for one pin's answer — opens from the Details button. */
+function DetailScreen({ res, regionName, districtName, onClose }: { res: Ok; regionName: string | null; districtName: string | null; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  const s = res.evaluation.dashboardSummary;
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-label="Full details">
+      <button type="button" aria-label="Close details" onClick={onClose} className="absolute inset-0 bg-[#2d2218]/60 backdrop-blur-sm" />
+      <div className="relative z-10 max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-t-3xl bg-[#faf6ef] p-5 shadow-2xl ring-1 ring-[#e8dcc8] sm:rounded-3xl sm:p-6">
+        <div className="mb-4 flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h3 className="text-xl font-extrabold text-[#1f7a3d]">Full details</h3>
+            <p className="text-sm text-[#8a6a4c]">
+              {regionName ?? "Myanmar"}
+              {districtName ? ` · ${districtName} District` : ""} · pin at {res.queryLocation.lat}, {res.queryLocation.lon}
+            </p>
+          </div>
+          <button type="button" onClick={onClose} className="shrink-0 rounded-full bg-[#f3ece0] px-4 py-2 text-sm font-bold text-[#5a3e28] hover:bg-[#e8dcc8]">
+            Close
+          </button>
+        </div>
+
+        <dl className="space-y-3">
+          <div className="rounded-2xl bg-white p-4 ring-1 ring-[#e8dcc8]">
+            <dt className="text-xs font-bold uppercase tracking-wide text-[#8a6a4c]">Time window</dt>
+            <dd className="mt-1 font-semibold text-[#2d2218]">
+              {shortDate(res.environment.timeframe.startDate)} – {shortDate(res.environment.timeframe.endDate)}
+            </dd>
+          </div>
+          <div className="rounded-2xl bg-white p-4 ring-1 ring-[#e8dcc8]">
+            <dt className="text-xs font-bold uppercase tracking-wide text-[#8a6a4c]">Suitability</dt>
+            <dd className="mt-1 font-semibold capitalize text-[#2d2218]">
+              {String(s.suitabilityStatus)}{typeof s.suitabilityScore === "number" ? ` · ${s.suitabilityScore}/100` : ""}
+            </dd>
+          </div>
+          {s.reasons.length > 0 && (
+            <div className="rounded-2xl bg-white p-4 ring-1 ring-[#e8dcc8]">
+              <dt className="text-xs font-bold uppercase tracking-wide text-[#8a6a4c]">Reasons</dt>
+              <dd className="mt-1 space-y-1 text-[#2d2218]">{s.reasons.map((r, i) => <p key={i}>• {r}</p>)}</dd>
+            </div>
+          )}
+          {s.limitations.length > 0 && (
+            <div className="rounded-2xl bg-white p-4 ring-1 ring-[#e8dcc8]">
+              <dt className="text-xs font-bold uppercase tracking-wide text-[#8a6a4c]">Limits</dt>
+              <dd className="mt-1 space-y-1 text-[#6b5240]">{s.limitations.map((l, i) => <p key={i}>ⓘ {l}</p>)}</dd>
+            </div>
+          )}
+        </dl>
+
+        <details className="mt-4 rounded-2xl bg-white p-4 ring-1 ring-[#e8dcc8]">
+          <summary className="cursor-pointer text-sm font-bold text-[#5a3e28]">Raw data (for checking)</summary>
+          <pre className="mt-3 max-h-72 overflow-auto rounded-xl bg-[#2d2218] p-4 text-xs leading-relaxed text-[#d9c9b0]">
+{JSON.stringify({ evaluation: res.evaluation, environment: res.environment }, null, 2)}
+          </pre>
+        </details>
       </div>
     </div>
   );

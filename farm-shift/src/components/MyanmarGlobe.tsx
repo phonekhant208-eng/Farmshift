@@ -1,6 +1,6 @@
 "use client";
 /**
- * MyanmarGlobe v5.1
+ * MyanmarGlobe v5.2
  *
  * - World globe (Three.js); only Myanmar is active.
  * - Myanmar's 14 states/regions are real vector meshes + fat lines, so they stay SHARP at any zoom.
@@ -11,6 +11,7 @@
  *   of the map (names, hover, tap-to-select). Regions without a boundary file show the list only.
  * - Pin / labels keep a constant on-screen size (they scale with zoom).
  * - v5.1: gentler touch (rotate 0.28 / zoom 0.45 / 9px tap threshold); field dots render only inside the focused region.
+ * - v5.2: region ids are normalized ("Bago Region"/"MMR007" -> "bago") with file-path fallbacks, so district shapes and crop notes load for every region.
  * - MANY FIELDS: when there are lots of farmer fields they are grouped into numbered circles that split
  *   apart as you zoom in (tap a circle to zoom into it). Your own fields are never grouped.
  *
@@ -75,8 +76,18 @@ type Fits = { limitations?: string[]; districts: Fit[]; self_administered_areas?
 
 const WORLD_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json";
 const REGIONS_URL = "/data/myanmar-regions.geojson";
-const districtsUrl = (regionId: string) => `/data/${regionId}-districts.geojson`; // optional boundary file
-const fitsUrl = (regionId: string) => `/data/${regionId}_district_crop_fits.json`;
+/** Turn any region id ("Bago Region", "MMR007", "mmr-007-bago"…) into the file naming scheme ("bago"). */
+const regionFileId = (id: string) =>
+  slug(id.split(/[\s_\-\.]+/).filter((t) => !/^(mmr\d*|\d+|region|state|division|union|territory)$/i.test(t)).join(" "));
+/** Candidate file paths for a region — tries the plain slug first, then the raw id. */
+const districtsUrl = (regionId: string) => [`/data/${regionFileId(regionId)}-districts.geojson`, `/data/${regionId}-districts.geojson`];
+const fitsUrl = (regionId: string) => [`/data/${regionFileId(regionId)}_district_crop_fits.json`, `/data/${regionId}_district_crop_fits.json`];
+/** Fetch the first path that exists; resolves null when none do. */
+const fetchFirstJson = (paths: string[]) =>
+  paths.reduce<Promise<any>>(
+    (chain, path) => chain.then((j) => (j ? j : fetch(path).then((r) => (r.ok ? r.json() : null)).catch(() => null))),
+    Promise.resolve(null)
+  );
 const MYANMAR_CENTER = { lat: 20.3, lon: 96.5 };
 const START_DIST = 2.5;
 const OVERVIEW_DIST = 1.75;
@@ -640,10 +651,7 @@ export default function MyanmarGlobe({
     const loadDistricts = (regionId: string) => {
       if (dsets.has(regionId) || dloading.has(regionId)) return;
       dloading.add(regionId);
-      fetch(districtsUrl(regionId))
-        .then((r) => (r.ok ? r.json() : null))
-        .catch(() => null)
-        .then((dgeo) => {
+      fetchFirstJson(districtsUrl(regionId)).then((dgeo) => {
           dloading.delete(regionId);
           if (disposed) return;
           buildDistricts(regionId, dgeo); // no file = empty set, the region just has the list
@@ -1025,8 +1033,7 @@ export default function MyanmarGlobe({
     if (!sel || fitsTried.current.has(sel)) return;
     fitsTried.current.add(sel);
     const id = sel;
-    fetch(fitsUrl(id))
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
+    fetchFirstJson(fitsUrl(id))
       .then((j: Fits) => setFitsMap((m) => ({ ...m, [id]: j })))
       .catch(() => setFitsMap((m) => ({ ...m, [id]: "err" })));
   }, [sel]);
