@@ -1,0 +1,91 @@
+{
+  "region": {
+    "name_en": "Ayeyarwady",
+    "name_my": "ဧရာဝတီတိုင်းဒေသကြီး",
+    "country": "Myanmar"
+  },
+  "scope": "Structured version of the preceding crop-fit shortlist; not independently reverified for this export.",
+  "limitations": [
+    "Preliminary crop shortlist, not a measured ranking of profitability or land suitability.",
+    "District-level guidance does not establish suitability for an individual field.",
+    "Check township, field elevation, drainage, salinity, freshwater availability and crop timing before selecting crops.",
+    "Alternative crops listed are conditional candidates, not district-wide recommendations."
+  ],
+  "districts": [
+    {
+      "name_en": "Pathein",
+      "name_my": "ပုသိမ်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice",
+      "conditional_alternatives": [
+        "Black gram",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Conditional post-rice options; check drainage and freshwater availability. Pulse suitability is based on regional practice, not a district-wide study."
+    },
+    {
+      "name_en": "Kyonpyaw",
+      "name_my": "ကျုံပျော်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice",
+      "conditional_alternatives": [
+        "Black gram",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Conditional post-rice options where fields drain in time and retain sufficient moisture."
+    },
+    {
+      "name_en": "Hinthada",
+      "name_my": "ဟင်္သာတခရိုင်",
+      "primary_crop_fit": "Monsoon rice followed by black gram",
+      "conditional_alternatives": [
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Rice–pulse cropping is documented in Hinthada Township; do not generalize township findings to the entire district. Low, poorly drained fields have fewer options."
+    },
+    {
+      "name_en": "Myanaung",
+      "name_my": "မြန်အောင်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice",
+      "conditional_alternatives": [
+        "Post-rice pulses"
+      ],
+      "conditions_and_caveats": "Pulse suitability requires township-level checking; do not assume the district matches Hinthada."
+    },
+    {
+      "name_en": "Maubin",
+      "name_my": "မအူပင်ခရိုင်",
+      "primary_crop_fit": "Monsoon rice",
+      "conditional_alternatives": [
+        "Black gram",
+        "Green gram"
+      ],
+      "conditions_and_caveats": "Conditional post-rice options depending on drainage, harvest timing and residual moisture."
+    },
+    {
+      "name_en": "Myaungmya",
+      "name_my": "မြောင်းမြခရိုင်",
+      "primary_crop_fit": "Rice, including suitable local Pawsan varieties",
+      "conditional_alternatives": [
+        "Summer rice"
+      ],
+      "conditions_and_caveats": "Summer rice requires dependable freshwater. Pawsan suitability depends on local growing conditions."
+    },
+    {
+      "name_en": "Pyapon",
+      "name_my": "ဖျာပုံခရိုင်",
+      "primary_crop_fit": "Monsoon rice; suitable Pawsan varieties in established growing areas",
+      "conditional_alternatives": [
+        "Summer rice"
+      ],
+      "conditions_and_caveats": "Summer rice only where freshwater is available; saltwater intrusion restricts dry-season cultivation."
+    },
+    {
+      "name_en": "Labutta",
+      "name_my": "လပွတ္တာခရိုင်",
+      "primary_crop_fit": "Monsoon rice",
+      "conditional_alternatives": [
+        "Summer rice"
+      ],
+      "conditions_and_caveats": "Summer rice only where freshwater conditions permit; saltwater exposure limits dry-season options."
+    }
+  ]
+}

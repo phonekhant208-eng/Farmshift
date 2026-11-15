@@ -58,6 +58,8 @@ export type WaterPoint = {
   rain: number | null;
   surface: number | null;
   root: number | null;
+  tmax?: number | null; // daily highest temperature, °C
+  tmin?: number | null; // daily lowest temperature, °C
 };
 
 export type RainWater = {

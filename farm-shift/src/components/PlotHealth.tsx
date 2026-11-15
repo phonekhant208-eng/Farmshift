@@ -47,7 +47,18 @@ export default function PlotHealth({
   if (busy) return <Skeleton className="h-96" />;
   if (err) return <p className="rounded-2xl bg-amber-50 px-4 py-3 text-sm text-amber-900 ring-1 ring-amber-200">{err}</p>;
 
+  // Usual days from planting to harvest. growth() is measured against today, so for a growing plot
+  // days + left is the full length. If it is unknown, the scene falls back to 110 days.
   const g = growth(plant, plantedOn);
-  const totalDays = g.pct && g.pct > 0 && g.pct < 1 ? Math.round(g.days / g.pct) : null; // days to the usual harvest
-  return <PlantHealthCard analysis={analysis} title={title} own={{ plant, plantedOn, totalDays }} />;
+  const totalDays =
+    g.left && g.left > 0 ? g.days + g.left
+    : g.pct && g.pct > 0 && g.pct < 1 ? Math.round(g.days / g.pct)
+    : null;
+  return (
+    <PlantHealthCard
+      analysis={analysis}
+      title={title}
+      own={{ plant, plantedOn, totalDays, harvestedOn: endedOn ?? null }}
+    />
+  );
 }
