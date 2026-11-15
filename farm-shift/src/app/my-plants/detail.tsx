@@ -70,29 +70,29 @@ export default function PlantDetail({
   ];
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#faf6ef] text-[#2d2218]">
-      <nav className="sticky top-0 z-40 border-b border-[#e8dcc8] bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-4 py-3">
-          <button onClick={onBack} className="flex items-center gap-2 text-sm font-semibold text-[#5a3e28] hover:text-[#1f7a3d]">
+    <main className="min-h-dvh overflow-x-hidden bg-[#faf6ef] text-[#2d2218]">
+      <nav className="sticky top-0 z-40 border-b border-[#e8dcc8] bg-white/90 pt-[env(safe-area-inset-top)] backdrop-blur">
+        <div className="mx-auto flex max-w-3xl items-center justify-between gap-3 px-3 py-3 sm:px-4">
+          <button onClick={onBack} className="flex min-h-11 items-center gap-2 text-sm font-semibold text-[#5a3e28] hover:text-[#1f7a3d]">
             <span aria-hidden>←</span> My plants
           </button>
           <span className="truncate text-sm font-bold text-[#1f7a3d]">{p.plant}</span>
         </div>
       </nav>
 
-      <div className="mx-auto max-w-3xl px-4 pb-16 pt-6">
+      <div className="mx-auto max-w-3xl px-3 pb-16 pt-5 sm:px-4 sm:pt-6">
         {err && <div className="mb-4 rounded-2xl border border-red-200 bg-red-50 p-4 text-red-700">{err}</div>}
 
         {/* summary */}
-        <header className="rounded-3xl bg-white p-5 ring-1 ring-[#e8dcc8]">
+        <header className="rounded-3xl bg-white p-4 ring-1 ring-[#e8dcc8] sm:p-5">
           <div className="flex flex-wrap items-start justify-between gap-3">
             <div className="min-w-0">
-              <h1 className="text-3xl font-extrabold leading-tight text-[#1f7a3d] md:text-4xl">{p.plant}</h1>
+              <h1 className="break-words text-2xl font-extrabold leading-tight text-[#1f7a3d] min-[400px]:text-3xl md:text-4xl">{p.plant}</h1>
               <p className="mt-1 text-sm text-[#8a6a4c]">
                 {p.region ?? "Myanmar"}{p.area_ha ? `, ${p.area_ha.toFixed(2)} ha (${haToAcre(p.area_ha).toFixed(1)} acres)` : ""}
               </p>
             </div>
-            <span className={`rounded-full px-4 py-2 text-sm font-bold ring-1 ${harvested ? "bg-[#f3ece0] text-[#5a3e28] ring-[#e8dcc8]" : "bg-[#e7f3ea] text-[#1f7a3d] ring-[#1f7a3d]/25"}`}>
+            <span className={`rounded-full px-3 py-1.5 text-sm font-bold ring-1 sm:px-4 sm:py-2 ${harvested ? "bg-[#f3ece0] text-[#5a3e28] ring-[#e8dcc8]" : "bg-[#e7f3ea] text-[#1f7a3d] ring-[#1f7a3d]/25"}`}>
               {harvested ? "Harvested" : `Day ${g.days} · ${g.days < 4 ? "Just planted" : g.stage}`}
             </span>
           </div>
@@ -115,10 +115,10 @@ export default function PlantDetail({
         </header>
 
         {/* tabs */}
-        <div className="mt-5 inline-flex max-w-full overflow-x-auto rounded-full bg-[#f3ece0] p-1 ring-1 ring-[#e8dcc8]" role="tablist">
+        <div className="mt-5 flex w-full max-w-full overflow-x-auto rounded-full bg-[#f3ece0] p-1 ring-1 ring-[#e8dcc8] sm:inline-flex sm:w-auto" role="tablist">
           {tabs.map((t) => (
             <button key={t.key} role="tab" aria-selected={tab === t.key} onClick={() => setTab(t.key)}
-              className={`whitespace-nowrap rounded-full px-5 py-2.5 text-base font-bold transition ${tab === t.key ? "bg-[#1f7a3d] text-white shadow-sm" : "text-[#5a3e28] hover:text-[#1f7a3d]"}`}>
+              className={`min-h-11 flex-1 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-bold transition sm:flex-none sm:px-5 sm:text-base ${tab === t.key ? "bg-[#1f7a3d] text-white shadow-sm" : "text-[#5a3e28] hover:text-[#1f7a3d]"}`}>
               {t.label}
             </button>
           ))}
@@ -133,14 +133,14 @@ export default function PlantDetail({
           )}
 
           {tab === "care" && !harvested && (
-            <div className="rounded-3xl bg-white p-5 ring-1 ring-[#e8dcc8]">
+            <div className="rounded-3xl bg-white p-4 ring-1 ring-[#e8dcc8] sm:p-5">
               <h2 className="text-xl font-extrabold text-[#2d2218]">Look after it</h2>
               <input value={note} onChange={(e) => setNote(e.target.value)} maxLength={500} placeholder="Optional note (e.g. 2 hours, 50 kg urea)"
                 className="mt-3 w-full rounded-2xl border border-[#e8dcc8] bg-[#faf6ef] px-4 py-3 text-base outline-none focus:border-[#1f7a3d] focus:ring-2 focus:ring-[#1f7a3d]/20" />
               <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {ACTIONS.map((a) => (
                   <button key={a.kind} disabled={busy || (a.kind === "note" && !note.trim())} onClick={() => run(() => addLog(p.id, a.kind, note))}
-                    className="flex flex-col items-start rounded-2xl bg-white px-4 py-3 text-left ring-1 ring-[#e8dcc8] transition hover:bg-[#f1f8f2] hover:ring-[#1f7a3d]/40 disabled:opacity-40">
+                    className="flex min-h-14 flex-col items-start rounded-2xl bg-white px-3 py-3 text-left ring-1 ring-[#e8dcc8] transition hover:bg-[#f1f8f2] hover:ring-[#1f7a3d]/40 disabled:opacity-40 sm:px-4">
                     <span className="text-base font-bold text-[#1f7a3d]">{a.label}</span>
                     {a.kind !== "note" && <span className="text-xs text-[#8a6a4c]">{last(a.kind) ? ago(last(a.kind)!.created_at) : "not yet"}</span>}
                   </button>
@@ -150,7 +150,7 @@ export default function PlantDetail({
           )}
 
           {tab === "history" && (
-            <div className="rounded-3xl bg-white p-5 ring-1 ring-[#e8dcc8]">
+            <div className="rounded-3xl bg-white p-4 ring-1 ring-[#e8dcc8] sm:p-5">
               {logs.length === 0 ? (
                 <p className="text-base text-[#6b5240]">Nothing logged yet.{!harvested && " Use the Care tab to add your first entry."}</p>
               ) : (
@@ -159,7 +159,7 @@ export default function PlantDetail({
                     <li key={l.id} className="relative text-base text-[#2d2218]">
                       <span className="absolute -left-[1.4rem] top-2 h-2.5 w-2.5 rounded-full bg-[#1f7a3d]" />
                       <span className="font-bold">{KIND_LABEL[l.kind]}</span> <span className="text-[#8a6a4c]">· {ago(l.created_at)}</span>
-                      {l.note && <span className="block text-sm text-[#6b5240]">{l.note}</span>}
+                      {l.note && <span className="block break-words text-sm text-[#6b5240]">{l.note}</span>}
                     </li>
                   ))}
                 </ul>
@@ -168,13 +168,13 @@ export default function PlantDetail({
           )}
 
           {/* actions */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#f0e7d6] pt-5">
+          <div className="flex flex-col-reverse gap-3 border-t border-[#f0e7d6] pb-[env(safe-area-inset-bottom)] pt-5 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             {!harvested ? (
               <button disabled={busy} onClick={() => confirm(`Mark ${p.plant} as harvested?`) && run(() => addLog(p.id, "harvest"))}
-                className="rounded-full bg-[#1f7a3d] px-6 py-3 text-base font-bold text-white hover:bg-[#186230] disabled:opacity-50">Mark as harvested</button>
+                className="w-full rounded-full bg-[#1f7a3d] px-6 py-3 text-base font-bold text-white hover:bg-[#186230] disabled:opacity-50 sm:w-auto">Mark as harvested</button>
             ) : <span />}
             <button disabled={busy} onClick={() => confirm(`Delete this ${p.plant} plot and its history?`) && run(() => deletePlot(p.id), true)}
-              className="rounded-full px-5 py-3 text-sm font-bold text-red-700 ring-1 ring-red-200 hover:bg-red-50 disabled:opacity-50">Delete</button>
+              className="w-full rounded-full px-5 py-3 text-sm font-bold text-red-700 ring-1 ring-red-200 hover:bg-red-50 disabled:opacity-50 sm:w-auto">Delete</button>
           </div>
         </div>
       </div>

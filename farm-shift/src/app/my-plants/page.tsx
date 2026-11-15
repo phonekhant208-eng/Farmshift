@@ -61,31 +61,31 @@ export default function MyPlants() {
 
   /* ----------------------------- list screen ----------------------------- */
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#faf6ef] text-[#2d2218]">
-      <nav className="sticky top-0 z-40 border-b border-[#e8dcc8] bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-3">
-          <Link href="/" className="flex items-center gap-2 text-sm font-semibold text-[#5a3e28] hover:text-[#1f7a3d]">
-            <span aria-hidden>←</span> Back to the map
+    <main className="min-h-dvh overflow-x-hidden bg-[#faf6ef] text-[#2d2218]">
+      <nav className="sticky top-0 z-40 border-b border-[#e8dcc8] bg-white/90 pt-[env(safe-area-inset-top)] backdrop-blur">
+        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-3 py-3 sm:px-4">
+          <Link href="/" className="flex min-h-11 items-center gap-2 text-sm font-semibold text-[#5a3e28] hover:text-[#1f7a3d]">
+            <span aria-hidden>←</span> <span className="sm:hidden">Map</span><span className="hidden sm:inline">Back to the map</span>
           </Link>
           {user && (
             <div className="flex items-center gap-3">
               <span className="hidden text-sm font-medium text-[#8a6a4c] sm:inline">Hi, {user.username}</span>
-              <button onClick={async () => { await signOut(); setPlots(null); }} className="rounded-full bg-[#f3ece0] px-4 py-2 text-sm font-semibold text-[#5a3e28] hover:bg-[#e8dcc8]">Log out</button>
+              <button onClick={async () => { await signOut(); setPlots(null); }} className="rounded-full bg-[#f3ece0] px-3 py-2 text-sm font-semibold text-[#5a3e28] hover:bg-[#e8dcc8] sm:px-4">Log out</button>
             </div>
           )}
         </div>
       </nav>
 
-      <div className="mx-auto max-w-4xl px-4 pb-16">
-        <header className="pb-5 pt-8 md:pt-10">
-          <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight text-[#1f7a3d] md:text-5xl">My plants</h1>
+      <div className="mx-auto max-w-4xl px-3 pb-16 sm:px-4">
+        <header className="pb-5 pt-6 sm:pt-8 md:pt-10">
+          <h1 className="text-3xl font-extrabold leading-[1.05] tracking-tight text-[#1f7a3d] sm:text-4xl md:text-5xl">My plants</h1>
           <p className="mt-2 text-base text-[#6b5240]">Tap a plant to see its health, care and history.</p>
         </header>
 
         {authLoading ? (
           <p className="text-[#8a6a4c]">Loading…</p>
         ) : !user ? (
-          <div className="rounded-3xl border-2 border-dashed border-[#d9c9b0] bg-white/60 px-5 py-12 text-center">
+          <div className="rounded-3xl border-2 border-dashed border-[#d9c9b0] bg-white/60 px-5 py-10 text-center sm:py-12">
             <p className="text-lg font-semibold text-[#5a3e28]">Log in to see the plants you are growing.</p>
             <button onClick={() => setAuthOpen(true)} className="mt-5 rounded-full bg-[#1f7a3d] px-7 py-3 text-base font-bold text-white hover:bg-[#186230]">Log in / Register</button>
           </div>
@@ -103,7 +103,7 @@ export default function MyPlants() {
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search by plant or region"
                 aria-label="Search plants"
-                className="w-full bg-transparent text-base placeholder:text-[#a89078] focus:outline-none"
+                className="min-w-0 w-full bg-transparent text-base placeholder:text-[#a89078] focus:outline-none"
               />
               {query && (
                 <button type="button" onClick={() => setQuery("")} className="shrink-0 rounded-full bg-[#f3ece0] px-3 py-1 text-xs font-bold text-[#5a3e28] hover:bg-[#e8dcc8]">Clear</button>
@@ -111,10 +111,10 @@ export default function MyPlants() {
             </label>
 
             {/* tabs */}
-            <div className="mt-4 inline-flex rounded-full bg-[#f3ece0] p-1 ring-1 ring-[#e8dcc8]">
+            <div className="mt-4 flex w-full rounded-full bg-[#f3ece0] p-1 ring-1 ring-[#e8dcc8] sm:inline-flex sm:w-auto">
               {(["growing", "harvested"] as const).map((t) => (
                 <button key={t} onClick={() => setTab(t)}
-                  className={`rounded-full px-5 py-2.5 text-base font-bold transition ${tab === t ? "bg-[#1f7a3d] text-white shadow-sm" : "text-[#5a3e28] hover:text-[#1f7a3d]"}`}>
+                  className={`min-h-11 flex-1 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-bold transition sm:flex-none sm:px-5 sm:text-base ${tab === t ? "bg-[#1f7a3d] text-white shadow-sm" : "text-[#5a3e28] hover:text-[#1f7a3d]"}`}>
                   {t === "growing" ? "Growing now" : "Harvested"}
                   <span className={`ml-2 rounded-full px-2 py-0.5 text-xs ${tab === t ? "bg-white/20" : "bg-white text-[#8a6a4c]"}`}>{counts[t]}</span>
                 </button>
@@ -126,7 +126,7 @@ export default function MyPlants() {
               {!plots && !err && <p className="text-[#8a6a4c]">Loading your plants…</p>}
 
               {plots && shown.length === 0 && (
-                <div className="rounded-3xl border-2 border-dashed border-[#d9c9b0] bg-white/60 px-5 py-12 text-center text-[#6b5240]">
+                <div className="rounded-3xl border-2 border-dashed border-[#d9c9b0] bg-white/60 px-5 py-10 text-center text-[#6b5240] sm:py-12">
                   {query ? (
                     <>No plants match “{query}”.</>
                   ) : tab === "growing" ? (

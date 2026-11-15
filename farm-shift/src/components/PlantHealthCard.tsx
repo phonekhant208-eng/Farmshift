@@ -26,11 +26,11 @@ export function Tag({ r }: { r: Reliability }) {
 
 function Shell({ title, subtitle, badge, children }: { title: string; subtitle: string; badge?: ReactNode; children: ReactNode }) {
   return (
-    <section className="rounded-3xl bg-[#faf6ef] p-4 ring-1 ring-[#e8dcc8] sm:p-5">
-      <div className="mb-4 flex items-start justify-between gap-3">
+    <section className="rounded-3xl bg-[#faf6ef] p-3 ring-1 ring-[#e8dcc8] sm:p-5">
+      <div className="mb-4 flex flex-wrap items-start justify-between gap-2 sm:gap-3">
         <div className="min-w-0">
           <h3 className="text-xl font-extrabold leading-tight text-[#2d2218]">{title}</h3>
-          <p className="text-sm text-[#8a6a4c]">{subtitle}</p>
+          <p className="break-words text-sm text-[#8a6a4c]">{subtitle}</p>
         </div>
         {badge}
       </div>
@@ -94,10 +94,10 @@ export default function PlantHealthCard({ analysis, badge, own, title, district 
 
   return (
     <Shell title={title ?? "Your plants"} subtitle={`${own ? "How your plant looks" : "How your crop grows through the season"}${district ? ` · ${district} District` : ""}`} badge={badge}>
-      <p className="rounded-2xl bg-white px-5 py-4 text-lg font-medium leading-relaxed text-[#2d2218] ring-1 ring-[#e8dcc8]">{own ? simpleText : a.summary.text}</p>
+      <p className="rounded-2xl bg-white px-4 py-3 text-base font-medium leading-relaxed text-[#2d2218] ring-1 ring-[#e8dcc8] sm:px-5 sm:py-4 sm:text-lg">{own ? simpleText : a.summary.text}</p>
 
       {a.water.series.length > 0 && (
-        <div className="mt-5">
+        <div className="mt-5 min-w-0">
           <PlantScene
             own={own}
             key={`${own?.plantedOn ?? ""}-${own?.harvestedOn ?? ""}-${own?.totalDays ?? ""}-${a.period?.start}-${a.period?.end}-${a.ndvi.count}-${a.ndvi.peak?.value ?? "x"}-${a.water.rain.seasonTotalMm ?? "x"}`}
@@ -113,13 +113,13 @@ export default function PlantHealthCard({ analysis, badge, own, title, district 
             {watch.map((g) => (
               <li key={g.kind} className="flex items-start gap-3 rounded-2xl bg-white px-4 py-3 text-base text-[#2d2218] ring-1 ring-[#e8dcc8]">
                 <span className={`mt-2 h-2.5 w-2.5 shrink-0 rounded-full ${MARKER[g.kind].dot}`} aria-hidden />
-                <span><span className="font-semibold">{MARKER[g.kind].name}</span> · {range(g.start, g.end)}</span>
+                <span className="min-w-0"><span className="font-semibold">{MARKER[g.kind].name}</span> · {range(g.start, g.end)}</span>
               </li>
             ))}
             {(own ? [] : dips).map((d) => (
               <li key={d.from} className="flex items-start gap-3 rounded-2xl bg-red-50 px-4 py-3 text-base text-red-900 ring-1 ring-red-100">
                 <span className="mt-2 h-2.5 w-2.5 shrink-0 rounded-full bg-red-500" aria-hidden />
-                <span><span className="font-semibold">Plants lost some greenness</span> · {range(d.from, d.to)}</span>
+                <span className="min-w-0"><span className="font-semibold">Plants lost some greenness</span> · {range(d.from, d.to)}</span>
               </li>
             ))}
           </ul>

@@ -36,7 +36,7 @@ const inMyanmar = (c: Coords) => c.lat >= 9.5 && c.lat <= 28.6 && c.lon >= 92.1 
 /* palette: leaf green #1f7a3d / white / ground brown #5a3e28, cream #faf6ef, sand #e8dcc8 */
 
 const chip = (active: boolean) =>
-  `shrink-0 snap-start whitespace-nowrap rounded-full px-5 py-2.5 text-base font-semibold ring-1 transition ${
+  `shrink-0 snap-start whitespace-nowrap rounded-full px-4 py-2.5 min-h-11 text-sm sm:px-5 sm:text-base font-semibold ring-1 transition ${
     active
       ? "bg-[#1f7a3d] text-white ring-[#1f7a3d]"
       : "bg-white text-[#5a3e28] ring-[#e8dcc8] hover:bg-[#f1f8f2] hover:ring-[#1f7a3d]/40"
@@ -114,28 +114,28 @@ export default function Home() {
   const step = !coords ? 1 : res?.success && !loading ? 3 : 2;
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-[#faf6ef] text-[#2d2218]">
+    <main className="min-h-dvh overflow-x-hidden bg-[#faf6ef] text-[#2d2218]">
       {/* top bar */}
-      <nav className="sticky top-0 z-40 border-b border-[#e8dcc8] bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-4xl items-center justify-between gap-3 px-4 py-3">
-          <div className="flex items-center gap-2.5">
-            <span className="grid h-9 w-9 place-items-center rounded-xl bg-[#1f7a3d] text-white"><Icon name="leaf" className="h-5 w-5" /></span>
-            <span className="text-lg font-extrabold tracking-tight text-[#1f7a3d]">FarmShift</span>
+      <nav className="sticky top-0 z-40 border-b border-[#e8dcc8] bg-white/90 pt-[env(safe-area-inset-top)] backdrop-blur">
+        <div className="mx-auto flex max-w-4xl items-center justify-between gap-2 px-3 py-3 sm:gap-3 sm:px-4">
+          <div className="flex min-w-0 items-center gap-2 sm:gap-2.5">
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-[#1f7a3d] text-white"><Icon name="leaf" className="h-5 w-5" /></span>
+            <span className="truncate text-lg font-extrabold tracking-tight text-[#1f7a3d]">FarmShift</span>
           </div>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link href="/my-plants" className="rounded-full px-4 py-2 text-sm font-semibold text-[#5a3e28] ring-1 ring-[#e8dcc8] hover:bg-[#faf6ef]">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <Link href="/my-plants" className="rounded-full px-3 py-2 text-sm font-semibold text-[#5a3e28] ring-1 ring-[#e8dcc8] hover:bg-[#faf6ef] sm:px-4">
               My plants
             </Link>
             {user ? (
               <>
                 <span className="hidden text-sm font-medium text-[#8a6a4c] sm:inline">Hi, {user.username}</span>
-                <button onClick={signOut} className="rounded-full bg-[#f3ece0] px-4 py-2 text-sm font-semibold text-[#5a3e28] hover:bg-[#e8dcc8]">
+                <button onClick={signOut} className="rounded-full bg-[#f3ece0] px-3 py-2 text-sm font-semibold text-[#5a3e28] hover:bg-[#e8dcc8] sm:px-4">
                   Log out
                 </button>
               </>
             ) : (
-              <button onClick={() => setAuthOpen(true)} className="rounded-full bg-[#1f7a3d] px-4 py-2 text-sm font-semibold text-white hover:bg-[#186230]">
-                Log in / Register
+              <button onClick={() => setAuthOpen(true)} className="rounded-full bg-[#1f7a3d] px-3 py-2 text-sm font-semibold text-white hover:bg-[#186230] sm:px-4">
+                Log in<span className="hidden sm:inline"> / Register</span>
               </button>
             )}
           </div>
@@ -144,29 +144,29 @@ export default function Home() {
 
       <div className="mx-auto max-w-4xl px-4 pb-16">
         {/* hero */}
-        <header className="pb-6 pt-10 md:pt-14">
-          <p className="text-sm font-bold uppercase tracking-widest text-[#8a6a4c]">Smart planting assistant</p>
-          <h1 className="mt-2 text-4xl font-extrabold leading-[1.05] tracking-tight text-[#1f7a3d] md:text-6xl">
+        <header className="pb-6 pt-8 md:pt-14">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#8a6a4c] sm:text-sm">Smart planting assistant</p>
+          <h1 className="mt-2 text-3xl font-extrabold leading-[1.1] tracking-tight text-[#1f7a3d] min-[400px]:text-4xl md:text-6xl">
             Plant the right crop,<br />at the right time.
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-[#6b5240]">Tap your farm on the map. We read the soil, rain and heat from NASA satellite data and tell you in plain words.</p>
+          <p className="mt-4 max-w-xl text-base text-[#6b5240] sm:text-lg">Tap your farm on the map. We read the soil, rain and heat from NASA satellite data and tell you in plain words.</p>
 
           {/* progress */}
-          <ol className="mt-7 flex items-center gap-2 sm:gap-3">
+          <ol className="mt-6 flex items-center gap-2 sm:mt-7 sm:gap-3">
             {STEPS.map((s, idx) => {
               const done = step > s.n;
               const active = step === s.n;
               return (
                 <li key={s.n} className="flex items-center gap-2 sm:gap-3">
-                  <span className={`flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-3 text-sm font-bold ring-1 transition ${
+                  <span className={`flex items-center gap-2 rounded-full py-1.5 pl-1.5 text-sm font-bold ring-1 transition ${active ? "pr-3" : "pr-1.5 sm:pr-3"} ${
                     done ? "bg-[#1f7a3d] text-white ring-[#1f7a3d]" : active ? "bg-white text-[#1f7a3d] ring-[#1f7a3d]" : "bg-white text-[#a89078] ring-[#e8dcc8]"
                   }`}>
-                    <span className={`grid h-6 w-6 place-items-center rounded-full text-xs ${done ? "bg-white text-[#1f7a3d]" : active ? "bg-[#1f7a3d] text-white" : "bg-[#f3ece0] text-[#a89078]"}`}>
+                    <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-xs ${done ? "bg-white text-[#1f7a3d]" : active ? "bg-[#1f7a3d] text-white" : "bg-[#f3ece0] text-[#a89078]"}`}>
                       {done ? <Icon name="check" className="h-3.5 w-3.5" /> : s.n}
                     </span>
-                    <span className="hidden sm:inline">{s.title}</span>
+                    <span className={`${active ? "inline" : "hidden"} whitespace-nowrap sm:inline`}>{s.title}</span>
                   </span>
-                  {idx < STEPS.length - 1 && <span className="h-px w-4 bg-[#d9c9b0] sm:w-8" />}
+                  {idx < STEPS.length - 1 && <span className="h-px w-3 bg-[#d9c9b0] sm:w-8" />}
                 </li>
               );
             })}
@@ -189,8 +189,8 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="w-full min-w-0 overflow-hidden rounded-[2rem] bg-[#e8dcc8] p-1.5 shadow-[0_20px_50px_-28px_rgba(90,62,40,0.55)]">
-            <div className="overflow-hidden rounded-[1.6rem]">
+          <div className="w-full min-w-0 overflow-hidden rounded-3xl bg-[#e8dcc8] p-1 shadow-[0_20px_50px_-28px_rgba(90,62,40,0.55)] sm:rounded-[2rem] sm:p-1.5">
+            <div className="overflow-hidden rounded-[1.25rem] sm:rounded-[1.6rem]">
               <MyanmarGlobe value={coords} onPick={setPin} cities={MYANMAR_CITIES} onRegionChange={setRegion} onDistrictChange={setDistrict} zones={globeZones} />
             </div>
           </div>
@@ -200,7 +200,7 @@ export default function Home() {
               Other farmers' fields are not available yet. Only your own plants are shown. (Run zone_overlap.sql and fix list_public_plots in Supabase.)
             </p>
           )}
-          {geoMsg && <p className="mt-3 rounded-2xl bg-amber-50 px-4 py-2.5 text-base font-medium text-amber-800 ring-1 ring-amber-200">{geoMsg}</p>}
+          {geoMsg && <p className="mt-3 rounded-2xl bg-amber-50 px-4 py-2.5 text-sm font-medium text-amber-800 ring-1 ring-amber-200 sm:text-base">{geoMsg}</p>}
         </Section>
 
         {/* 2 · answer */}
@@ -208,11 +208,11 @@ export default function Home() {
           <Section n={2} title="Your answer" sub={coords ? `Pin at ${coords.lat}, ${coords.lon}${region ? ` · ${region.name}` : ""}${district ? ` · ${district.name} District` : ""}` : "Your result will show here."}>
             <div className="space-y-5">
               {!coords && (
-                <div className="flex items-center gap-4 rounded-3xl border-2 border-dashed border-[#d9c9b0] bg-white/60 px-5 py-6">
+                <div className="flex items-center gap-3 rounded-3xl border-2 border-dashed border-[#d9c9b0] bg-white/60 px-4 py-5 sm:gap-4 sm:px-5 sm:py-6">
                   <span className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#e7f3ea] text-[#1f7a3d]"><Icon name="pin" className="h-6 w-6" /></span>
-                  <div>
+                  <div className="min-w-0">
                     <p className="text-lg font-bold text-[#1f7a3d]">Drop a pin on the map</p>
-                    <p className="text-base text-[#6b5240]">Soil, rain and heat for your spot will appear here.</p>
+                    <p className="text-sm text-[#6b5240] sm:text-base">Soil, rain and heat for your spot will appear here.</p>
                   </div>
                 </div>
               )}
@@ -220,17 +220,17 @@ export default function Home() {
               {loading && <LoadingState />}
 
               {!loading && res && !res.success && (
-                <div className="rounded-3xl border border-red-200 bg-red-50 p-6">
+                <div className="rounded-3xl border border-red-200 bg-red-50 p-5 sm:p-6">
                   <h3 className="text-lg font-bold text-red-800">Couldn’t get satellite data</h3>
                   <p className="mt-1 text-base text-red-700">{res.error}</p>
-                  <button onClick={() => { setLoading(true); setNonce((n) => n + 1); }} className="mt-4 rounded-full bg-red-600 px-6 py-2.5 text-base font-bold text-white hover:bg-red-700">Try again</button>
+                  <button onClick={() => { setLoading(true); setNonce((n) => n + 1); }} className="mt-4 w-full rounded-full bg-red-600 px-6 py-2.5 text-base font-bold text-white hover:bg-red-700 sm:w-auto">Try again</button>
                 </div>
               )}
 
               {!loading && coords && res?.success && (
                 <>
                   {/* tabs keep the answer short — new sections become new tabs, not more scrolling */}
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="-mx-4 flex snap-x items-center gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     {([
                       ["summary", "Summary"],
                       ["field", "Soil, rain & heat"],
@@ -240,7 +240,7 @@ export default function Home() {
                         {label}
                       </button>
                     ))}
-                    <button type="button" onClick={() => setDetailOpen(true)} className={`${chip(false)} ml-auto inline-flex items-center gap-1.5`}>
+                    <button type="button" onClick={() => setDetailOpen(true)} className={`${chip(false)} inline-flex items-center gap-1.5 sm:ml-auto`}>
                       <Icon name="alert" className="h-4 w-4" /> Details
                     </button>
                   </div>
@@ -271,7 +271,7 @@ export default function Home() {
         </Section>
       </div>
 
-      <footer className="bg-[#3b2a1c] px-5 py-6 text-center text-sm text-[#d9c9b0]">
+      <footer className="bg-[#3b2a1c] px-5 py-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] text-center text-sm text-[#d9c9b0]">
         Temperature and rain are live from NASA. Soil water and plant colour are estimates in this prototype.
       </footer>
 
@@ -283,12 +283,12 @@ export default function Home() {
 /* ------------------------------ layout ------------------------------ */
 function Section({ n, title, sub, children }: { n: number; title: string; sub?: string; children: React.ReactNode }) {
   return (
-    <section className="relative mt-10">
+    <section className="relative mt-8 sm:mt-10">
       <div className="mb-4 flex items-center gap-3">
-        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#5a3e28] text-base font-extrabold text-white">{n}</span>
+        <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#5a3e28] text-sm font-extrabold text-white sm:h-10 sm:w-10 sm:text-base">{n}</span>
         <div className="min-w-0">
-          <h2 className="text-2xl font-extrabold leading-tight text-[#2d2218]">{title}</h2>
-          {sub && <p className="text-base text-[#8a6a4c]">{sub}</p>}
+          <h2 className="text-xl font-extrabold leading-tight text-[#2d2218] sm:text-2xl">{title}</h2>
+          {sub && <p className="break-words text-sm text-[#8a6a4c] sm:text-base">{sub}</p>}
         </div>
       </div>
       <div className="min-w-0">{children}</div>
@@ -321,28 +321,28 @@ function Verdict({ res }: { res: Ok }) {
   const score = typeof s.suitabilityScore === "number" ? s.suitabilityScore : null;
   return (
     <div className="overflow-hidden rounded-3xl bg-white shadow-[0_20px_50px_-30px_rgba(90,62,40,0.5)] ring-1 ring-[#e8dcc8]">
-      <div className={`${h.bg} flex items-center justify-between gap-4 px-6 py-6 text-white`}>
+      <div className={`${h.bg} flex items-center justify-between gap-3 px-4 py-5 text-white sm:gap-4 sm:px-6 sm:py-6`}>
         <div className="min-w-0">
-          <p className="text-sm font-medium opacity-90">
+          <p className="text-xs font-medium opacity-90 sm:text-sm">
             {shortDate(res.environment.timeframe.startDate)} – {shortDate(res.environment.timeframe.endDate)}
           </p>
-          <h3 className="mt-1 text-2xl font-extrabold leading-tight md:text-4xl">{h.title}</h3>
-          <p className="mt-1 text-base opacity-95 md:text-lg">{h.sub}</p>
+          <h3 className="mt-1 text-xl font-extrabold leading-tight min-[400px]:text-2xl md:text-4xl">{h.title}</h3>
+          <p className="mt-1 text-sm opacity-95 sm:text-base md:text-lg">{h.sub}</p>
         </div>
         {score !== null && (
-          <div className="grid h-20 w-20 shrink-0 place-items-center rounded-full bg-white/15 text-center ring-2 ring-white/60 md:h-24 md:w-24">
-            <span className="text-2xl font-extrabold leading-none md:text-3xl">{score}<span className="block text-[10px] font-semibold opacity-90">out of 100</span></span>
+          <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-white/15 text-center ring-2 ring-white/60 sm:h-20 sm:w-20 md:h-24 md:w-24">
+            <span className="text-xl font-extrabold leading-none sm:text-2xl md:text-3xl">{score}<span className="block text-[10px] font-semibold opacity-90">out of 100</span></span>
           </div>
         )}
       </div>
 
       {(s.reasons.length > 0 || s.limitations.length > 0 || status === "suitable") && (
-        <div className="space-y-3 p-5">
+        <div className="space-y-3 p-4 sm:p-5">
           {s.reasons.length > 0 && (
             <ul className="space-y-2">
               {s.reasons.map((r, i) => (
                 <li key={i} className="flex gap-3 rounded-2xl bg-amber-50 px-4 py-3 text-base text-amber-900 ring-1 ring-amber-200/70">
-                  <Icon name="alert" className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" /><span>{r}</span>
+                  <Icon name="alert" className="mt-0.5 h-5 w-5 shrink-0 text-amber-600" /><span className="min-w-0 break-words">{r}</span>
                 </li>
               ))}
             </ul>
@@ -367,12 +367,12 @@ function Verdict({ res }: { res: Ok }) {
 function Fact({ label, word, detail, status }: { label: string; word: string; detail?: string; status: string }) {
   const t = toneFor(status);
   return (
-    <div className="flex flex-col justify-between rounded-3xl bg-white p-5 ring-1 ring-[#e8dcc8]">
+    <div className="flex flex-col justify-between rounded-3xl bg-white p-4 ring-1 ring-[#e8dcc8] sm:p-5">
       <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-[#8a6a4c]">
         <span className={`h-3 w-3 rounded-full ${t.dot}`} />
         {label}
       </div>
-      <div className="mt-3 text-2xl font-extrabold leading-tight text-[#2d2218]">{word}</div>
+      <div className="mt-2 text-xl font-extrabold leading-tight text-[#2d2218] sm:mt-3 sm:text-2xl">{word}</div>
       <div className="mt-1 min-h-[1.25rem] text-sm text-[#8a6a4c]">{detail ?? ""}</div>
     </div>
   );
@@ -480,7 +480,7 @@ function SatellitePhoto({ env, lat, lon }: { env: EnvironmentPayload; lat: numbe
   const worldview = `https://worldview.earthdata.nasa.gov/?v=${(lon - 0.25).toFixed(3)},${(lat - 0.25).toFixed(3)},${(lon + 0.25).toFixed(3)},${(lat + 0.25).toFixed(3)}`;
 
   return (
-    <div className="rounded-3xl bg-white p-3 ring-1 ring-[#e8dcc8]">
+    <div className="rounded-3xl bg-white p-2.5 ring-1 ring-[#e8dcc8] sm:p-3">
       <div className="relative grid aspect-[16/10] place-items-center overflow-hidden rounded-2xl bg-[#f3ece0]">
         {!failed ? (
           <>
@@ -501,14 +501,14 @@ function SatellitePhoto({ env, lat, lon }: { env: EnvironmentPayload; lat: numbe
                 <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
                   <span className="block h-5 w-5 rounded-full border-[3px] border-white bg-orange-600 shadow-lg ring-4 ring-orange-600/30" />
                 </span>
-                <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-sm font-semibold text-[#2d2218] shadow-sm">Your farm is in the centre</span>
-                <span className="pointer-events-none absolute right-3 top-3 rounded-full bg-[#1f7a3d] px-3 py-1 text-xs font-semibold text-white shadow-sm">NASA {cur.name}</span>
+                <span className="pointer-events-none absolute left-2 top-2 max-w-[60%] rounded-full bg-white/95 px-2.5 py-1 text-xs font-semibold text-[#2d2218] shadow-sm sm:left-3 sm:top-3 sm:px-3 sm:text-sm">Your farm is in the centre</span>
+                <span className="pointer-events-none absolute right-2 top-2 rounded-full bg-[#1f7a3d] px-2.5 py-1 text-xs font-semibold text-white shadow-sm sm:right-3 sm:top-3 sm:px-3">NASA {cur.name}</span>
               </>
             )}
           </>
         ) : (
-          <div className="px-6 text-center">
-            <p className="text-base font-medium text-[#6b5240]">No clear photo is available for this spot right now. You can still open it in NASA Worldview.</p>
+          <div className="px-4 text-center sm:px-6">
+            <p className="text-sm font-medium text-[#6b5240] sm:text-base">No clear photo is available for this spot right now. You can still open it in NASA Worldview.</p>
             <button onClick={() => { setI(0); setTries((n) => n + 1); }} className="mt-3 rounded-full bg-[#1f7a3d] px-5 py-2 text-sm font-bold text-white hover:bg-[#186230]">
               Try again
             </button>
@@ -516,9 +516,9 @@ function SatellitePhoto({ env, lat, lon }: { env: EnvironmentPayload; lat: numbe
         )}
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 px-2 pb-1 pt-3">
-        <p className="text-base text-[#6b5240]">{loaded && cur.date ? `Satellite photo · taken ${shortDate(cur.date)}. Clouds can hide the ground.` : failed ? "" : "Loading photo…"}</p>
-        <a href={worldview} target="_blank" rel="noopener noreferrer" className="rounded-full bg-white px-4 py-2 text-sm font-bold text-[#1f7a3d] ring-1 ring-[#1f7a3d]/40 hover:bg-[#f1f8f2]">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-1 pb-1 pt-3 sm:px-2">
+        <p className="text-sm text-[#6b5240] sm:text-base">{loaded && cur.date ? `Satellite photo · taken ${shortDate(cur.date)}. Clouds can hide the ground.` : failed ? "" : "Loading photo…"}</p>
+        <a href={worldview} target="_blank" rel="noopener noreferrer" className="w-full rounded-full bg-white px-4 py-2.5 text-center text-sm font-bold text-[#1f7a3d] ring-1 ring-[#1f7a3d]/40 hover:bg-[#f1f8f2] sm:w-auto">
           Open bigger in NASA Worldview
         </a>
       </div>
@@ -531,18 +531,24 @@ function DetailScreen({ res, regionName, districtName, onClose }: { res: Ok; reg
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    // stop the page scrolling behind the modal
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
   }, [onClose]);
 
   const s = res.evaluation.dashboardSummary;
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-label="Full details">
       <button type="button" aria-label="Close details" onClick={onClose} className="absolute inset-0 bg-[#2d2218]/60 backdrop-blur-sm" />
-      <div className="relative z-10 max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-t-3xl bg-[#faf6ef] p-5 shadow-2xl ring-1 ring-[#e8dcc8] sm:rounded-3xl sm:p-6">
+      <div className="relative z-10 max-h-[88dvh] w-full max-w-2xl overflow-y-auto rounded-t-3xl bg-[#faf6ef] p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] shadow-2xl ring-1 ring-[#e8dcc8] sm:max-h-[85dvh] sm:rounded-3xl sm:p-6">
         <div className="mb-4 flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h3 className="text-xl font-extrabold text-[#1f7a3d]">Full details</h3>
-            <p className="text-sm text-[#8a6a4c]">
+            <p className="break-words text-sm text-[#8a6a4c]">
               {regionName ?? "Myanmar"}
               {districtName ? ` · ${districtName} District` : ""} · pin at {res.queryLocation.lat}, {res.queryLocation.lon}
             </p>
@@ -568,13 +574,13 @@ function DetailScreen({ res, regionName, districtName, onClose }: { res: Ok; reg
           {s.reasons.length > 0 && (
             <div className="rounded-2xl bg-white p-4 ring-1 ring-[#e8dcc8]">
               <dt className="text-xs font-bold uppercase tracking-wide text-[#8a6a4c]">Reasons</dt>
-              <dd className="mt-1 space-y-1 text-[#2d2218]">{s.reasons.map((r, i) => <p key={i}>• {r}</p>)}</dd>
+              <dd className="mt-1 space-y-1 break-words text-[#2d2218]">{s.reasons.map((r, i) => <p key={i}>• {r}</p>)}</dd>
             </div>
           )}
           {s.limitations.length > 0 && (
             <div className="rounded-2xl bg-white p-4 ring-1 ring-[#e8dcc8]">
               <dt className="text-xs font-bold uppercase tracking-wide text-[#8a6a4c]">Limits</dt>
-              <dd className="mt-1 space-y-1 text-[#6b5240]">{s.limitations.map((l, i) => <p key={i}>ⓘ {l}</p>)}</dd>
+              <dd className="mt-1 space-y-1 break-words text-[#6b5240]">{s.limitations.map((l, i) => <p key={i}>ⓘ {l}</p>)}</dd>
             </div>
           )}
         </dl>

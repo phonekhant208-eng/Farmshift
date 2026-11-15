@@ -68,13 +68,21 @@
 html {
   background: var(--background);
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
   color: var(--foreground);
   font-family: var(--font-sans);
   background: linear-gradient(180deg, #eef8ee 0, #f6faf5 520px, #ffffff 100%);
-  background-attachment: fixed;
+  /* background-attachment: fixed removed: it is janky on iOS Safari */
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+  touch-action: manipulation;
 }
 
 ::selection {
