@@ -1,6 +1,6 @@
 "use client";
 /**
- * MyanmarGlobe v5
+ * MyanmarGlobe v5.1
  *
  * - World globe (Three.js); only Myanmar is active.
  * - Myanmar's 14 states/regions are real vector meshes + fat lines, so they stay SHARP at any zoom.
@@ -10,6 +10,7 @@
  *   list + crop-fit panel show up. If the region also has a boundary file, the districts are drawn on top
  *   of the map (names, hover, tap-to-select). Regions without a boundary file show the list only.
  * - Pin / labels keep a constant on-screen size (they scale with zoom).
+ * - v5.1: gentler touch (rotate 0.28 / zoom 0.45 / 9px tap threshold); field dots render only inside the focused region.
  * - MANY FIELDS: when there are lots of farmer fields they are grouped into numbered circles that split
  *   apart as you zoom in (tap a circle to zoom into it). Your own fields are never grouped.
  *
@@ -325,11 +326,11 @@ export default function MyanmarGlobe({
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enablePan = false;
     controls.enableDamping = true;
-    controls.dampingFactor = 0.08;
+    controls.dampingFactor = 0.12;
     controls.minDistance = 1.04;
     controls.maxDistance = 4.5;
-    controls.rotateSpeed = 0.55;
-    controls.zoomSpeed = 0.7;
+    controls.rotateSpeed = 0.28;   // was 0.55 — much gentler drag
+    controls.zoomSpeed = 0.45;     // gentler pinch/wheel zoom
 
     // stars
     const starPos = new Float32Array(700 * 3);
@@ -478,7 +479,8 @@ export default function MyanmarGlobe({
     };
     const refreshVis = () => {
       const s = selRef.current;
-      visZones = !s || !list.length ? allZones : allZones.filter((z) => regionOfZ(z) === s);
+      // fields are only shown inside the region you have opened — not over all Myanmar
+      visZones = !s || !list.length ? [] : allZones.filter((z) => regionOfZ(z) === s);
       curDeg = -1;
     };
     const setZones = (zs: GlobeZone[]) => {
@@ -736,7 +738,7 @@ export default function MyanmarGlobe({
     let down: { x: number; y: number } | null = null;
     const onDown = (e: PointerEvent) => (down = { x: e.clientX, y: e.clientY });
     const onUp = (e: PointerEvent) => {
-      if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 5) return;
+      if (!down || Math.hypot(e.clientX - down.x, e.clientY - down.y) > 9) return; // was 5px — a shaky finger no longer drops a pin
       down = null;
       const zh = zoneAt(e.clientX, e.clientY);
       if (zh) {
@@ -1099,17 +1101,13 @@ export default function MyanmarGlobe({
         )}
       </div>
 
-      {zones.length > 0 && (
+      {zones.length > 0 && sel && (
         <div className="mt-2 text-xs text-stone-600">
           <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-green-600 ring-2 ring-white" /> My plants ({mineCount})</span>
             <span className="inline-flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-amber-800 ring-2 ring-white" /> Other farmers ({otherCount})</span>
           </p>
-          {otherCount > NO_CLUSTER_BELOW ? (
-            <p className="mt-1 text-stone-500">A brown circle with a number is a group of fields. Tap it to zoom in and see each field.</p>
-          ) : (
-            <p className="mt-1 text-stone-500">Tap a dot to see the plant.</p>
-          )}
+          <p className="mt-1 text-stone-500">Fields show only inside the region you open{otherCount > NO_CLUSTER_BELOW ? ". A brown circle with a number is a group of fields — tap it to zoom in." : ". Tap a dot to see the plant."}</p>
         </div>
       )}
 
